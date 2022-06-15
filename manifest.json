@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "Parafaute",
+    "version": "1.0",
+  
+    "description": "Une extension pour vous abriter des fautes courantes et des barbarismes (anglicismes et écriture inclusive)",
+  
+    "icons": {
+      "48": "src/icônes/icon-48.png"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["src/TextObserver.js", "src/Parafaute.js"]
+      }
+    ]
+  }
+  
