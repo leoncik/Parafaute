@@ -1,8 +1,5 @@
-import { inclusive } from "./dictionnaires/inclusive.js";
-import {anglicismes} from "./dictionnaires/anglicismes.js";
-import { fautesCourantes } from "./dictionnaires/fautesCourantes.js";
-
 // Replacement à partir des dictionnaires
+// Todo : attention aux variantes de langue (fr-FR, etc.)
 if (document.querySelector('html').getAttribute('lang') === 'fr') {
     const observer = new TextObserver(text => {
         // for (let [faute, correction] of Object.entries(inclusive)) {

@@ -1,4 +1,4 @@
-export const inclusive = [
+const inclusive = [
 
     //  Structure :
     // [/faute/]: "correction",
@@ -20,6 +20,8 @@ export const inclusive = [
 
     // PROFESSIONS
     [/Développeur \/ Développeuse/, "Développeur"],
+    [/développeurs et de développeuses/, "développeurs"],
+    [/développeuses et développeurs/, "développeurs"],
     // ! Voir possibilité de faire un regex type : "racine profession + terminaison euse / racine profession + terminaison eur"
     // ! Possibilité de conflit avec des couples sans rapport avec l'écriture inclusive comme : "Mitrailleuse / Chargeur"
     

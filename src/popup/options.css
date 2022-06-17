@@ -1,0 +1,15 @@
+body {
+    width: 500px;
+}
+
+.option-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.anglicism-options {
+    display: none;
+}
+.options-activated {
+    display: block;
+}

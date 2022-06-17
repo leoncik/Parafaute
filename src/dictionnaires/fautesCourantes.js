@@ -1,4 +1,4 @@
-export const fautesCourantes = {
+const fautesCourantes = {
 
     //  Structure :
     // "faute": "correction",

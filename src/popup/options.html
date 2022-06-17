@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="options.css">
+        <!-- No title needed ? -->
+        <!-- <title>Options géniales</title> -->
+    </head>
+    <body>
+        <h1 class="test-h1">Parafaute v0.1</h1>
+        <h2>Choisissez vos filtres :</h2>
+
+        <div class="option-list">
+            <div class="option">
+                <label for="anglicismes">Anglicismes</label>
+                <input id="anglicismes" type="checkbox">
+
+                <div class="anglicism-options">
+                    <label for="anglicism-level">Choisissez un niveau de filtrage:</label>
+                    <input type="range" name="anglicism-level" id="anglicism-level" min="0" max="3" step="1" value="1">
+                    <output class="anglicism-level-output" for="anglicism-level"></output>
+                </div>
+            </div>
+            <div class="option">
+                <label for="inclusive">Écriture inclusive</label>
+                <input id="inclusive" type="checkbox" checked>
+            </div>
+            <div class="option">
+                <label for="fautes-courantes">Fautes courantes</label>
+                <input id="fautes-courantes" type="checkbox" checked>
+            </div>
+            <div class="option">
+                <label for="extension-scope">Activer l'extension sur les sites non-francophones</label>
+                <input id="extension-scope" type="checkbox">
+            </div>
+        </div>
+        <script src="options.js"></script>
+    </body>
+</html>
