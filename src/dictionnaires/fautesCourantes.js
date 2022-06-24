@@ -1,37 +1,44 @@
-const fautesCourantes = {
+const fautesCourantes = [
 
     //  Structure :
-    // "faute": "correction",
+    // [/faute/]: "correction",
+    
+    // VOCABULAIRE
 
     // *** B ***
-    "banquaire": "bancaire",
+    [/banquaire/g, "bancaire"],
 
     // *** C ***
-    "cauchemard": "cauchemar",
+    [/cauchemard\b/g, "cauchemar"],
 
     // *** D ***
-    'disfonctionnement': 'dysfonctionnement',
+    [/disfonctionnement/g, "dysfonctionnement"],
 
     // *** P ***
-    "parmis": "parmi",
-    "Parmis": "parmi",
-    "pillule": "pilule",
+    [/parmis/g, "parmi"],
+    [/Parmis/g, "Parmi"],
+    [/pillule/g, "pilule"],
 
     // *** J ***
-    "des jeux vidéos": "des jeux vidéo",
-    "les jeux vidéos": "les jeux vidéo",
-    "ces jeux vidéos": "les jeux vidéo",
+    [/des jeux vidéos/g, "des jeux vidéo"],
+    [/les jeux vidéos/g, "les jeux vidéo"],
+    [/ces jeux vidéos/g, "les jeux vidéo"],
 
     // *** L ***
-    "langage": "language",
+    [/langage/g, "language"],
 
     // *** M ***
-    "magazin": "magasin",
+    [/magazin\b/g, "magasin"],
 
     // *** S ***
-    "syphon": "siphon",
+    [/syphon/g, "siphon"],
+    
+    // EXPRESSIONS
+    [/sa va\b/g, "ça va"],
+    [/Sa va\b/g, "Ça va"],
 
-    // Divers
-    " .": ".",
-    "  ": " ",
-}
+    // TYPOGRAPHIE
+    // (Enlever les espaces avant les points et les doubles espaces)
+    // [/ ./g, "."],
+    // [/  /g, " "],
+]

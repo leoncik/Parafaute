@@ -1,36 +1,37 @@
-const anglicismes = {
+const anglicismes = [
 
     //  Structure :
-    // "faute": "correction",
+    // [/faute/]: "correction",
 
     // *** B ***
-    "ce bullshit": " ces conneries",
-    "du bullshit": " des conneries",
+    [/ce bullshit/g, "ces conneries"],
+    [/du bullshit/g, "des conneries"],
 
     // *** C ***
-    "Challenge": "Défi",
-    "challenge": "défi",
-    "Challenges": "Défis",
-    "challenges": "défis",
-    "Cosy": "Douillet",
-    "cosy": "douillet",
+    [/Challenge/g, "Défi"],
+    [/challenge/g, "défi"],
+    [/Challenges/g, "Défis"],
+    [/challenges/g, "défis"],
+    [/Cosy/g, "Douillet"],
+    [/cosy/g, "douillet"],
     
     // *** H ***
-    "Hello": "Salut",
-    "hello": "salut",
+    [/Hello/g, "Salut"],
+    [/hello/g, "salut"],
 
     // *** N ***
-    "Naming": "Nommage",
-    "naming": "nommage",
+    [/Naming/g, "Nommage"],
+    [/naming/g, "nommage"],
 
     // *** R ***
-    "Renaming": "Renommage",
-    "renaming": "renommage",
+    [/team/g, "équipe"],
+    [/Renaming/g, "Renommage"],
+    [/renaming/g, "renommage"],
 
     // *** T ***
-    "team": 'équipe',
-    "Team": 'Équipe',
+    [/team/g, "équipe"],
+    [/Team/g, "Équipe"],
     
     // Test
-    "Bonjour": "Chaviro"
-}
+    // [/Bonjour/g, "Chaviro"],
+];
