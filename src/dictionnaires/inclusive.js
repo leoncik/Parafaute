@@ -3,6 +3,11 @@ const inclusive = [
     //  Structure :
     // [/faute/]: "correction",
 
+    // ! Note : corriger les expressions PUIS les mots individuels pour éviter les conflits.
+
+    // Wordpress
+    [/Auteur\/autrice/g, "Auteur"],
+
     // TYPOGRAPHIE
     // Possibilité de reconstruire le pluriel si la dernière lettre suivant le point est un "s"
     // Note : le /g final est important !
@@ -12,13 +17,18 @@ const inclusive = [
 
 
     // [/(·|·|·|.)e/, ""],
+    
+    // Todo : faire une constante qui contient tous les points médians.
 
 
-    [/[·|·|·|.]e[·|·|·|.]s/gi, ""],
-    [/[·|·|·|.]rice[·|·|·|.]s/gi, ""],
-    [/[·|·|·|.]ne[·|·|·|.]s/gi, ""],
-    [/[·|·|·|.]le[·|·|·|.]s/gi, ""],
-    [/[·|·|·|.]e/gi, ""],
+    [/[·|·|·|.|⋅]e/gi, ""],
+    [/[·|·|·|.|⋅]es/gi, ""],
+    [/[·|·|·|.|⋅]e[·|·|·|.|⋅]s/gi, ""],
+    [/[·|·|·|.|⋅]rice[·|·|·|.|⋅]s/gi, ""],
+    [/[·|·|·|.|⋅]ive[·|·|·|.|⋅]s/gi, ""],
+    [/[·|·|·|.|⋅]ne[·|·|·|.|⋅]s/gi, ""],
+    [/[·|·|·|.|⋅]le[·|·|·|.|⋅]s/gi, ""],
+    [/[·|·|·|.|⋅]e/gi, ""],
 
 
 
@@ -47,8 +57,31 @@ const inclusive = [
     [/utilisateurs et utilisatrices/g, "utilisateurs"],
     [/utilisatrices et utilisateurs/g, "utilisateurs"],
     // Regex globaux
-    [/euses\b et [a-zA-Z]*eurs\b/g, "utilisateurs"],
-    [/euses\b et [a-zA-Z]*eurs\b/g, "utilisateurs"],
+    // Todo : Penser aux accents et caractères spéciaux [a-zA-Z-é-è-ç]
+    [/euses\b et [a-zA-Z-é]*eurs\b/g, "eurs"],
+    [/euses\b et des [a-zA-Z-é]*eurs\b/g, "eurs"],
+    [/euses\b et les [a-zA-Z-é]*eurs\b/g, "eurs"],
+
+    [/eurs\b et [a-zA-Z-é]*euses\b/g, "eurs"],
+    [/eurs\b et des [a-zA-Z-é]*euses\b/g, "eurs"],
+    [/eurs\b et les [a-zA-Z-é]*euses\b/g, "eurs"],
+
+    [/trices\b et [a-zA-Z-é]*eurs\b/g, "eurs"],
+    [/trices\b et des [a-zA-Z-é]*eurs\b/g, "eurs"],
+    [/trices\b et les [a-zA-Z-é]*eurs\b/g, "eurs"],
+
+    [/antes\b et [a-zA-Z-é]*ants\b/g, "ants"],
+    [/antes\b et des [a-zA-Z-é]*ants\b/g, "ants"],
+    [/antes\b et les [a-zA-Z-é]*ants\b/g, "ants"],
+
+    [/çaises\b et [a-zA-Z-é]*çais\b/g, "çais"],
+    [/çaises\b et des [a-zA-Z-é]*çais\b/g, "çais"],
+    [/çaises\b et les [a-zA-Z-é]*çais\b/g, "çais"],
+
+    [/çais\b et [a-zA-Z-é]*çaises\b/g, "çais"],
+    [/çais\b et des [a-zA-Z-é]*çaises\b/g, "çais"],
+    [/çais\b et les [a-zA-Z-é]*çaises\b/g, "çais"],
+
     
     // EXPRESSIONS
     [/à tous et à toutes/g, "à tous"],
@@ -60,29 +93,3 @@ const inclusive = [
     [/à toute et à tous/g, "à tous"],    
 
 ];
-
-
-//  Ancien test
-// const inclusive = {
-
-    //  Structure :
-    // "faute": "correction",
-
-//     "\(e\)": "",
-//     "\b\w*[·]\w*\b": "REMPLACEMENT",
-// }
-
-// Anciens Regex
-    // [/(?=·e·s).*?(?=[ ,\s]|$)/, ""],
-    // [/(?=·e·s).*?(?=[ ,\s]|$)/, ""],
-    // [/(?=·rice·s).*?(?=[ ,\s]|$)/, ""],
-
-    // [/(?=·).*?(?=\s)/, ""],
-    // [/(?=⋅).*?(?=\s)/, ""],
-    // [/(?=·).*?(?<=\b)/, ""],
-    // [/(?=\.).*?(?=\s)/, ""],
-
-    // Ces trois points sont différents !
-    // [/·e·s/, ""],
-    // [/·e·s/, ""],
-    // [/·e·s/, ""],

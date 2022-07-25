@@ -5,19 +5,39 @@ const fautesCourantes = [
     
     // VOCABULAIRE
 
+    // *** A ***
+    [/Appercevoir\b/g, "Apercevoir"],
+    [/appercevoir\b/g, "apercevoir"],
+    [/Applatir\b/g, "Aplatir"],
+    [/applatir\b/g, "aplatir"],
+
     // *** B ***
-    [/banquaire/g, "bancaire"],
+    [/banquaire\b/g, "bancaire"],
+    [/bizare\b/g, "bizarre"],
+    [/bizard\b/g, "bizarre"],
+    [/Bizare\b/g, "Bizarre"],
+    [/Bizard\b/g, "Bizarre"],
+    [/brebi\b/g, "brebis"],
+    [/Brebi\b/g, "Brebis"],
 
     // *** C ***
     [/cauchemard\b/g, "cauchemar"],
+    [/Cauchemard\b/g, "Cauchemar"],
+    [/Concour\b/g, "Concours"],
+    [/concour\b/g, "concours"],
 
     // *** D ***
     [/disfonctionnement/g, "dysfonctionnement"],
 
+    // *** E ***
+    [/Enmener\b/g, "Emmener"],
+    [/enmener\b/g, "emmener"],
+
+
     // *** P ***
-    [/parmis/g, "parmi"],
-    [/Parmis/g, "Parmi"],
-    [/pillule/g, "pilule"],
+    [/parmis\b/g, "parmi"],
+    [/Parmis\b/g, "Parmi"],
+    [/pillule\b/g, "pilule"],
 
     // *** J ***
     [/des jeux vidéos/g, "des jeux vidéo"],
@@ -30,12 +50,25 @@ const fautesCourantes = [
     // *** M ***
     [/magazin\b/g, "magasin"],
 
+    // *** P ***
+    [/Plusieur\b/g, "Plusieurs"],
+    [/plusieur\b/g, "plusieurs"],
+
     // *** S ***
-    [/syphon/g, "siphon"],
+    [/S'appitoyer\b/g, "S'apitoyer"],
+    [/s'appitoyer\b/g, "s'apitoyer"],
+    [/Syphon\b/g, "Siphon"],
+    [/syphon\b/g, "siphon"],
+
+    // *** U ***
+    [/Univer\b/g, "Univers"],
+    [/univer\b/g, "univers"],
     
     // EXPRESSIONS
     [/sa va\b/g, "ça va"],
     [/Sa va\b/g, "Ça va"],
+    [/Y a t'il\b/g, "Y a-t-il"],
+    [/y a t'il\b/g, "y a-t-il"],
 
     // TYPOGRAPHIE
     // (Enlever les espaces avant les points et les doubles espaces)
