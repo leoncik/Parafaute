@@ -1,16 +1,55 @@
-// Replacement à partir des dictionnaires
-// Todo : attention aux variantes de langue (fr-FR, etc.)
-// if (document.querySelector('html').getAttribute('lang') === 'fr') {
-    const observer = new TextObserver(text => {
-        for (let [faute, correction] of inclusive) {
-            text = text.replace(new RegExp(faute), correction);
-        }
-        for(let [faute, correction] of anglicismes) {
-            text = text.replace(new RegExp(faute), correction);
-        }
-        for(let [faute, correction] of fautesCourantes) {
-            text = text.replace(new RegExp(faute), correction);
-        }
-        return text;
-    });
-// }
+// Todo : watch behaviour if no initial option.
+chrome.storage.sync.get([
+    'anglicismes',
+    'inclusive',
+    'fautesCourantes',
+    'extensionScope'
+], function(checkedOptions) {
+
+    
+    // Trigger extension on every page (if extensionScope option is activated)
+    if (checkedOptions.extensionScope) {
+        const observer = new TextObserver(text => {
+            if (checkedOptions.inclusive) {
+                for (let [faute, correction] of inclusive) {
+                    text = text.replace(new RegExp(faute), correction);
+                }
+            }
+            if (checkedOptions.anglicismes) {
+                for(let [faute, correction] of anglicismes) {
+                    text = text.replace(new RegExp(faute), correction);
+                }
+            }
+            if (checkedOptions.fautesCourantes) {
+                for(let [faute, correction] of fautesCourantes) {
+                    text = text.replace(new RegExp(faute), correction);
+                }
+            }
+    
+            return text;
+        });
+    }
+    // Trigger extension only if the page is in french (default)
+    // Todo : attention aux variantes de langue (fr-FR, etc.)
+    else if (document.querySelector('html').getAttribute('lang') === 'fr') {
+        const observer = new TextObserver(text => {
+            if (checkedOptions.inclusive) {
+                for (let [faute, correction] of inclusive) {
+                    text = text.replace(new RegExp(faute), correction);
+                }
+            }
+            if (checkedOptions.anglicismes) {
+                for(let [faute, correction] of anglicismes) {
+                    text = text.replace(new RegExp(faute), correction);
+                }
+            }
+            if (checkedOptions.fautesCourantes) {
+                for(let [faute, correction] of fautesCourantes) {
+                    text = text.replace(new RegExp(faute), correction);
+                }
+            }
+    
+            return text;
+        });
+    }
+  });
