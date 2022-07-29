@@ -30,8 +30,7 @@ chrome.storage.sync.get([
         });
     }
     // Trigger extension only if the page is in french (default)
-    // Todo : attention aux variantes de langue (fr-FR, etc.)
-    else if (document.querySelector('html').getAttribute('lang') === 'fr') {
+    else if (document.querySelector('html').getAttribute('lang').match(/\bfr[-]?/)) {
         const observer = new TextObserver(text => {
             if (checkedOptions.inclusive) {
                 for (let [faute, correction] of inclusive) {
