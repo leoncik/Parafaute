@@ -1,10 +1,11 @@
-// Todo : add reload button.
-
 // Input elements
 const anglicismesInput = document.getElementById('anglicismes');
 const inclusiveInput = document.getElementById('inclusive');
 const fautesCourantesInput = document.getElementById('fautes-courantes');
 const extensionScopeInput = document.getElementById('extension-scope');
+
+// Reload button
+const reloadTabButton = document.querySelector('.reload-tab-button');
 
 // Initialize the options with the user's option settings
 chrome.storage.sync.get([
@@ -22,6 +23,7 @@ chrome.storage.sync.get([
 
 // Set options on input change
 anglicismesInput.addEventListener("input", () => {
+  reloadTabButton.classList.contains('hidden') && reloadTabButton.classList.remove('hidden');
   if (anglicismesInput.checked) {
     chrome.storage.sync.set({'anglicismes': true});
   } else {
@@ -30,6 +32,7 @@ anglicismesInput.addEventListener("input", () => {
 })
 
 inclusiveInput.addEventListener("input", () => {
+  reloadTabButton.classList.contains('hidden') && reloadTabButton.classList.remove('hidden');
   if (inclusiveInput.checked) {
     chrome.storage.sync.set({'inclusive': true});
   } else {
@@ -38,6 +41,7 @@ inclusiveInput.addEventListener("input", () => {
 })
 
 fautesCourantesInput.addEventListener("input", () => {
+  reloadTabButton.classList.contains('hidden') && reloadTabButton.classList.remove('hidden');
   if (fautesCourantesInput.checked) {
     chrome.storage.sync.set({'fautesCourantes': true});
   } else {
@@ -46,6 +50,7 @@ fautesCourantesInput.addEventListener("input", () => {
 })
 
 extensionScopeInput.addEventListener("input", () => {
+  reloadTabButton.classList.contains('hidden') && reloadTabButton.classList.remove('hidden');
   if (extensionScopeInput.checked) {
     chrome.storage.sync.set({'extensionScope': true});
   } else {
@@ -69,3 +74,10 @@ anglicismLevelOutput.textContent = anglicismLevelInput.value;
 anglicismLevelInput.addEventListener("input", () => {
     anglicismLevelOutput.textContent = anglicismLevelInput.value;
 })
+
+// Button to reload current tab in order to activate changed settings
+const reloadMainTab = () => {
+  reloadTabButton.classList.add('hidden');
+  chrome.tabs.reload();
+}
+reloadTabButton.addEventListener('click', reloadMainTab);

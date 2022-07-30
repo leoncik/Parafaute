@@ -13,3 +13,7 @@ body {
 .options-activated {
     display: block;
 }
+
+.hidden {
+    display: none;
+}

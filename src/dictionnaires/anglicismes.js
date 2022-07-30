@@ -30,6 +30,7 @@ const anglicismes = [
     [/\bcosy\b/g, "douillet"],
 
     // *** E ***
+    // Todo : prendre en compte : « de l’e-mail »
     [/\be-mail\b/g, "courriel"],
     [/\bE-mail\b/g, "Courriel"],
 
