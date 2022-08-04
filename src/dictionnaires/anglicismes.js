@@ -30,7 +30,8 @@ const anglicismes = [
     [/\bcosy\b/g, "douillet"],
 
     // *** E ***
-    // Todo : prendre en compte : « de l’e-mail »
+    [/\bl['|’]e-mail\b/g, "le courriel"],
+    [/\bl['|’]email\b/g, "le courriel"],
     [/\be-mail\b/g, "courriel"],
     [/\bE-mail\b/g, "Courriel"],
 
@@ -77,8 +78,4 @@ const anglicismes = [
     [/uploader/g, "mettre en ligne"],
     [/Uploadé/g, "Mis en ligne"],
     [/uploadé/g, "mis en ligne"],
-
-
-    // Test
-    // [/Bonjour/g, "Chaviro"],
 ];

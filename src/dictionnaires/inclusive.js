@@ -3,32 +3,26 @@ const inclusive = [
     //  Structure :
     // [/faute/]: "correction",
 
-    // ! Note : corriger les expressions PUIS les mots individuels pour éviter les conflits.
-
     // Wordpress
     [/Auteur\/autrice/g, "Auteur"],
 
     // TYPOGRAPHIE
     // Possibilité de reconstruire le pluriel si la dernière lettre suivant le point est un "s"
-    // Note : le /g final est important !
     [/\(e\)/gi, ""],
     [/\(se\)/gi, ""],
     [/\(euse\)/gi, ""],
 
 
-    // [/(·|·|·|.)e/, ""],
-    
-    // Todo : faire une constante qui contient tous les points médians.
+    // Liste des points médians avec variantes : [·|·|·|.|⋅|-|-]
 
-
-    [/[·|·|·|.|⋅]e/gi, ""],
-    [/[·|·|·|.|⋅]es/gi, ""],
-    [/[·|·|·|.|⋅]e[·|·|·|.|⋅]s/gi, ""],
-    [/[·|·|·|.|⋅]rice[·|·|·|.|⋅]s/gi, ""],
-    [/[·|·|·|.|⋅]ive[·|·|·|.|⋅]s/gi, ""],
-    [/[·|·|·|.|⋅]ne[·|·|·|.|⋅]s/gi, ""],
-    [/[·|·|·|.|⋅]le[·|·|·|.|⋅]s/gi, ""],
-    [/[·|·|·|.|⋅]e/gi, ""],
+    [/[·|·|·|.|⋅|-]e/gi, ""],
+    [/[·|·|·|.|⋅|-]es/gi, ""],
+    [/[·|·|·|.|⋅|-]e[·|·|·|.|⋅|-]s/gi, ""],
+    [/[·|·|·|.|⋅|-]rice[·|·|·|.|⋅|-]s/gi, ""],
+    [/[·|·|·|.|⋅|-]ive[·|·|·|.|⋅|-]s/gi, ""],
+    [/[·|·|·|.|⋅|-]ne[·|·|·|.|⋅|-]s/gi, ""],
+    [/[·|·|·|.|⋅|-]le[·|·|·|.|⋅|-]s/gi, ""],
+    [/[·|·|·|.|⋅|-]e/gi, ""],
 
 
 

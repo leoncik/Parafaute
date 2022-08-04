@@ -78,5 +78,7 @@ extensionScopeInput.addEventListener("input", () => {
 const reloadMainTab = () => {
   reloadTabButton.classList.add('hidden');
   chrome.tabs.reload();
+  // Close popup after reloading
+  window.close();
 }
 reloadTabButton.addEventListener('click', reloadMainTab);
