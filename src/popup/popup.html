@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="popup.css">
+        <title>Parafaute: options</title>
+    </head>
+    <body>
+        <h1 class="test-h1">Parafaute v0.3.0</h1>
+        <h2>Choisissez vos filtres :</h2>
+
+        <div class="option-list">
+            <div class="option">
+                <label for="anglicismes">Anglicismes</label>
+                <input id="anglicismes" type="checkbox" checked>
+            </div>
+            <div class="option">
+                <label for="inclusive">Écriture inclusive</label>
+                <input id="inclusive" type="checkbox" checked>
+            </div>
+            <div class="option">
+                <label for="fautes-courantes">Fautes courantes</label>
+                <input id="fautes-courantes" type="checkbox" checked>
+            </div>
+            <div class="option">
+                <label for="extension-scope">Activer l'extension sur les sites non-francophones</label>
+                <input id="extension-scope" type="checkbox">
+            </div>
+        </div>
+        <div class="reload">
+            <button class="reload-tab-button hidden">Recharger la page courante</button>
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>
