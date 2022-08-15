@@ -3,26 +3,37 @@ const inclusive = [
     //  Structure :
     // [/faute/]: "correction",
 
-    // Wordpress
-    [/Auteur\/autrice/g, "Auteur"],
-
     // TYPOGRAPHIE
-    // Possibilité de reconstruire le pluriel si la dernière lettre suivant le point est un "s"
     [/\(e\)/gi, ""],
+    [/\(es\)/gi, ""],
     [/\(se\)/gi, ""],
     [/\(euse\)/gi, ""],
+    [/\(ne\)/gi, ""],
+
+    [/eur\/rice\b/g, "eur"],
+    [/ains\/es\b/g, "ains"],
+    [/un\/e\b/g, "un"],
 
 
     // Liste des points médians avec variantes : [·|·|·|.|⋅|-|-]
 
-    [/[·|·|·|.|⋅|-]e/gi, ""],
-    [/[·|·|·|.|⋅|-]es/gi, ""],
-    [/[·|·|·|.|⋅|-]e[·|·|·|.|⋅|-]s/gi, ""],
-    [/[·|·|·|.|⋅|-]rice[·|·|·|.|⋅|-]s/gi, ""],
-    [/[·|·|·|.|⋅|-]ive[·|·|·|.|⋅|-]s/gi, ""],
-    [/[·|·|·|.|⋅|-]ne[·|·|·|.|⋅|-]s/gi, ""],
-    [/[·|·|·|.|⋅|-]le[·|·|·|.|⋅|-]s/gi, ""],
-    [/[·|·|·|.|⋅|-]e/gi, ""],
+    [/tou[·|·|·|.|⋅|-]te[·|·|·|.|⋅|-]s/gi, "tous"],
+    [/tous[·|·|·|.|⋅|-]tes/gi, "tous"],
+    [/[·|·|·|.|⋅|-]e[·|·|·|.|⋅|-]s/gi, "s"],
+    [/[·|·|·|.|⋅|-]rice[·|·|·|.|⋅|-]s/gi, "s"],
+    [/[·|·|·|.|⋅|-]ive[·|·|·|.|⋅|-]s/gi, "s"],
+    [/[·|·|·|.|⋅|-]ne[·|·|·|.|⋅|-]s/gi, "s"],
+    [/[·|·|·|.|⋅|-]le[·|·|·|.|⋅|-]s/gi, "s"],
+    [/le[·|·|·|.|⋅|-]a/gi, "le"],
+    [/le[·|·|·|.|⋅|-]la/gi, "le"],
+    [/en[·|·|·|.|⋅|-]nes/gi, "ens"],
+    [/if[·|·|·|.|⋅|-]ves/gi, "ifs"],
+    [/eur[·|·|·|.|⋅|-]ses/gi, "eurs"],
+    [/teur[·|·|·|.|⋅|-]trice/gi, "teur"],
+    [/\bceux[·|·|·|.|⋅|-]elles/gi, "ceux"],
+    [/[·|·|·|.|⋅|-]es/gi, "s"],
+    [/[·|·|·|.|⋅|-]e\b/gi, ""],
+    [/[·|·|·|.|⋅|-]e\b/gi, ""],
 
 
 
@@ -33,32 +44,42 @@ const inclusive = [
 
 
     // *** I ***
-    [/\sIel\s/g, " Il "],
-    [/\siel\s/g, " il "],
+    [/\bIel/g, "Il"],
+    [/\biel/g, "il"],
+    [/\bIels/g, "Ils"],
+    [/\biels/g, "ils"],
+
+    // *** C ***
+    [/\bcelleux/g, "ceux"],
+    [/\bCelleux/g, "Ceux"],
 
     // PROFESSIONS
-    [/Développeur \/ Développeuse/g, "Développeur"],
-    [/développeurs et de développeuses/g, "développeurs"],
-    [/développeuses et développeurs/g, "développeurs"],
-    [/développeuses et de développeurs/g, "développeurs"],
+    // Afin de prendre en compte les couples type : "déterminant féminin - nom féminin - déterminant masculin - nom masculin".
+    // Il faut faire l'opération de substitution en 2 étapes :
+    // 1) remplacer le déterminant (s'il est au féminin singulier)
+    [/une (?=[a-zA-Z-é]*trice ou un [a-zA-Z-é]*teur)/g, 'un '],
+
+    // 2) remplacer la terminaison du nom
+    [/trice\b ou un [a-zA-Z-é]*teur\b/g, "teur"],
     [/le développeur ou la développeuse/g, "le développeur"],
     [/la développeuse ou le développeur/g, "le développeur"],
-    // développeuses et de développeurs
-    // ! Voir possibilité de faire un regex type : "racine profession + terminaison euse / racine profession + terminaison eur"
-    // ! Possibilité de conflit avec des couples sans rapport avec l'écriture inclusive comme : "Mitrailleuse / Chargeur"
-    [/un utilisateur ou une utilisatrice/g, "un utilisateur"],
-    [/une utilisatrice ou un utilisateur/g, "un utilisateur"],
-    [/utilisateurs et utilisatrices/g, "utilisateurs"],
-    [/utilisatrices et utilisateurs/g, "utilisateurs"],
-    // Regex globaux
-    // Todo : Penser aux accents et caractères spéciaux [a-zA-Z-é-è-ç]
+
     [/euses\b et [a-zA-Z-é]*eurs\b/g, "eurs"],
     [/euses\b et des [a-zA-Z-é]*eurs\b/g, "eurs"],
     [/euses\b et les [a-zA-Z-é]*eurs\b/g, "eurs"],
-
+    [/euses\b et de [a-zA-Z-é]*eurs\b/g, "eurs"],
+    
     [/eurs\b et [a-zA-Z-é]*euses\b/g, "eurs"],
     [/eurs\b et des [a-zA-Z-é]*euses\b/g, "eurs"],
     [/eurs\b et les [a-zA-Z-é]*euses\b/g, "eurs"],
+    [/eurs\b et de [a-zA-Z-é]*euses\b/g, "eurs"],
+    
+    [/eur\b \/ [a-zA-Z-é]*euse\b/g, "eur"],
+    [/eurs\b et [a-zA-Z-é]*trices\b/g, "eurs"],
+    [/trices\b et [a-zA-Z-é]*teurs\b/g, "teurs"],
+    [/teur ou une [a-zA-Z-é]*trice/g, "teur"],
+
+
 
     [/trices\b et [a-zA-Z-é]*eurs\b/g, "eurs"],
     [/trices\b et des [a-zA-Z-é]*eurs\b/g, "eurs"],
@@ -78,12 +99,14 @@ const inclusive = [
 
     
     // EXPRESSIONS
+    [/Auteur\/autrice/g, "Auteur"],
     [/à tous et à toutes/g, "à tous"],
     [/à tous et toutes/g, "à tous"],
     [/à toutes et tous/g, "à tous"],
     [/à toutes et tous,/g, "à tous"],
     [/à toutes et à tous/g, "à tous"],
-    // Avec erreurs d'orthographe :
-    [/à toute et à tous/g, "à tous"],    
+    // Avec fautes d'orthographe :
+    [/à toute et à tous/g, "à tous"],
+    [/toustes/g, "tous"],
 
 ];
