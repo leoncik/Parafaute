@@ -16,7 +16,14 @@
 
 Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Reddit etc.).
 
-## Aperçu
+## Aperçu!
+
+Avant :  
+[Avant](https://user-images.githubusercontent.com/85347446/185804927-b0bd8b98-d0c3-4684-8001-f9440c00af51.png)
+
+Après :  
+![Après](https://user-images.githubusercontent.com/85347446/185804942-6d72268a-6b82-4a52-b43d-89be4bc90e12.png)
+
 
 ## Utilisation
 
@@ -28,6 +35,8 @@ Une fois l'extension téléchargée, celle-ci sera active avec 4 paramètres par
 4) L'extension ne sera active que sur les sites francophones (dont l'attribut HTML lang est égal à "FR", variantes régionales comprises).
 
 Vous pouvez changer ces options à tout moment pour ne sélectionner que les filtres qui vous intéressent.
+
+![Options](https://user-images.githubusercontent.com/85347446/185804998-166f86bd-09ba-4572-a5da-ba7d18067ea7.png)
 
 ## Fonctionnalités
 
