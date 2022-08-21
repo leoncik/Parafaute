@@ -16,10 +16,10 @@
 
 Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Reddit etc.).
 
-## Aperçu!
+## Aperçu
 
 Avant :  
-[Avant](https://user-images.githubusercontent.com/85347446/185804927-b0bd8b98-d0c3-4684-8001-f9440c00af51.png)
+![Avant](https://user-images.githubusercontent.com/85347446/185804927-b0bd8b98-d0c3-4684-8001-f9440c00af51.png)
 
 Après :  
 ![Après](https://user-images.githubusercontent.com/85347446/185804942-6d72268a-6b82-4a52-b43d-89be4bc90e12.png)
