@@ -18,16 +18,16 @@ Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTi
 
 ## Aperçu
 
-Avant :  
+Avant :  
 ![Avant](https://user-images.githubusercontent.com/85347446/185804927-b0bd8b98-d0c3-4684-8001-f9440c00af51.png)
 
-Après :  
+Après :  
 ![Après](https://user-images.githubusercontent.com/85347446/185804942-6d72268a-6b82-4a52-b43d-89be4bc90e12.png)
 
 
 ## Utilisation
 
-Une fois l'extension téléchargée, celle-ci sera active avec 4 paramètres par défauts :
+Une fois l'extension téléchargée, celle-ci sera active avec 4 paramètres par défauts :
 
 1) La correction de l'écriture inclusive sera active.  
 2) La correction des anglicismes sera active.  
@@ -40,24 +40,24 @@ Vous pouvez changer ces options à tout moment pour ne sélectionner que les fil
 
 ## Fonctionnalités
 
-* Corrige divers types de fautes courantes :
-    - Vocabulaire (ex: "Plusieur" → "Plusieurs").
-    - Expressions (ex: "sa va" → "ça va").
-    - Typographie (ex: ajout d'espace fine insécable devant les signes de ponctuation double (points d'exclamation, point d'interrogation, point-virgule)).
-* Corrige divers types d'anglicismes :
-    - Remplace les anglicismes ayant un équivalent évident (ex: "challenge" → "défi").
-    - Remplace les constructions de phrases anglophones (ex: "cela ne fait sens" → "cela n'a aucun sens").
-* Corrige divers types d'écriture inclusive :
-    - Suppression des points médians (avec leurs divers variantes (point médian, tiret, point normal etc.)) (ex: "tou·te·s" → "tous").
-    - Suppression des parenthèses finales (ex: "Abonné(e)s" → "Abonnés").
-    - Remplacement des pronoms (ex: "iel" → "il").
-    - Simplification des formules où féminin et masculin sont multipliés (ex: "Bonjour à toutes et tous" → "Bonjour à tous").
-* Respect de la vie privée : cette extension ne collecte aucune donnée personnelle et n'inclut aucune forme de télémétrie. La permission demandée à l'installation sert uniquement à sauvegarder les options dans le navigateur.
+* Corrige divers types de fautes courantes :
+    - Vocabulaire (ex : "Plusieur" → "Plusieurs").
+    - Expressions (ex : "sa va" → "ça va").
+    - Typographie (ex : ajout d'espace fine insécable devant les points d'exclamation et point d'interrogation).
+* Corrige divers types d'anglicismes :
+    - Remplace les anglicismes ayant un équivalent évident (ex : "challenge" → "défi").
+    - Remplace les constructions de phrases anglophones (ex : "cela ne fait aucun sens" → "cela n'a aucun sens").
+* Corrige divers types d'écriture inclusive :
+    - Suppression des points médians (avec leurs divers variantes (point médian, tiret, point normal etc.)) (ex : "tou·te·s" → "tous").
+    - Suppression des parenthèses finales (ex : "Abonné(e)s" → "Abonnés").
+    - Remplacement des pronoms (ex : "iel" → "il").
+    - Simplification des formules où féminin et masculin sont multipliés (ex : "Bonjour à toutes et tous" → "Bonjour à tous").
+* Respect de la vie privée : cette extension ne collecte aucune donnée personnelle et n'inclut aucune forme de télémétrie. La permission demandée à l'installation sert uniquement à sauvegarder les options dans le navigateur.
 
 ## FAQ
 
-Q : L'extension ne fonctionne pas sur un site.  
-R : Essayez l'option "Activer l'extension sur les sites non-francophones".
+Q : L'extension ne fonctionne pas sur un site.  
+R : Essayez l'option "Activer l'extension sur les sites non-francophones".
 
 ## Licence
 

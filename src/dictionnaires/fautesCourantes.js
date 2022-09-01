@@ -10,6 +10,8 @@ const fautesCourantes = [
     [/appercevoir\b/g, "apercevoir"],
     [/Applatir\b/g, "Aplatir"],
     [/applatir\b/g, "aplatir"],
+    [/Acceuil\b/g, "Accueil"],
+    [/acceuil\b/g, "accueil"],
 
     // *** B ***
     [/banquaire\b/g, "bancaire"],
@@ -32,6 +34,12 @@ const fautesCourantes = [
     // *** E ***
     [/Enmener\b/g, "Emmener"],
     [/enmener\b/g, "emmener"],
+    [/Échalotte\b/g, "Échalote"],
+    [/échalotte\b/g, "échalote"],
+
+    // ***F***
+    [/Faîtes\b/g, "Faites"],
+    [/faîtes\b/g, "faites"],
 
 
     // *** P ***
@@ -67,11 +75,22 @@ const fautesCourantes = [
     // EXPRESSIONS
     [/sa va\b/g, "ça va"],
     [/Sa va\b/g, "Ça va"],
+
+    [/Si il\b/g, "S'il"],
+    [/si il\b/g, "s'il"],
+
     [/Y a t'il\b/g, "Y a-t-il"],
     [/y a t'il\b/g, "y a-t-il"],
 
     // TYPOGRAPHIE
-    // (Enlever les espaces avant les points et les doubles espaces)
-    // [/ ./g, "."],
-    // [/  /g, " "],
+    // Ajout d'espace fine insécable devant les signes de ponctuation double
+    [/(?<=\w)!/g, " !"],
+    [/(?<=\w):/g, " :"],
+    // Espace insécable pour les guillemets
+    [/(?<=«) /g, " "], 
+    [/ (?=»)/g, " "],
+    // Pas d'espace avant une virgule ou un point.
+    [/(?<=\w) ,/g, ","],
+    [/(?<=\w) \./g, "."],
+
 ]

@@ -3,6 +3,18 @@ const inclusive = [
     //  Structure :
     // [/faute/]: "correction",
 
+    // EXPRESSIONS
+    [/Auteur\/autrice/g, "Auteur"],
+    [/à tous et à toutes/g, "à tous"],
+    [/à tous et toutes/g, "à tous"],
+    [/à toutes et tous/g, "à tous"],
+    [/à toutes et tous,/g, "à tous"],
+    [/à toutes et à tous/g, "à tous"],
+    // Avec fautes d'orthographe :
+    [/à toute et à tous/g, "à tous"],
+    [/à tous et à toute/g, "à tous"],
+    [/toustes/g, "tous"],
+
     // TYPOGRAPHIE
     [/\(e\)/gi, ""],
     [/\(es\)/gi, ""],
@@ -13,6 +25,7 @@ const inclusive = [
     [/eur\/rice\b/g, "eur"],
     [/ains\/es\b/g, "ains"],
     [/un\/e\b/g, "un"],
+    [/un\[e\]/g, "un"],
 
 
     // Liste des points médians avec variantes : [·|·|·|.|⋅|-|-]
@@ -32,6 +45,7 @@ const inclusive = [
     [/teur[·|·|·|.|⋅|-]trice/gi, "teur"],
     [/\bceux[·|·|·|.|⋅|-]elles/gi, "ceux"],
     [/[·|·|·|.|⋅|-]es/gi, "s"],
+    [/[·|·|·|.|⋅|-]se/gi, ""],
     [/[·|·|·|.|⋅|-]e\b/gi, ""],
     [/[·|·|·|.|⋅|-]e\b/gi, ""],
 
@@ -96,17 +110,5 @@ const inclusive = [
     [/çais\b et [a-zA-Z-é]*çaises\b/g, "çais"],
     [/çais\b et des [a-zA-Z-é]*çaises\b/g, "çais"],
     [/çais\b et les [a-zA-Z-é]*çaises\b/g, "çais"],
-
-    
-    // EXPRESSIONS
-    [/Auteur\/autrice/g, "Auteur"],
-    [/à tous et à toutes/g, "à tous"],
-    [/à tous et toutes/g, "à tous"],
-    [/à toutes et tous/g, "à tous"],
-    [/à toutes et tous,/g, "à tous"],
-    [/à toutes et à tous/g, "à tous"],
-    // Avec fautes d'orthographe :
-    [/à toute et à tous/g, "à tous"],
-    [/toustes/g, "tous"],
 
 ];

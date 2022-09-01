@@ -5,9 +5,11 @@ const anglicismes = [
 
     // EXPRESSIONS
     // Anglicisme lié à l'expression : "to make sense"
-    [/fait sens\b/g, "a du sens"],
     [/ne fait aucun sens\b/g, "n'a aucun sens"],
     [/ne faisait aucun sens\b/g, "n'avait aucun sens"],
+    [/ne fait aucun sens\b/g, "n'a aucun sens"],
+    [/ne fait sens\b/g, "n'a de sens"],
+    [/fait sens\b/g, "a du sens"],
 
     // Être confortable (n'a aucun sens en parlant d'une personne ou d'une idée)
     [/Je ne suis pas confortable\b/g, "Je ne suis pas à l'aise"],
@@ -42,6 +44,11 @@ const anglicismes = [
     [/\bfollower\b/g, "abonné"],
     [/\bFollowers\b/g, "Abonnés"],
     [/\bfollowers\b/g, "abonnés"],
+
+    // *** G ***
+    [/\bGiraffe\b/g, "Girafe"],
+    [/\bgiraffe\b/g, "girafe"],
+
 
     // *** H ***
     [/\bHello\b/g, "Salut"],
