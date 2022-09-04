@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Parafaute",
-    "version": "0.3.0",
+    "version": "0.3.1",
   
     "description": "Une extension pour vous abriter des fautes courantes et des barbarismes (anglicismes et écriture inclusive)",
     "homepage_url": "https://github.com/leoncik/Parafaute",
@@ -37,6 +37,7 @@
           "src/dictionnaires/inclusive.js",
           "src/dictionnaires/anglicismes.js",
           "src/dictionnaires/fautesCourantes.js",
+          "src/dictionnaires/fautesTypographiques.js",
           "src/TextObserver.js", "src/Parafaute.js"]
       }
     ]

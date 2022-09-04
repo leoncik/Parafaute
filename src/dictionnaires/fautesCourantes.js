@@ -82,15 +82,4 @@ const fautesCourantes = [
     [/Y a t'il\b/g, "Y a-t-il"],
     [/y a t'il\b/g, "y a-t-il"],
 
-    // TYPOGRAPHIE
-    // Ajout d'espace fine insécable devant les signes de ponctuation double
-    [/(?<=\w)!/g, " !"],
-    [/(?<=\w):/g, " :"],
-    // Espace insécable pour les guillemets
-    [/(?<=«) /g, " "], 
-    [/ (?=»)/g, " "],
-    // Pas d'espace avant une virgule ou un point.
-    [/(?<=\w) ,/g, ","],
-    [/(?<=\w) \./g, "."],
-
 ]

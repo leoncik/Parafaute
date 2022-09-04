@@ -2,6 +2,7 @@ chrome.storage.sync.get([
     'anglicismes',
     'inclusive',
     'fautesCourantes',
+    'fautesTypographiques',
     'extensionScope'
 ], function(checkedOptions) {
 
@@ -21,6 +22,11 @@ chrome.storage.sync.get([
             }
             if (checkedOptions.fautesCourantes) {
                 for(let [faute, correction] of fautesCourantes) {
+                    text = text.replace(new RegExp(faute), correction);
+                }
+            }
+            if (checkedOptions.fautesTypographiques) {
+                for(let [faute, correction] of fautesTypographiques) {
                     text = text.replace(new RegExp(faute), correction);
                 }
             }
@@ -44,6 +50,11 @@ chrome.storage.sync.get([
             }
             if (checkedOptions.fautesCourantes || typeof checkedOptions.fautesCourantes === "undefined") {
                 for(let [faute, correction] of fautesCourantes) {
+                    text = text.replace(new RegExp(faute), correction);
+                }
+            }
+            if (checkedOptions.fautesTypographiques || typeof checkedOptions.fautesTypographiques === "undefined") {
+                for(let [faute, correction] of fautesTypographiques) {
                     text = text.replace(new RegExp(faute), correction);
                 }
             }
