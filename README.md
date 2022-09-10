@@ -63,6 +63,16 @@ R : Essayez l'option "Activer l'extension sur les sites non-francophones".
 Q : Je suis développeur et lorsque je copie des extraits de code trouvés sur internet je me retrouve avec des erreurs.  
 R : Cela doit provenir des espaces insécables venant de la correction liée aux fautes de typographie. Pour éviter ces désagréments je vous recommande de décocher l'option « Fautes de typographie ».
 
+Q : Est-ce que cette extension corrige les fautes grammaticales comme l'accord du participe ?  
+R : Non, pas pour le moment (peut-être dans l'avenir si cette fonctionnalité ne ralentit pas l'extension). Cette extension ne fait que des corrections d'ordre lexicales (remplacement d'une expression par une autre) et n'analyse donc pas la structure des phrases.
+
+Q : Je rencontre un problème avec l'extension.  
+R : Vous pouvez faire un rapport de bug avec l'outil "issues" en cliquant [ici](https://github.com/leoncik/Parafaute/issues).
+
+Q : Une expression incorrecte n'est pas corrigée.  
+R : N'hésitez pas à proposer des expressions pour enrichir les cas pris en compte par l'extension. Pour cela vous pouvez utiliser l'outil "issues" (avec le label "enhancement") en cliquant [ici](https://github.com/leoncik/Parafaute/issues).
+
+
 ## Licence
 
 **Parafaute** est sous licence MIT.
