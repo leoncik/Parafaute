@@ -8,7 +8,9 @@ const anglicismes = [
     [/ne fait aucun sens\b/g, "n'a aucun sens"],
     [/ne faisait aucun sens\b/g, "n'avait aucun sens"],
     [/ne fait aucun sens\b/g, "n'a aucun sens"],
+    [/ne font aucun sens\b/g, "n'ont aucun sens"],
     [/ne fait sens\b/g, "n'a de sens"],
+    [/ne font sens\b/g, "n'ont de sens"],
     [/fait sens\b/g, "a du sens"],
 
     // Être confortable (n'a aucun sens en parlant d'une personne ou d'une idée)

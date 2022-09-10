@@ -5,10 +5,15 @@ const inclusive = [
 
     // EXPRESSIONS
     [/Auteur\/autrice/g, "Auteur"],
+    [/À tous et à toutes/g, "À tous"],
     [/à tous et à toutes/g, "à tous"],
+    [/À tous et toutes/g, "À tous"],
     [/à tous et toutes/g, "à tous"],
+    [/À toutes et tous/g, "À tous"],
     [/à toutes et tous/g, "à tous"],
+    [/À toutes et tous,/g, "À tous"],
     [/à toutes et tous,/g, "à tous"],
+    [/À toutes et à tous/g, "À tous"],
     [/à toutes et à tous/g, "à tous"],
     // Avec fautes d'orthographe :
     [/à toute et à tous/g, "à tous"],
@@ -48,6 +53,8 @@ const inclusive = [
     [/eur[·|·|·|.|⋅|-]ses/gi, "eurs"],
     [/teur[·|·|·|.|⋅|-]trice/gi, "teur"],
     [/\bceux[·|·|·|.|⋅|-]elles/gi, "ceux"],
+    [/[·|·|·|.|⋅|-]rices/gi, "s"],
+    [/[·|·|·|.|⋅|-]rice/gi, ""],
     [/[·|·|·|.|⋅|-]es/gi, "s"],
     [/[·|·|·|.|⋅|-]se/gi, ""],
     [/[·|·|·|.|⋅|-]e\b/gi, ""],
@@ -70,6 +77,8 @@ const inclusive = [
     // *** C ***
     [/\bcelleux/g, "ceux"],
     [/\bCelleux/g, "Ceux"],
+    [/\bcellui/g, "celui"],
+    [/\bCellui/g, "Celui"],
 
     // PROFESSIONS
     // Afin de prendre en compte les couples type : "déterminant féminin - nom féminin - déterminant masculin - nom masculin".
@@ -99,6 +108,7 @@ const inclusive = [
     [/eurs\b et [a-zA-Z-é]*trices\b/g, "eurs"],
     [/trices\b et [a-zA-Z-é]*teurs\b/g, "teurs"],
     [/teur ou une [a-zA-Z-é]*trice/g, "teur"],
+    [/teur ou de [a-zA-Z-é]*trice/g, "teur"],
 
 
 

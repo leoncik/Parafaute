@@ -4,9 +4,20 @@ const fautesCourantes = [
     // [/faute/]: "correction",
 
     // Expressions
+    [/sa va\b/g, "ça va"],
+    [/Sa va\b/g, "Ça va"],
+
+    [/Si il\b/g, "S'il"],
+    [/si il\b/g, "s'il"],
+
+    [/Y a t'il\b/g, "Y a-t-il"],
+    [/y a t'il\b/g, "y a-t-il"],
+
     [/aux dépends\b/g, "aux dépens"],
     [/chiffre d'affaire\b/g, "chiffre d'affaires"],
     [/Chiffre d'affaire\b/g, "Chiffre d'affaires"],
+    [/Il y à/g, "Il y a"],
+    [/il y à/g, "il y a"],
     
     // VOCABULAIRE
 
@@ -82,15 +93,5 @@ const fautesCourantes = [
     // *** U ***
     [/Univer\b/g, "Univers"],
     [/univer\b/g, "univers"],
-    
-    // EXPRESSIONS
-    [/sa va\b/g, "ça va"],
-    [/Sa va\b/g, "Ça va"],
-
-    [/Si il\b/g, "S'il"],
-    [/si il\b/g, "s'il"],
-
-    [/Y a t'il\b/g, "Y a-t-il"],
-    [/y a t'il\b/g, "y a-t-il"],
 
 ]

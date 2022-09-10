@@ -6,6 +6,7 @@ const fautesTypographiques = [
     // Ajout d'espace fine insécable devant les signes de ponctuation double.
     // Exception : pas d'espace fine insécable devant "http" ou "https".
     [/(?<=\w)!/g, " !"],
+    [/(?<=\w)\?/g, " ?"],
     [/(?<=\w(?<!http|https)):/gi, " :"],
     // Espace insécable pour les guillemets
     [/(?<=«) /g, " "], 
