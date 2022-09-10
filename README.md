@@ -25,10 +25,10 @@ Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTi
 ## Aperçu
 
 Avant :  
-![Avant](https://user-images.githubusercontent.com/85347446/185804927-b0bd8b98-d0c3-4684-8001-f9440c00af51.png)
+![Avant](https://user-images.githubusercontent.com/85347446/189493720-8801e4c1-568e-4ae5-876d-602ab44b90d4.png)
 
 Après :  
-![Après](https://user-images.githubusercontent.com/85347446/185804942-6d72268a-6b82-4a52-b43d-89be4bc90e12.png)
+![Après](https://user-images.githubusercontent.com/85347446/189493684-9a8a3a04-4563-4bf0-90ea-60533147d1f7.png)
 
 
 ## Utilisation
@@ -43,7 +43,7 @@ Une fois l'extension téléchargée, celle-ci sera active avec 4 paramètres par
 
 Vous pouvez changer ces options à tout moment pour ne sélectionner que les filtres qui vous intéressent.
 
-![Options](https://user-images.githubusercontent.com/85347446/185804998-166f86bd-09ba-4572-a5da-ba7d18067ea7.png)
+![Options](https://user-images.githubusercontent.com/85347446/189493741-3d46f3c8-80b4-4317-b90c-8dd3dc5bcecf.png)
 
 ## Fonctionnalités
 
