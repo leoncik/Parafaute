@@ -1,4 +1,10 @@
-# Parafaute
+
+<h1 align="left">
+<sub>
+<img  src="src/icônes/icon-48.png" height="38" width="38">
+</sub>
+Parafaute
+</h1>
 
 ## Table des matières
 
