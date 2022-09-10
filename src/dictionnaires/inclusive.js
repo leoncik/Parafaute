@@ -22,7 +22,11 @@ const inclusive = [
     [/\(euse\)/gi, ""],
     [/\(ne\)/gi, ""],
 
+    [/teur\/trice\b/g, "teur"],
     [/eur\/rice\b/g, "eur"],
+    [/eur.euse\b/g, "eur"],
+    [/teurs\/trices\b/g, "teurs"],
+    [/eurs\/rices\b/g, "eurs"],
     [/ains\/es\b/g, "ains"],
     [/un\/e\b/g, "un"],
     [/un\[e\]/g, "un"],
@@ -87,6 +91,9 @@ const inclusive = [
     [/eurs\b et des [a-zA-Z-é]*euses\b/g, "eurs"],
     [/eurs\b et les [a-zA-Z-é]*euses\b/g, "eurs"],
     [/eurs\b et de [a-zA-Z-é]*euses\b/g, "eurs"],
+
+    [/euses\b et [a-zA-Z-é]*eux\b/g, "eux"],
+    [/eux\b et [a-zA-Z-é]*euses\b/g, "eux"],
     
     [/eur\b \/ [a-zA-Z-é]*euse\b/g, "eur"],
     [/eurs\b et [a-zA-Z-é]*trices\b/g, "eurs"],

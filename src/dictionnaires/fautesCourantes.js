@@ -2,12 +2,19 @@ const fautesCourantes = [
 
     //  Structure :
     // [/faute/]: "correction",
+
+    // Expressions
+    [/aux dépends\b/g, "aux dépens"],
+    [/chiffre d'affaire\b/g, "chiffre d'affaires"],
+    [/Chiffre d'affaire\b/g, "Chiffre d'affaires"],
     
     // VOCABULAIRE
 
     // *** A ***
     [/Appercevoir\b/g, "Apercevoir"],
     [/appercevoir\b/g, "apercevoir"],
+    [/Aquérir\b/g, "Acquérir"],
+    [/aquérir\b/g, "acquérir"],
     [/Applatir\b/g, "Aplatir"],
     [/applatir\b/g, "aplatir"],
     [/Acceuil\b/g, "Accueil"],
@@ -40,6 +47,10 @@ const fautesCourantes = [
     // ***F***
     [/Faîtes\b/g, "Faites"],
     [/faîtes\b/g, "faites"],
+
+    // ***H***
+    [/Hormi\b/g, "Hormis"],
+    [/hormi\b/g, "hormis"],
 
 
     // *** P ***
