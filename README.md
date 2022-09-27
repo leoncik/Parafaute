@@ -9,6 +9,7 @@ Parafaute
 ## Table des matières
 
 -   [Description](#description)
+-   [Installation](#installation)
 -   [Aperçu](#aperçu)
 -   [Utilisation](#utilisation)
 -   [Fonctionnalités](#fonctionnalités)
@@ -20,7 +21,15 @@ Parafaute
 
 **Parafaute** est une extension pour navigateur ayant pour but de rendre le navigation sur le web plus agréable en corrigeant les fautes les plus courantes et certains barbarismes (anglicismes et écriture l'inclusive).
 
-Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Reddit etc.).
+Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Discord etc.).
+
+## Installation
+
+Vous pouvez télécharger facilement l'extension depuis :
+
+- Le [Chrome Web Store](https://chrome.google.com/webstore/detail/parafaute/jfnefaojdbdjdaobckpmbgfibannmpcg) pour l'utiliser sur Google Chrome et tout navigateur basé sur Chromium (Brave, Opera, Vivaldi etc.).
+
+- Le site des [Modules pour Firefox](https://addons.mozilla.org/fr/firefox/addon/parafaute/) pour l'utiliser sur Firefox.
 
 ## Aperçu
 
