@@ -9,6 +9,7 @@ Parafaute
 ## Table des matières
 
 -   [Description](#description)
+-   [Installation](#installation)
 -   [Aperçu](#aperçu)
 -   [Utilisation](#utilisation)
 -   [Fonctionnalités](#fonctionnalités)
@@ -20,16 +21,21 @@ Parafaute
 
 **Parafaute** est une extension pour navigateur ayant pour but de rendre le navigation sur le web plus agréable en corrigeant les fautes les plus courantes et certains barbarismes (anglicismes et écriture l'inclusive).
 
-Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Reddit etc.).
+Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Discord etc.).
+
+## Installation
+
+Vous pouvez télécharger facilement l'extension depuis :
+
+- Le [Chrome Web Store](https://chrome.google.com/webstore/detail/parafaute/jfnefaojdbdjdaobckpmbgfibannmpcg) pour l'utiliser sur Google Chrome et tout navigateur basé sur Chromium (Brave, Opera, Vivaldi etc.).
+
+- Le site des [Modules pour Firefox](https://addons.mozilla.org/fr/firefox/addon/parafaute/) pour l'utiliser sur Firefox.
 
 ## Aperçu
 
-Avant :  
-![Avant](https://user-images.githubusercontent.com/85347446/189493720-8801e4c1-568e-4ae5-876d-602ab44b90d4.png)
+![Avant](https://user-images.githubusercontent.com/85347446/192465962-c8b847bd-829f-466c-b329-c961721decd9.png)
 
-Après :  
-![Après](https://user-images.githubusercontent.com/85347446/189493684-9a8a3a04-4563-4bf0-90ea-60533147d1f7.png)
-
+![Après](https://user-images.githubusercontent.com/85347446/192466026-b0ec8042-49db-4ab3-b5d6-818e92bb7558.png)
 
 ## Utilisation
 
@@ -43,7 +49,7 @@ Une fois l'extension téléchargée, celle-ci sera active avec 4 paramètres par
 
 Vous pouvez changer ces options à tout moment pour ne sélectionner que les filtres qui vous intéressent.
 
-![Options](https://user-images.githubusercontent.com/85347446/189493741-3d46f3c8-80b4-4317-b90c-8dd3dc5bcecf.png)
+![Options](https://user-images.githubusercontent.com/85347446/192466166-92173526-59c0-4b2c-a9c7-2dce711e0255.png)
 
 ## Fonctionnalités
 
