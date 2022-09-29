@@ -26,6 +26,7 @@ const inclusive = [
     [/\(se\)/gi, ""],
     [/\(euse\)/gi, ""],
     [/\(ne\)/gi, ""],
+    [/\(ère\)/gi, ""],
 
     [/teur\/trice\b/g, "teur"],
     [/eur\/rice\b/g, "eur"],
@@ -55,9 +56,17 @@ const inclusive = [
     [/\bceux[·|·|·|.|⋅|-]elles/gi, "ceux"],
     [/[·|·|·|.|⋅|-]rices\b/gi, "s"],
     [/[·|·|·|.|⋅|-]rice\b/gi, ""],
+    [/[·|·|·|.|⋅|-]ices\b/gi, ""],
+    [/[·|·|·|.|⋅|-]ice\b/gi, ""],
+    [/s[·|·|·|.|⋅|-]es\b/gi, "s"],
     [/[·|·|·|.|⋅|-]es\b/gi, "s"],
     [/[·|·|·|.|⋅|-]se\b/gi, ""],
-    [/[·|·|·|.|⋅|-]e\b/gi, ""],
+    [/[·|·|·|.|⋅|-]fe\b/gi, ""],
+    [/[·|·|·|.|⋅|-]fes\b/gi, "s"],
+    [/[·|·|·|.|⋅|-]le\b/gi, ""],
+    [/[·|·|·|.|⋅|-]les\b/gi, "s"],
+    [/[·|·|·|.|⋅|-]ne\b/gi, ""],
+    [/[·|·|·|.|⋅|-]nes\b/gi, "s"],
     [/[·|·|·|.|⋅|-]e\b/gi, ""],
 
 
@@ -66,6 +75,9 @@ const inclusive = [
     // *** A ***
     [/Autrice/g, "Auteur"],
     [/autrice/g, "auteur"],
+    // Les noms féminins en “eur” ne prennent pas de “e” (exceptions : heure, demeure).
+    [/Auteure/g, "Auteur"],
+    [/auteure/g, "auteur"],
 
 
     // *** I ***
@@ -85,21 +97,52 @@ const inclusive = [
     // Il faut faire l'opération de substitution en 2 étapes :
     // 1) remplacer le déterminant (s'il est au féminin singulier)
     [/une (?=[a-zA-Z-é]*trice ou un [a-zA-Z-é]*teur)/g, 'un '],
+    [/la (?=[a-zA-Z-é]*euse ou le [a-zA-Z-é]*eur)/g, 'le '],
 
     // 2) remplacer la terminaison du nom
     [/trice\b ou un [a-zA-Z-é]*teur\b/g, "teur"],
-    [/le développeur ou la développeuse/g, "le développeur"],
-    [/la développeuse ou le développeur/g, "le développeur"],
 
     [/euses\b et [a-zA-Z-é]*eurs\b/g, "eurs"],
     [/euses\b et des [a-zA-Z-é]*eurs\b/g, "eurs"],
     [/euses\b et les [a-zA-Z-é]*eurs\b/g, "eurs"],
     [/euses\b et de [a-zA-Z-é]*eurs\b/g, "eurs"],
-    
+
+    [/euse\b ou le [a-zA-Z-é]*eur\b/g, "eur"],
+
     [/eurs\b et [a-zA-Z-é]*euses\b/g, "eurs"],
     [/eurs\b et des [a-zA-Z-é]*euses\b/g, "eurs"],
     [/eurs\b et les [a-zA-Z-é]*euses\b/g, "eurs"],
     [/eurs\b et de [a-zA-Z-é]*euses\b/g, "eurs"],
+
+    [/eur\b ou la [a-zA-Z-é]*euse\b/g, "eur"],
+
+    [/ens\b et [a-zA-Z-é]*ennes\b/g, "ens"],
+    [/ens\b et des [a-zA-Z-é]*ennes\b/g, "ens"],
+    [/ens\b et les [a-zA-Z-é]*ennes\b/g, "ens"],
+    [/ens\b et de [a-zA-Z-é]*ennes\b/g, "ens"],
+
+    [/en\b ou la [a-zA-Z-é]*enne\b/g, "en"],
+
+    [/ennes\b et [a-zA-Z-é]*ens\b/g, "ens"],
+    [/ennes\b et des [a-zA-Z-é]*ens\b/g, "ens"],
+    [/ennes\b et les [a-zA-Z-é]*ens\b/g, "ens"],
+    [/ennes\b et de [a-zA-Z-é]*ens\b/g, "ens"],
+
+    [/enne\b ou le [a-zA-Z-é]*en\b/g, "en"],
+
+    [/els\b et [a-zA-Z-é]*elles\b/g, "els"],
+    [/els\b et des [a-zA-Z-é]*elles\b/g, "els"],
+    [/els\b et les [a-zA-Z-é]*elles\b/g, "els"],
+    [/els\b et de [a-zA-Z-é]*elles\b/g, "els"],
+
+    [/el\b et la [a-zA-Z-é]*elle\b/g, "el"],
+
+    [/elles\b et [a-zA-Z-é]*els\b/g, "els"],
+    [/elles\b et des [a-zA-Z-é]*els\b/g, "els"],
+    [/elles\b et les [a-zA-Z-é]*els\b/g, "els"],
+    [/elles\b et de [a-zA-Z-é]*els\b/g, "els"],
+
+    [/elle\b et le [a-zA-Z-é]*el\b/g, "el"],
 
     [/euses\b et [a-zA-Z-é]*eux\b/g, "eux"],
     [/eux\b et [a-zA-Z-é]*euses\b/g, "eux"],
@@ -109,8 +152,6 @@ const inclusive = [
     [/trices\b et [a-zA-Z-é]*teurs\b/g, "teurs"],
     [/teur ou une [a-zA-Z-é]*trice/g, "teur"],
     [/teur ou de [a-zA-Z-é]*trice/g, "teur"],
-
-
 
     [/trices\b et [a-zA-Z-é]*eurs\b/g, "eurs"],
     [/trices\b et des [a-zA-Z-é]*eurs\b/g, "eurs"],
