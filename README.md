@@ -39,12 +39,12 @@ Vous pouvez télécharger facilement l'extension depuis :
 
 ## Utilisation
 
-Une fois l'extension téléchargée, celle-ci sera active avec 4 paramètres par défauts :
+Une fois l'extension téléchargée, celle-ci sera active avec 5 paramètres par défauts :
 
 1) La correction de l'écriture inclusive sera active.  
 2) La correction des anglicismes sera active.  
 3) La correction des fautes courantes sera active.  
-4) La correction des erreurs de typographie sera active.  
+4) La correction des erreurs de typographie sera inactive.  
 5) L'extension ne sera active que sur les sites francophones (dont l'attribut HTML lang est égal à "FR", variantes régionales comprises).
 
 Vous pouvez changer ces options à tout moment pour ne sélectionner que les filtres qui vous intéressent.

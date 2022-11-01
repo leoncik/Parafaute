@@ -22,13 +22,13 @@ chrome.storage.sync.get([
     chrome.storage.sync.set({'fautesCourantes': true});
     chrome.storage.sync.set({'anglicismes': true});
     chrome.storage.sync.set({'inclusive': true});
-    chrome.storage.sync.set({'fautesTypographiques': true});
+    chrome.storage.sync.set({'fautesTypographiques': false});
     chrome.storage.sync.set({'extensionScope': false});
 
     anglicismesInput.checked = true;
     inclusiveInput.checked = true;
     fautesCourantesInput.checked = true;
-    fautesTypographiquesInput.checked = true;
+    fautesTypographiquesInput.checked = false;
     extensionScopeInput.checked = false;
   }
 
