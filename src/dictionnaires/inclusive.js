@@ -4,6 +4,8 @@ const inclusive = [
     // [/faute/]: "correction",
 
     // EXPRESSIONS
+    [/celles et ceux/g, "ceux"],
+    [/ceux et celles/g, "ceux"],
     [/Auteur\/autrice/g, "Auteur"],
     [/À tous et à toutes/g, "À tous"],
     [/à tous et à toutes/g, "à tous"],
@@ -24,9 +26,15 @@ const inclusive = [
     [/\(e\)/gi, ""],
     [/\(es\)/gi, ""],
     [/\(se\)/gi, ""],
+    [/\(euses\)/gi, ""],
     [/\(euse\)/gi, ""],
+    [/\(trice\)/gi, ""],
+    [/\(trices\)/gi, ""],
+    [/\(rice\)/gi, ""],
     [/\(ne\)/gi, ""],
     [/\(ère\)/gi, ""],
+    [/\(te\)/gi, ""],
+    [/\(ve\)/gi, ""],
 
     [/teur\/trice\b/g, "teur"],
     [/eur\/rice\b/g, "eur"],
@@ -34,6 +42,7 @@ const inclusive = [
     [/teurs\/trices\b/g, "teurs"],
     [/eurs\/rices\b/g, "eurs"],
     [/ains\/es\b/g, "ains"],
+    [/un\/une\b/g, "un"],
     [/un\/e\b/g, "un"],
     [/un\[e\]/g, "un"],
 
@@ -62,9 +71,12 @@ const inclusive = [
     [/[·|·|·|.|⋅|-]es\b/gi, "s"],
     [/[·|·|·|.|⋅|-]se\b/gi, ""],
     [/[·|·|·|.|⋅|-]fe\b/gi, ""],
+    [/[·|·|·|.|⋅|-]ve\b/gi, ""],
     [/[·|·|·|.|⋅|-]fes\b/gi, "s"],
     [/[·|·|·|.|⋅|-]le\b/gi, ""],
-    [/[·|·|·|.|⋅|-]les\b/gi, "s"],
+    // Ne coupe pas les expressions comme « faites-les» ou « listez-les »
+    // et les noms comme « Morzy-les-Gaillardes »
+    [/(?<=\w(?<!ez|es))[·|·|·|.|⋅|-]les(?!-)\b/gi, "s"],
     [/[·|·|·|.|⋅|-]ne\b/gi, ""],
     [/[·|·|·|.|⋅|-]nes\b/gi, "s"],
     [/[·|·|·|.|⋅|-]e\b/gi, ""],
