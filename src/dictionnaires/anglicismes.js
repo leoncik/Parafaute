@@ -88,4 +88,6 @@ const anglicismes = [
     [/uploader/g, "mettre en ligne"],
     [/Uploadé/g, "Mis en ligne"],
     [/uploadé/g, "mis en ligne"],
+    [/s'updater/g, "se mettre à jour"],
+    [/s’updater/g, "se mettre à jour"],
 ];
