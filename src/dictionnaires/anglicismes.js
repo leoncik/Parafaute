@@ -12,6 +12,8 @@ const anglicismes = [
     [/ne fait sens\b/g, "n'a de sens"],
     [/ne font sens\b/g, "n'ont de sens"],
     [/fait sens\b/g, "a du sens"],
+    [/faire du shopping\b/g, "faire des achats"],
+    [/saisir l’opportunité\b/g, "saisir l’occasion"],
 
     // Être confortable (n'a aucun sens en parlant d'une personne ou d'une idée)
     [/Je ne suis pas confortable\b/g, "Je ne suis pas à l'aise"],
@@ -32,6 +34,10 @@ const anglicismes = [
     [/\bchecker/g, "vérifier"],
     [/\bCosy\b/g, "Douillet"],
     [/\bcosy\b/g, "douillet"],
+
+    // *** D ***
+    [/Dispatcher/g, "Répartir"],
+    [/dispatcher/g, "répartir"],
 
     // *** E ***
     [/\bde l['|’]e-mail\b/g, "de l'adresse électronique"],
@@ -70,13 +76,28 @@ const anglicismes = [
     [/Mainstream\b/g, "Populaire"],
     [/mainstream\b/g, "populaire"],
 
+    [/Le management/g, "L'encadrement"],
+    [/le management/g, "l'encadrement"],
+    [/management/g, "encadrement"],
+
     // *** N ***
     [/\bNaming\b/g, "Nommage"],
     [/\bnaming\b/g, "nommage"],
 
+    // *** P ***
+    [/un pitch/g, "une courte présentation"],
+    [/Un pitch/g, "Une courte présentation"],
+
+    [/Panel/g, "Échantillon"],
+    [/panel/g, "échantillon"],
+
     // *** R ***
     [/Renaming\b/g, "Renommage"],
     [/renaming\b/g, "renommage"],
+
+    // *** S ***
+    [/Un storytelling\b/g, "Une narration"],
+    [/un storytelling\b/g, "une narration"],
 
     // *** T ***
     [/\bteam\b/g, "équipe"],

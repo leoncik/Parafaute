@@ -10,6 +10,27 @@ const fautesCourantes = [
     [/Si il\b/g, "S'il"],
     [/si il\b/g, "s'il"],
 
+    [/Il s’en suit un vif débat\b/g, "S’ensuit un vif débat"],
+    [/il s’en suit un vif débat\b/g, "s’ensuit un vif débat"],
+    
+    [/Il s’en suivit un vif débat\b/g, "S’ensuivit un vif débat"],
+    [/il s’en suivit un vif débat\b/g, "s’ensuivit un vif débat"],
+    
+    [/Il s’en est suivi un vif débat\b/g, "S’est ensuivi un vif débat"],
+    [/il s’en est suivi un vif débat\b/g, "s’est ensuivi un vif débat"],
+
+    [/Le problème s’empire\b/g, "Le problème empire"],
+    [/le problème s’empire\b/g, "le problème empire"],
+
+    [/Il empire le problème\b/g, "Il fait empirer le problème"],
+    [/il empire le problème\b/g, "il fait empirer le problème"],
+
+    [/Kilomètre-heure\b/g, "Kilomètre par heure"],
+    [/kilomètre-heure\b/g, "kilomètre par heure"],
+
+    [/Kilowatt par heure\b/g, "Kilowattheure"],
+    [/kilowatt par heure\b/g, "kilowattheure"],
+
     [/Y a t'il\b/g, "Y a-t-il"],
     [/y a t'il\b/g, "y a-t-il"],
 
