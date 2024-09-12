@@ -24,6 +24,7 @@ const inclusive = [
     [/Toutes et tous/g, "Tous"],
     [/tous et toutes/g, "tous"],
     [/Tous et toutes/g, "Tous"],
+    [/Toustes/g, "Tous"],
     [/toustes/g, "tous"],
 
     // TYPOGRAPHIE
