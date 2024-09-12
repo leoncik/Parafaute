@@ -115,6 +115,10 @@ const inclusive = [
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]nes\b/gi, "s"],
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]e\b/gi, ""],
 
+    // Gestions spécifiques pour "-le" pour inclure les expressions comme "Teste-le !" et lieux comme "Sennecey-le-Grand"
+    [/il[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]le(?![-])\b/gi, "il"],
+    [/ils[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]les(?![-])\b/gi, "ils"],
+    [/el[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]le(?![-])\b/gi, "el"],
 
 
     // VOCABULAIRE DIVERS
