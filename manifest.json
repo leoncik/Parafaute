@@ -1,14 +1,14 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Parafaute",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "leoncik",
   "description": "Une extension pour vous abriter des fautes courantes et des barbarismes (anglicismes et écriture inclusive)",
   "homepage_url": "https://github.com/leoncik/Parafaute",
   "icons": {
     "48": "src/icônes/icon-48.png"
   },
-  "browser_action": {
+  "action": {
     "default_icon": "src/icônes/icon-48.png",
     "default_title": "Parafaute",
     "default_popup": "src/popup/popup.html"
@@ -16,7 +16,6 @@
   "options_ui": {
     "page": "src/options/options.html",
     "browser_style": true,
-    "chrome_style": true,
     "open_in_tab": false
   },
   "permissions": [
