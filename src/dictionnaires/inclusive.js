@@ -107,6 +107,7 @@ const inclusive = [
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]fe\b/gi, ""],
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]ve\b/gi, ""],
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]fes\b/gi, "s"],
+    [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]ales\b/gi, "s"],
 
     // Posait des problèmes avec les expressions comme « faites-les» ou « listez-les » et les noms comme « Morzy-les-Gaillardes »
     // [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]le\b/gi, ""],
