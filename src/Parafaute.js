@@ -1,65 +1,60 @@
-chrome.storage.sync.get([
-    'anglicismes',
-    'inclusive',
-    'fautesCourantes',
-    'fautesTypographiques',
-    'extensionScope'
-], function(checkedOptions) {
+chrome.storage.sync.get(
+  [
+    "anglicismes",
+    "inclusive",
+    "fautesCourantes",
+    "fautesTypographiques",
+    "extensionScope",
+  ],
+  function (checkedOptions) {
+    let replacementCount = 0;
 
-    
+    function replaceText(text, replacements) {
+      let newText = text;
+      for (let [faute, correction] of replacements) {
+        let regex = new RegExp(faute, "g");
+        let matches = newText.match(regex);
+        if (matches) {
+          replacementCount += matches.length;
+          newText = newText.replace(regex, correction);
+        }
+      }
+      return newText;
+    }
+
+    const textObserverCallback = (text) => {
+      let newText = text;
+      if (checkedOptions.inclusive) {
+        newText = replaceText(newText, inclusive);
+      }
+      if (checkedOptions.anglicismes) {
+        newText = replaceText(newText, anglicismes);
+      }
+      if (checkedOptions.fautesCourantes) {
+        newText = replaceText(newText, fautesCourantes);
+      }
+      if (checkedOptions.fautesTypographiques) {
+        newText = replaceText(newText, fautesTypographiques);
+      }
+
+      // Update the replacement count in storage
+      chrome.storage.local.set({ replacementCount: replacementCount });
+
+      return newText;
+    };
+
     // Trigger extension on every page (if extensionScope option is activated)
     if (checkedOptions.extensionScope) {
-        const observer = new TextObserver(text => {
-            if (checkedOptions.inclusive) {
-                for (let [faute, correction] of inclusive) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.anglicismes) {
-                for(let [faute, correction] of anglicismes) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.fautesCourantes) {
-                for(let [faute, correction] of fautesCourantes) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.fautesTypographiques) {
-                for(let [faute, correction] of fautesTypographiques) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-    
-            return text;
-        });
+      const observer = new TextObserver(textObserverCallback);
     }
     // Trigger extension only if the page is in french (default)
-    // If data from storage is undefined, apply default options.
-    else if (document.querySelector('html').getAttribute('lang').match(/\bfr[-]?/)) {
-        const observer = new TextObserver(text => {
-            if (checkedOptions.inclusive || typeof checkedOptions.inclusive === "undefined") {
-                for (let [faute, correction] of inclusive) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.anglicismes || typeof checkedOptions.anglicismes === "undefined") {
-                for(let [faute, correction] of anglicismes) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.fautesCourantes || typeof checkedOptions.fautesCourantes === "undefined") {
-                for(let [faute, correction] of fautesCourantes) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.fautesTypographiques || typeof checkedOptions.fautesTypographiques === "undefined") {
-                for(let [faute, correction] of fautesTypographiques) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-    
-            return text;
-        });
+    else if (
+      document
+        .querySelector("html")
+        .getAttribute("lang")
+        .match(/\bfr[-]?/)
+    ) {
+      const observer = new TextObserver(textObserverCallback);
     }
-  });
+  }
+);
