@@ -17,18 +17,26 @@ chrome.tabs.onRemoved.addListener((tabId) => {
 function updateBadgeForTab(tabId) {
   chrome.tabs.sendMessage(tabId, { action: "getCount" }, (response) => {
     if (chrome.runtime.lastError) {
-      // Handle potential errors, for example if the content script is not ready
-      updateBadge(0, tabId);
-    } else if (response && response.count !== undefined) {
-      updateBadge(response.count, tabId);
+      updateBadge(
+        {
+          inclusive: 0,
+          anglicismes: 0,
+          fautesCourantes: 0,
+          fautesTypographiques: 0,
+        },
+        tabId
+      );
+    } else if (response && response.counts) {
+      updateBadge(response.counts, tabId);
     }
   });
 }
 
-function updateBadge(count, tabId) {
-  tabCounts[tabId] = count;
+function updateBadge(counts, tabId) {
+  tabCounts[tabId] = counts;
+  let totalCount = Object.values(counts).reduce((sum, count) => sum + count, 0);
   chrome.action.setBadgeText({
-    text: count > 0 ? count.toString() : "",
+    text: totalCount > 0 ? totalCount.toString() : "",
     tabId: tabId,
   });
   chrome.action.setBadgeBackgroundColor({ color: "#4688F1", tabId: tabId });
@@ -36,6 +44,30 @@ function updateBadge(count, tabId) {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "updateBadge" && sender.tab) {
-    updateBadge(message.count, sender.tab.id);
+    updateBadge(message.counts, sender.tab.id);
+  } else if (message.action === "getDetailedCount") {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]) {
+        sendResponse({
+          counts: tabCounts[tabs[0].id] || {
+            inclusive: 0,
+            anglicismes: 0,
+            fautesCourantes: 0,
+            fautesTypographiques: 0,
+          },
+        });
+      } else {
+        sendResponse({
+          counts: {
+            inclusive: 0,
+            anglicismes: 0,
+            fautesCourantes: 0,
+            fautesTypographiques: 0,
+          },
+        });
+      }
+    });
+    // Indicates we will send a response asynchronously
+    return true; 
   }
 });

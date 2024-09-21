@@ -1,16 +1,21 @@
-let pageReplacementCount = 0;
-let debounceTimeout = null;
+let replacementCounts = {
+  inclusive: 0,
+  anglicismes: 0,
+  fautesCourantes: 0,
+  fautesTypographiques: 0,
+};
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "getCount") {
-    sendResponse({ count: pageReplacementCount });
+    sendResponse({ counts: replacementCounts });
   }
 });
 
 function debounce(func, wait) {
+  let timeout;
   return function (...args) {
-    clearTimeout(debounceTimeout);
-    debounceTimeout = setTimeout(() => func.apply(this, args), wait);
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
   };
 }
 
@@ -18,7 +23,7 @@ function debounce(func, wait) {
 const updateBadge = debounce(() => {
   chrome.runtime.sendMessage({
     action: "updateBadge",
-    count: pageReplacementCount,
+    counts: replacementCounts,
   });
 }, 100);
 
@@ -31,7 +36,7 @@ chrome.storage.sync.get(
     "extensionScope",
   ],
   function (checkedOptions) {
-    function replaceText(text, replacements) {
+    function replaceText(text, replacements, category) {
       let newText = text;
       let localCount = 0;
       for (let [faute, correction] of replacements) {
@@ -42,8 +47,7 @@ chrome.storage.sync.get(
         });
       }
       if (localCount > 0) {
-        pageReplacementCount += localCount;
-        // Update badge after each set of replacements
+        replacementCounts[category] += localCount;
         updateBadge();
       }
       return newText;
@@ -52,28 +56,41 @@ chrome.storage.sync.get(
     const textObserverCallback = (text) => {
       let newText = text;
       if (checkedOptions.inclusive) {
-        newText = replaceText(newText, inclusive);
+        newText = replaceText(newText, inclusive, "inclusive");
       }
       if (checkedOptions.anglicismes) {
-        newText = replaceText(newText, anglicismes);
+        newText = replaceText(newText, anglicismes, "anglicismes");
       }
       if (checkedOptions.fautesCourantes) {
-        newText = replaceText(newText, fautesCourantes);
+        newText = replaceText(newText, fautesCourantes, "fautesCourantes");
       }
       if (checkedOptions.fautesTypographiques) {
-        newText = replaceText(newText, fautesTypographiques);
+        newText = replaceText(
+          newText,
+          fautesTypographiques,
+          "fautesTypographiques"
+        );
       }
       return newText;
     };
 
-    // Trigger extension based on scope
-    if (checkedOptions.extensionScope || document.querySelector("html").getAttribute("lang").match(/\bfr[-]?/)) {
+    if (
+      checkedOptions.extensionScope ||
+      document
+        .querySelector("html")
+        .getAttribute("lang")
+        .match(/\bfr[-]?/)
+    ) {
       const observer = new TextObserver(textObserverCallback);
     }
 
-    // Reset count when the page is unloaded
     window.addEventListener("beforeunload", () => {
-      pageReplacementCount = 0;
+      replacementCounts = {
+        inclusive: 0,
+        anglicismes: 0,
+        fautesCourantes: 0,
+        fautesTypographiques: 0,
+      };
       updateBadge();
     });
   }
