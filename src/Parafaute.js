@@ -1,3 +1,11 @@
+let pageReplacementCount = 0;
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "getCount") {
+    sendResponse({ count: pageReplacementCount });
+  }
+});
+
 chrome.storage.sync.get(
   [
     "anglicismes",
@@ -7,15 +15,13 @@ chrome.storage.sync.get(
     "extensionScope",
   ],
   function (checkedOptions) {
-    let replacementCount = 0;
-
     function replaceText(text, replacements) {
       let newText = text;
       for (let [faute, correction] of replacements) {
         let regex = new RegExp(faute, "g");
         let matches = newText.match(regex);
         if (matches) {
-          replacementCount += matches.length;
+          pageReplacementCount += matches.length;
           newText = newText.replace(regex, correction);
         }
       }
@@ -36,9 +42,6 @@ chrome.storage.sync.get(
       if (checkedOptions.fautesTypographiques) {
         newText = replaceText(newText, fautesTypographiques);
       }
-
-      // Update the replacement count in storage
-      chrome.storage.local.set({ replacementCount: replacementCount });
 
       return newText;
     };
