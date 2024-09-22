@@ -49,7 +49,8 @@ Une fois l'extension téléchargée, celle-ci sera active avec 5 paramètres par
 
 Vous pouvez changer ces options à tout moment pour ne sélectionner que les filtres qui vous intéressent.
 
-![Options](https://user-images.githubusercontent.com/85347446/192466166-92173526-59c0-4b2c-a9c7-2dce711e0255.png)
+![Options](https://github.com/user-attachments/assets/074246fd-ba6f-4d3b-8610-e6d24d8d7efd)
+
 
 ## Fonctionnalités
 
