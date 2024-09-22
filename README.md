@@ -19,9 +19,9 @@ Parafaute
 
 ## Description
 
-**Parafaute** est une extension pour navigateur ayant pour but de rendre le navigation sur le web plus agréable en corrigeant les fautes les plus courantes et certains barbarismes (anglicismes et écriture l'inclusive).
+**Parafaute** est une extension pour navigateur ayant pour but de rendre la navigation sur le web plus agréable en corrigeant les fautes les plus courantes et certains barbarismes (anglicismes et écriture l'inclusive).
 
-Cette extension utilise la librairie [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Discord etc.).
+Cette extension utilise la bibliothèque [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Discord, etc.).
 
 ## Installation
 
@@ -45,7 +45,7 @@ Une fois l'extension téléchargée, celle-ci sera active avec 5 paramètres par
 2) La correction des anglicismes sera active.  
 3) La correction des fautes courantes sera active.  
 4) La correction des erreurs de typographie sera inactive.  
-5) L'extension ne sera active que sur les sites francophones (dont l'attribut HTML lang est égal à "FR", variantes régionales comprises).
+5) L'extension ne sera active que sur les sites francophones (dont l'attribut HTML *lang* est égal à "FR", variantes régionales comprises).
 
 Vous pouvez changer ces options à tout moment pour ne sélectionner que les filtres qui vous intéressent.
 
@@ -75,7 +75,7 @@ Q : L'extension ne fonctionne pas sur un site.
 R : Essayez l'option "Activer l'extension sur les sites non-francophones".
 
 Q : Je suis développeur et lorsque je copie des extraits de code trouvés sur internet je me retrouve avec des erreurs.  
-R : Cela doit provenir des espaces insécables venant de la correction liée aux fautes de typographie. Pour éviter ces désagréments je vous recommande de décocher l'option « Fautes de typographie ».
+R : Cela doit provenir des espaces insécables venant de la correction liée aux fautes de typographie. Pour éviter ces désagréments, je vous recommande de décocher l'option « Fautes de typographie ».
 
 Q : Est-ce que cette extension corrige les fautes grammaticales comme l'accord du participe ?  
 R : Non, pas pour le moment (peut-être dans l'avenir si cette fonctionnalité ne ralentit pas l'extension). Cette extension ne fait que des corrections d'ordre lexicales (remplacement d'une expression par une autre) et n'analyse donc pas la structure des phrases.
