@@ -35,8 +35,14 @@ function updateBadgeForTab(tabId) {
 function updateBadge(counts, tabId) {
   tabCounts[tabId] = counts;
   let totalCount = Object.values(counts).reduce((sum, count) => sum + count, 0);
+  let badgeText = "";
+  
+  if (totalCount > 0) {
+    badgeText = totalCount > 99 ? "99+" : totalCount.toString();
+  }
+  
   chrome.action.setBadgeText({
-    text: totalCount > 0 ? totalCount.toString() : "",
+    text: badgeText,
     tabId: tabId,
   });
   chrome.action.setBadgeBackgroundColor({ color: "#4688F1", tabId: tabId });
