@@ -36,6 +36,10 @@ body {
     margin-bottom: 8px;
 }
 
+.count-value {
+    font-weight: bold;
+}
+
 .hidden {
     display: none;
 }
