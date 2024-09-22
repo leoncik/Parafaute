@@ -29,7 +29,7 @@
     }
   },
   "background": {
-    "service_worker": "src/service-worker.js"
+    "scripts": ["src/service-worker.js"]
   },
   "content_scripts": [
     {
