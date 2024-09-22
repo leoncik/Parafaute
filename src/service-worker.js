@@ -45,7 +45,7 @@ function updateBadge(counts, tabId) {
     text: badgeText,
     tabId: tabId,
   });
-  chrome.action.setBadgeBackgroundColor({ color: "#4688F1", tabId: tabId });
+  chrome.action.setBadgeBackgroundColor({ color: "#6B6E6F", tabId: tabId });
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
