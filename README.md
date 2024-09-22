@@ -66,6 +66,7 @@ Vous pouvez changer ces options à tout moment pour ne sélectionner que les fil
     - Remplacement des pronoms (ex : "iel" → "il").
     - Simplification des formules où féminin et masculin sont multipliés (ex : "Bonjour à toutes et tous" → "Bonjour à tous").
 * Corrige les erreurs courantes de typographie (ex : ajout d'espace fine insécable devant les points d'exclamation et point d'interrogation).
+* Affiche le nombre total de corrections effectuées sur la page actuelle ainsi que le détail par filtre. 
 * Respect de la vie privée : cette extension ne collecte aucune donnée personnelle et n'inclut aucune forme de télémétrie. La permission demandée à l'installation sert uniquement à sauvegarder les options dans le navigateur.
 
 ## FAQ
