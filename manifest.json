@@ -19,7 +19,8 @@
     "open_in_tab": false
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
   "browser_specific_settings": {
     "gecko": {
