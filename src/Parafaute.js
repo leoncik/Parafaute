@@ -1,65 +1,97 @@
-chrome.storage.sync.get([
-    'anglicismes',
-    'inclusive',
-    'fautesCourantes',
-    'fautesTypographiques',
-    'extensionScope'
-], function(checkedOptions) {
+let replacementCounts = {
+  inclusive: 0,
+  anglicismes: 0,
+  fautesCourantes: 0,
+  fautesTypographiques: 0,
+};
 
-    
-    // Trigger extension on every page (if extensionScope option is activated)
-    if (checkedOptions.extensionScope) {
-        const observer = new TextObserver(text => {
-            if (checkedOptions.inclusive) {
-                for (let [faute, correction] of inclusive) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.anglicismes) {
-                for(let [faute, correction] of anglicismes) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.fautesCourantes) {
-                for(let [faute, correction] of fautesCourantes) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.fautesTypographiques) {
-                for(let [faute, correction] of fautesTypographiques) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-    
-            return text;
-        });
-    }
-    // Trigger extension only if the page is in french (default)
-    // If data from storage is undefined, apply default options.
-    else if (document.querySelector('html').getAttribute('lang').match(/\bfr[-]?/)) {
-        const observer = new TextObserver(text => {
-            if (checkedOptions.inclusive || typeof checkedOptions.inclusive === "undefined") {
-                for (let [faute, correction] of inclusive) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.anglicismes || typeof checkedOptions.anglicismes === "undefined") {
-                for(let [faute, correction] of anglicismes) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.fautesCourantes || typeof checkedOptions.fautesCourantes === "undefined") {
-                for(let [faute, correction] of fautesCourantes) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-            if (checkedOptions.fautesTypographiques || typeof checkedOptions.fautesTypographiques === "undefined") {
-                for(let [faute, correction] of fautesTypographiques) {
-                    text = text.replace(new RegExp(faute), correction);
-                }
-            }
-    
-            return text;
-        });
-    }
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "getCount") {
+    sendResponse({ counts: replacementCounts });
+  }
+});
+
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+// Debounce for 100ms to avoid too frequent updates
+const updateBadge = debounce(() => {
+  chrome.runtime.sendMessage({
+    action: "updateBadge",
+    counts: replacementCounts,
   });
+}, 100);
+
+chrome.storage.sync.get(
+  [
+    "anglicismes",
+    "inclusive",
+    "fautesCourantes",
+    "fautesTypographiques",
+    "extensionScope",
+  ],
+  function (checkedOptions) {
+    function replaceText(text, replacements, category) {
+      let newText = text;
+      let localCount = 0;
+      for (let [faute, correction] of replacements) {
+        let regex = new RegExp(faute, "g");
+        newText = newText.replace(regex, (match) => {
+          localCount++;
+          return correction;
+        });
+      }
+      if (localCount > 0) {
+        replacementCounts[category] += localCount;
+        updateBadge();
+      }
+      return newText;
+    }
+
+    const textObserverCallback = (text) => {
+      let newText = text;
+      if (checkedOptions.inclusive) {
+        newText = replaceText(newText, inclusive, "inclusive");
+      }
+      if (checkedOptions.anglicismes) {
+        newText = replaceText(newText, anglicismes, "anglicismes");
+      }
+      if (checkedOptions.fautesCourantes) {
+        newText = replaceText(newText, fautesCourantes, "fautesCourantes");
+      }
+      if (checkedOptions.fautesTypographiques) {
+        newText = replaceText(
+          newText,
+          fautesTypographiques,
+          "fautesTypographiques"
+        );
+      }
+      return newText;
+    };
+
+    if (
+      checkedOptions.extensionScope ||
+      document
+        .querySelector("html")
+        .getAttribute("lang")
+        .match(/\bfr[-]?/)
+    ) {
+      const observer = new TextObserver(textObserverCallback);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      replacementCounts = {
+        inclusive: 0,
+        anglicismes: 0,
+        fautesCourantes: 0,
+        fautesTypographiques: 0,
+      };
+      updateBadge();
+    });
+  }
+);

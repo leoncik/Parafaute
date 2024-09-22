@@ -8,8 +8,8 @@
         <title>Parafaute: options</title>
     </head>
     <body>
-        <h1 class="test-h1">Parafaute</h1>
-        <h2>Choisissez vos filtres :</h2>
+        <h1 class="title">Parafaute</h1>
+        <h2>Filtres</h2>
 
         <div class="option-list">
             <div class="option">
@@ -35,6 +35,29 @@
         </div>
         <div class="reload">
             <button class="reload-tab-button hidden">Recharger la page courante</button>
+        </div>
+
+        <h2>Corrections appliquées</h2>
+        <div class="count-item">
+            <span class="count-label">Anglicismes&nbsp;:</span>
+            <span id="anglicismes-count" class="count-value">0</span>
+        </div>
+        <div class="count-item">
+            <span class="count-label">Écriture inclusive&nbsp;:</span>
+            <span id="inclusive-count" class="count-value">0</span>
+        </div>        
+        <div class="count-item">
+            <span class="count-label">Fautes courantes&nbsp;:</span>
+            <span id="fautesCourantes-count" class="count-value">0</span>
+        </div>
+        <div class="count-item">
+            <span class="count-label">Fautes Typographiques&nbsp;:</span>
+            <span id="fautesTypographiques-count" class="count-value">0</span>
+        </div>
+        <hr>
+        <div class="count-item">
+            <span class="count-label">Total&nbsp;:</span>
+            <span id="total" class="count-value">0</span>
         </div>
         <script src="popup.js"></script>
     </body>

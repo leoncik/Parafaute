@@ -96,3 +96,17 @@ const reloadMainTab = () => {
   window.close();
 }
 reloadTabButton.addEventListener('click', reloadMainTab);
+
+document.addEventListener('DOMContentLoaded', function() {
+  chrome.runtime.sendMessage({action: "getDetailedCount"}, function(response) {
+    if (response && response.counts) {
+      document.getElementById('inclusive-count').textContent = response.counts.inclusive || 0;
+      document.getElementById('anglicismes-count').textContent = response.counts.anglicismes || 0;
+      document.getElementById('fautesCourantes-count').textContent = response.counts.fautesCourantes || 0;
+      document.getElementById('fautesTypographiques-count').textContent = response.counts.fautesTypographiques || 0;
+      
+      let totalCount = Object.values(response.counts).reduce((sum, count) => sum + count, 0);
+      document.getElementById('total').textContent = totalCount;
+    }
+  });
+});
