@@ -33,9 +33,9 @@ Vous pouvez télécharger facilement l'extension depuis :
 
 ## Aperçu
 
-![Avant](https://user-images.githubusercontent.com/85347446/192465962-c8b847bd-829f-466c-b329-c961721decd9.png)
+![Avant](https://github.com/user-attachments/assets/f256bac6-5544-4a68-8ea8-9f85c5f31c7c)
 
-![Après](https://user-images.githubusercontent.com/85347446/192466026-b0ec8042-49db-4ab3-b5d6-818e92bb7558.png)
+![Après](https://github.com/user-attachments/assets/c8f6e459-d125-4747-9d1b-7dbd61c44b06)
 
 ## Utilisation
 
