@@ -1,10 +1,39 @@
 body {
-    width: 500px;
+    width: max-content;
+    padding: 0 8px;
+}
+
+.title {
+    clip-path: inset(100%);
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px
 }
 
 .option-list {
     display: flex;
     flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.option label:hover,
+.option input:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.count-item {
+    margin-bottom: 8px;
 }
 
 .hidden {
