@@ -119,7 +119,8 @@ const inclusive = [
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]ière\b/gi, ""],
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]ne\b/gi, ""],
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]nes\b/gi, "s"],
-    [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]e\b/gi, ""],
+    // Faux positif: ne pas corriger "shift-e"
+    [/(?<=\w(?<!(?:s|S)hift))[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]e\b/gi, ""],
 
     // Gestions spécifiques pour "-le" pour inclure les expressions comme "Teste-le !" et lieux comme "Sennecey-le-Grand"
     [/il[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]le(?![-])\b/gi, "il"],
