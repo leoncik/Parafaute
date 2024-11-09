@@ -96,7 +96,7 @@ const fautesCourantes = [
     [/ces jeux vidéos/g, "les jeux vidéo"],
 
     // *** L ***
-    [/langage/g, "language"],
+    [/language/g, "langage"],
 
     // *** M ***
     [/magazin\b/g, "magasin"],
