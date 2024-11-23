@@ -16,5 +16,19 @@ const fautesTypographiques = [
     // Pas d'espace avant une virgule ou un point.
     [/(?<=\w) ,/g, ","],
     [/(?<=\w) \./g, "."],
+    // Apostrophe courbe
+    [/(?<=\w)'/g, "’"],
+    // Ligatures
+    [/\bOe/g, "Œ"],
+    [/\boe/g, "œ"],
+    [/oeu\b/g, "œu"],
+    [/oeur\b/g, "œur"],
+    [/Oeuf\b/g, "Œuf"],
+    [/oeuf\b/g, "œuf"],
+    [/Oeil\b/g, "Œil"],
+    [/oeil\b/g, "œil"],
+    [/oenix\b/g, "œnix"],
+    [/oetus\b/g, "œtus"],
+    [/oeud\b/g, "œud"],
 
 ]
