@@ -39,6 +39,7 @@
         "src/dictionnaires/anglicismes.js",
         "src/dictionnaires/fautesCourantes.js",
         "src/dictionnaires/fautesTypographiques.js",
+        "src/dictionnaires/reforme1990.js",
         "src/TextObserver.js",
         "src/Parafaute.js"
       ]
