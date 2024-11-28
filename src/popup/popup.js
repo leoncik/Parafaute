@@ -25,14 +25,14 @@ chrome.storage.sync.get([
     chrome.storage.sync.set({'anglicismes': true});
     chrome.storage.sync.set({'inclusive': true});
     chrome.storage.sync.set({'fautesTypographiques': false});
-    chrome.storage.sync.set({'reforme1990': true});
+    chrome.storage.sync.set({'reforme1990': false});
     chrome.storage.sync.set({'extensionScope': false});
 
     anglicismesInput.checked = true;
     inclusiveInput.checked = true;
     fautesCourantesInput.checked = true;
     fautesTypographiquesInput.checked = false;
-    reforme1990Input.checked = true;
+    reforme1990Input.checked = false;
     extensionScopeInput.checked = false;
   }
 
