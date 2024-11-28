@@ -45,7 +45,8 @@ Une fois l'extension téléchargée, celle-ci sera active avec 5 paramètres par
 2) La correction des anglicismes sera active.  
 3) La correction des fautes courantes sera active.  
 4) La correction des erreurs de typographie sera inactive.  
-5) L'extension ne sera active que sur les sites francophones (dont l'attribut HTML *lang* est égal à "FR", variantes régionales comprises).
+5) La correction de certaines formes graphiques de la réforme de 1990 sera inactive.  
+6) L'extension ne sera active que sur les sites francophones (dont l'attribut HTML *lang* est égal à "FR", variantes régionales comprises).
 
 Vous pouvez changer ces options à tout moment pour ne sélectionner que les filtres qui vous intéressent.
 
@@ -66,13 +67,14 @@ Vous pouvez changer ces options à tout moment pour ne sélectionner que les fil
     - Remplacement des pronoms (ex : "iel" → "il").
     - Simplification des formules où féminin et masculin sont multipliés (ex : "Bonjour à toutes et tous" → "Bonjour à tous").
 * Corrige les erreurs courantes de typographie (ex : ajout d'espace fine insécable devant les points d'exclamation et point d'interrogation).
+* Permet de convertir certaines formes de la réforme orthographique de 1990 vers une graphie plus classique (ex : "ognon" → "oignon").
 * Affiche le nombre total de corrections effectuées sur la page actuelle ainsi que le détail par filtre. 
 * Respect de la vie privée : cette extension ne collecte aucune donnée personnelle et n'inclut aucune forme de télémétrie. La permission demandée à l'installation sert uniquement à sauvegarder les options dans le navigateur.
 
 ## FAQ
 
 Q : L'extension ne fonctionne pas sur un site.  
-R : Essayez l'option "Activer l'extension sur les sites non-francophones".
+R : Essayez l'option "Activer l'extension sur les sites non-francophones". Certains sites peuvent également présenter le texte sous une forme qui ne peut être traitée par l'extension.
 
 Q : Je suis développeur et lorsque je copie des extraits de code trouvés sur internet je me retrouve avec des erreurs.  
 R : Cela doit provenir des espaces insécables venant de la correction liée aux fautes de typographie. Pour éviter ces désagréments, je vous recommande de décocher l'option « Fautes de typographie ».

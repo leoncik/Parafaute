@@ -3,6 +3,7 @@ let replacementCounts = {
   anglicismes: 0,
   fautesCourantes: 0,
   fautesTypographiques: 0,
+  reforme1990: 0,
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -33,6 +34,7 @@ chrome.storage.sync.get(
     "inclusive",
     "fautesCourantes",
     "fautesTypographiques",
+    "reforme1990",
     "extensionScope",
   ],
   function (checkedOptions) {
@@ -60,6 +62,9 @@ chrome.storage.sync.get(
       }
       if (checkedOptions.anglicismes) {
         newText = replaceText(newText, anglicismes, "anglicismes");
+      }
+      if (checkedOptions.reforme1990) {
+        newText = replaceText(newText, reforme1990, "reforme1990");
       }
       if (checkedOptions.fautesCourantes) {
         newText = replaceText(newText, fautesCourantes, "fautesCourantes");
@@ -90,6 +95,7 @@ chrome.storage.sync.get(
         anglicismes: 0,
         fautesCourantes: 0,
         fautesTypographiques: 0,
+        reforme1990: 0,
       };
       updateBadge();
     });

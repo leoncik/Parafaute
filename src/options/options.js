@@ -3,6 +3,7 @@ const anglicismesInput = document.getElementById('anglicismes');
 const inclusiveInput = document.getElementById('inclusive');
 const fautesCourantesInput = document.getElementById('fautes-courantes');
 const fautesTypographiquesInput = document.getElementById('fautes-typographiques');
+const reforme1990Input = document.getElementById('reforme-1990');
 const extensionScopeInput = document.getElementById('extension-scope');
 
 // Initialize the options with the user's option settings
@@ -11,6 +12,7 @@ chrome.storage.sync.get([
   'inclusive',
   'fautesCourantes',
   'fautesTypographiques',
+  'reforme1990',
   'extensionScope'
 ], function(options) {
 
@@ -20,12 +22,14 @@ chrome.storage.sync.get([
     chrome.storage.sync.set({'anglicismes': true});
     chrome.storage.sync.set({'inclusive': true});
     chrome.storage.sync.set({'fautesTypographiques': false});
+    chrome.storage.sync.set({'reforme1990': false});
     chrome.storage.sync.set({'extensionScope': false});
 
     anglicismesInput.checked = true;
     inclusiveInput.checked = true;
     fautesCourantesInput.checked = true;
     fautesTypographiquesInput.checked = false;
+    reforme1990Input.checked = false;
     extensionScopeInput.checked = false;
   }
 
@@ -35,6 +39,7 @@ chrome.storage.sync.get([
     (options.inclusive) ? inclusiveInput.checked = true : inclusiveInput.checked = false;
     (options.fautesCourantes) ? fautesCourantesInput.checked = true : fautesCourantesInput.checked = false;
     (options.fautesTypographiques) ? fautesTypographiquesInput.checked = true : fautesTypographiquesInput.checked = false;
+    (options.reforme1990) ? reforme1990Input.checked = true : reforme1990Input.checked = false;
     (options.extensionScope) ? extensionScopeInput.checked = true : extensionScopeInput.checked = false;
   }
 });
@@ -69,6 +74,14 @@ fautesTypographiques.addEventListener("input", () => {
     chrome.storage.sync.set({'fautesTypographiques': true});
   } else {
     chrome.storage.sync.set({'fautesTypographiques': false});
+  }
+})
+
+reforme1990Input.addEventListener("input", () => {
+  if (reforme1990Input.checked) {
+    chrome.storage.sync.set({'reforme1990': true});
+  } else {
+    chrome.storage.sync.set({'reforme1990': false});
   }
 })
 

@@ -23,6 +23,7 @@ function updateBadgeForTab(tabId) {
           anglicismes: 0,
           fautesCourantes: 0,
           fautesTypographiques: 0,
+          reforme1990: 0,
         },
         tabId
       );
@@ -60,6 +61,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             anglicismes: 0,
             fautesCourantes: 0,
             fautesTypographiques: 0,
+            reforme1990: 0,
           },
         });
       } else {
@@ -69,6 +71,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             anglicismes: 0,
             fautesCourantes: 0,
             fautesTypographiques: 0,
+            reforme1990: 0,
           },
         });
       }
