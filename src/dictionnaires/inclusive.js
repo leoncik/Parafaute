@@ -36,6 +36,7 @@ const inclusive = [
     [/\((trice|TRICE)\)/gi, ""],
     [/\((trices|TRICES)\)/gi, ""],
     [/\((rice|RICE)\)/gi, ""],
+    [/\((ice|ICE)\)/gi, ""],
     [/\((ne|NE)\)/gi, ""],
     [/\((ère|ÈRE)\)/gi, ""],
     [/\((ées|ÉES)\)/gi, ""],
@@ -63,6 +64,7 @@ const inclusive = [
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]ive[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]ne[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
     [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]le[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
+    [/[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]se[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
 
     [/le[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]a\b/gi, "le"], // Ajout de "\b" pour les cas comme "Nouvelle-Aquitaine".
     [/le[·|·|·|‧|.|⋅|-|•|∙|-|\/|.|-]la\b/gi, "le"],
@@ -140,6 +142,13 @@ const inclusive = [
     [/Auteure/g, "Auteur"],
     [/auteure/g, "auteur"],
 
+    // *** C ***
+    [/\bcelleux/g, "ceux"],
+    [/\bCelleux/g, "Ceux"],
+    [/\bcellui/g, "celui"],
+    [/\bCellui/g, "Celui"],
+    [/\bcopaines/g, "copains"],
+    [/\bCopaines/g, "Copains"],
 
     // *** I ***
     [/\bIel/g, "Il"],
@@ -149,15 +158,9 @@ const inclusive = [
     [/\billes/g, "ils"],
     [/\bIlles/g, "Ils"],
 
-    [/\instituteurice/g, "instituteur"],
+    [/teurice/g, "teur"],
+    [/teurices/g, "teurs"],
 
-    // *** C ***
-    [/\bcelleux/g, "ceux"],
-    [/\bCelleux/g, "Ceux"],
-    [/\bcellui/g, "celui"],
-    [/\bCellui/g, "Celui"],
-    [/\bcopaines/g, "copains"],
-    [/\bCopaines/g, "Copains"],
 
     // PROFESSIONS
     // Afin de prendre en compte les couples type : "déterminant féminin - nom féminin - déterminant masculin - nom masculin".

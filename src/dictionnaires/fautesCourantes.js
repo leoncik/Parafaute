@@ -1,9 +1,10 @@
 const fautesCourantes = [
-
     //  Structure :
     // [/faute/]: "correction",
 
     // Expressions
+    [/en suspend\b/g, "en suspens"],
+
     [/sa va\b/g, "ça va"],
     [/Sa va\b/g, "Ça va"],
 
@@ -93,7 +94,7 @@ const fautesCourantes = [
     // *** J ***
     [/des jeux vidéos/g, "des jeux vidéo"],
     [/les jeux vidéos/g, "les jeux vidéo"],
-    [/ces jeux vidéos/g, "les jeux vidéo"],
+    [/ces jeux vidéos/g, "ces jeux vidéo"],
 
     // *** L ***
     [/language/g, "langage"],
