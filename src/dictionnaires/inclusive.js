@@ -6,6 +6,14 @@ const inclusive = [
     // EXPRESSIONS
     [/celles et ceux/g, "ceux"],
     [/ceux et celles/g, "ceux"],
+    [/Celui\/Celle/g, "Celui"],
+    [/Celle\/Celui/g, "Celui"],
+    [/Celui ou (c|C)elle/g, "Celui"],
+    [/Celle ou (c|C)elui/g, "Celui"],
+    [/(c|C)elui\/(c|C)elle/g, "celui"],
+    [/(c|C)elle\/(c|C)elui/g, "celui"],
+    [/(c|C)elle ou (c|C)elui/g, "celui"],
+    [/(c|C)elui ou (c|C)elle/g, "celui"],
     [/Auteur\/autrice/g, "Auteur"],
     [/À tous et à toutes/g, "À tous"],
     [/à tous et à toutes/g, "à tous"],
@@ -29,6 +37,8 @@ const inclusive = [
 
     // TYPOGRAPHIE
     [/\((e|E)\)/gi, ""],
+    [/\((e|E)(s|S)\)/gi, ""],
+    [/\([sS][eE][sS]\)/gi, ""],
     [/\((es|ES)\)/gi, ""],
     [/\((se|SE)\)/gi, ""],
     [/\((euses|EUSES)\)/gi, ""],
