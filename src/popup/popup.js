@@ -105,7 +105,7 @@ extensionScopeInput.addEventListener("input", () => {
 // Button to reload current tab in order to activate changed settings
 const reloadMainTab = () => {
   reloadTabButton.classList.add('hidden');
-  chrome.tabs.reload();
+  browser.tabs.reload();
   // Close popup after reloading
   window.close();
 }
