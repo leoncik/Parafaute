@@ -6,10 +6,10 @@
   "description": "Une extension pour vous abriter des fautes courantes et des barbarismes (anglicismes et écriture inclusive)",
   "homepage_url": "https://github.com/leoncik/Parafaute",
   "icons": {
-    "48": "src/icônes/icon-48.png"
+    "48": "src/icons/icon-48.png"
   },
   "action": {
-    "default_icon": "src/icônes/icon-48.png",
+    "default_icon": "src/icons/icon-48.png",
     "default_title": "Parafaute",
     "default_popup": "src/popup/popup.html"
   },

@@ -4,6 +4,8 @@ const inclusive = [
     // [/faute/]: "correction",
 
     // EXPRESSIONS
+    [/le ou la/g, "le"],
+    [/la ou le/g, "le"],
     [/celles et ceux/g, "ceux"],
     [/ceux et celles/g, "ceux"],
     [/Celui\/Celle/g, "Celui"],
@@ -53,6 +55,7 @@ const inclusive = [
     [/\((le|LE)\)/gi, ""],
     [/\((te|TE)\)/gi, ""],
     [/\((ve|VE)\)/gi, ""],
+    [/\((fe|FE)\)/gi, ""],
 
     // Liste des points médians avec variantes : [·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]
 
