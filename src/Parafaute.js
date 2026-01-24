@@ -41,9 +41,8 @@ chrome.storage.sync.get(
     function replaceText(text, replacements, category) {
       let newText = text;
       let localCount = 0;
-      for (let [faute, correction] of replacements) {
-        let regex = new RegExp(faute, "g");
-        newText = newText.replace(regex, (match) => {
+      for (let [regex, correction] of replacements) {
+        newText = newText.replace(regex, () => {
           localCount++;
           return correction;
         });
