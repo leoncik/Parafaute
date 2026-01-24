@@ -34,6 +34,8 @@ class TextObserver {
       alt: ["img", "area", 'input[type="image"]', '[role="img"]'],
       value: ['input[type="button"]'],
       title: ["*"],
+      "aria-label": ["*"],
+      label: ["optgroup"],
     };
   }
   static get #CONFIG() {
