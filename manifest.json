@@ -38,7 +38,8 @@
         "src/dictionnaires/reforme1990.js",
         "src/TextObserver.js",
         "src/Parafaute.js"
-      ]
+      ],
+      "all_frames": true
     }
   ]
 }
