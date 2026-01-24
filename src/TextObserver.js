@@ -127,17 +127,17 @@ class TextObserver {
       // Process mutations asynchronously to avoid blocking user interactions
       // Use setTimeout to yield to the event loop, allowing clicks and other events to be processed
       setTimeout(() => {
-      let i = 0;
-      for (const textObserver of TextObserver.#observers) {
-        textObserver.#observerCallback(records[i]);
-        i++;
-      }
+        let i = 0;
+        for (const textObserver of TextObserver.#observers) {
+          textObserver.#observerCallback(records[i]);
+          i++;
+        }
 
-      TextObserver.#observers.forEach((textObserver) =>
-        textObserver.#targets.forEach((target) =>
-          textObserver.#observer.observe(target, TextObserver.#CONFIG),
-        ),
-      );
+        TextObserver.#observers.forEach((textObserver) =>
+          textObserver.#targets.forEach((target) =>
+            textObserver.#observer.observe(target, TextObserver.#CONFIG),
+          ),
+        );
       }, 0);
     });
     // Attach an observer to each shadow root since MutationObserver objects can't see inside Shadow DOMs
@@ -275,24 +275,44 @@ class TextObserver {
   }
 
   #valid(node) {
-    return (
-      // Sometimes the node is removed from the document before we can process it, so check for valid parent
-      node.parentNode !== null &&
-      !TextObserver.#IGNORED_NODES.includes(node.nodeType) &&
-      // HTML tags that permit textual content but are not front-facing text
-      node.parentNode.tagName !== "SCRIPT" &&
-      node.parentNode.tagName !== "STYLE" &&
-      // Ignore contentEditable elements as touching them messes up the cursor position
-      (!this.#performanceOptions.contentEditable ||
-        !node.parentNode.isContentEditable) &&
-      // HACK: workaround to avoid breaking icon fonts
-      (!this.#performanceOptions.iconFonts ||
-        !window
-          .getComputedStyle(node.parentNode)
-          .getPropertyValue("font-family")
-          .toUpperCase()
-          .includes("ICON"))
-    );
+    if (node.parentNode === null) {
+      return false;
+    }
+
+    // Sometimes the node is removed from the document before we can process it, so check for valid parent
+    if (TextObserver.#IGNORED_NODES.includes(node.nodeType)) {
+      return false;
+    }
+
+    // HTML tags that permit textual content but are not front-facing text
+    if (
+      node.parentNode.tagName === "SCRIPT" ||
+      node.parentNode.tagName === "STYLE"
+    ) {
+      return false;
+    }
+
+    // Ignore contentEditable elements as touching them messes up the cursor position
+    if (
+      this.#performanceOptions.contentEditable &&
+      node.parentNode.isContentEditable
+    ) {
+      return false;
+    }
+
+    // HACK: workaround to avoid breaking icon fonts
+    if (
+      this.#performanceOptions.iconFonts &&
+      window
+        .getComputedStyle(node.parentNode)
+        .getPropertyValue("font-family")
+        .toUpperCase()
+        .includes("ICON")
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   #processNodes(root) {
