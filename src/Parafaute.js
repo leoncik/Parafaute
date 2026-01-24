@@ -22,6 +22,7 @@ function debounce(func, wait) {
 
 // Debounce for 100ms to avoid too frequent updates
 const updateBadge = debounce(() => {
+  if (!chrome.runtime?.id) return; // Extension context invalidated
   chrome.runtime.sendMessage({
     action: "updateBadge",
     counts: replacementCounts,
