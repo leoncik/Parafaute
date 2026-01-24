@@ -1,3 +1,25 @@
+// Liste des séparateurs pouvant faire office de point médian.
+const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.-]";
+
+/**
+ * Construit une expression régulière avec des séparateurs médians.
+ * Remplace chaque underscore "_" par le groupe de séparateurs médians.
+ *
+ * @param {string} pattern - Texte à modifier avec des underscores comme placeholders.
+ * @param {string} [flags="gi"] - Flags de l'expression régulière (par défaut: "gi").
+ * @returns {RegExp} Expression régulière compilée.
+ *
+ * @example
+ * // Retourne /tou[·‧܁⋅•∙\/.-]te[·‧܁⋅•∙\/.-]s/gi
+ * addSeparatorsRegex("tou_te_s")
+ *
+ * @example
+ * // Avec des flags personnalisés.
+ * addSeparatorsRegex("un_e\\b", "g") // Retourne /un[·‧܁⋅•∙\/.-]e\b/g
+ */
+const addSeparatorsRegex = (pattern, flags = "gi") =>
+  new RegExp(pattern.replace(/_/g, MEDIAN_SEPARATORS), flags);
+
 const inclusive = [
   //  Structure :
   // [/faute/]: "correction",
@@ -56,118 +78,100 @@ const inclusive = [
   [/\((ve|VE)\)/gi, ""],
   [/\((fe|FE)\)/gi, ""],
 
-  // Liste des points médians avec variantes : [·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]
+  // Liste des points médians avec variantes : [·‧܁⋅•∙\/.-]
 
-  [
-    /tou[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]te[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi,
-    "tous",
-  ],
-  [/tou[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]tes/gi, "tous"],
-  [
-    /teur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]trice[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi,
-    "teurs",
-  ],
-  [
-    /eur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]rice[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi,
-    "eurs",
-  ],
-  [/tous[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]tes/gi, "tous"],
-  [
-    /ier[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ère[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi,
-    "s",
-  ],
-  [/s[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]e[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
+  [addSeparatorsRegex("tou_te_s"), "tous"],
+  [addSeparatorsRegex("tou_tes"), "tous"],
+  [addSeparatorsRegex("teur_trice_s"), "teurs"],
+  [addSeparatorsRegex("eur_rice_s"), "eurs"],
+  [addSeparatorsRegex("tous_tes"), "tous"],
+  [addSeparatorsRegex("ier_ère_s"), "s"],
+  [addSeparatorsRegex("s_e_s"), "s"],
 
-  [
-    /[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]aux[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]lles/gi,
-    "aux",
-  ],
-  [
-    /[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]eur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]rice/gi,
-    "eur",
-  ],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]fe[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]e[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]E[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]S/gi, "S"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]x[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]se/gi, "x"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]rice[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ive[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ne[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]le[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]se[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]s/gi, "s"],
+  [addSeparatorsRegex("_aux_lles"), "aux"],
+  [addSeparatorsRegex("_eur_rice"), "eur"],
+  [addSeparatorsRegex("_fe_s"), "s"],
+  [addSeparatorsRegex("_e_s"), "s"],
+  [addSeparatorsRegex("_E_S"), "S"],
+  [addSeparatorsRegex("_x_se"), "x"],
+  [addSeparatorsRegex("_rice_s"), "s"],
+  [addSeparatorsRegex("_ive_s"), "s"],
+  [addSeparatorsRegex("_ne_s"), "s"],
+  [addSeparatorsRegex("_le_s"), "s"],
+  [addSeparatorsRegex("_se_s"), "s"],
 
-  [/le[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]a\b/gi, "le"], // Ajout de "\b" pour les cas comme "Nouvelle-Aquitaine".
-  [/le[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]la\b/gi, "le"],
-  [/en[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]nes/gi, "ens"],
-  [/if[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ves/gi, "ifs"],
-  [/eur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ses/gi, "eurs"],
-  [/eurs[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ses/gi, "eurs"],
-  [/eaux[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]elles/gi, "eaux"],
-  [/eau[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]elle/gi, "eau"],
-  [/teur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]trice/gi, "teur"],
-  [/\bceux[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]elles/gi, "ceux"],
-  [/cet[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]te/gi, "ce"],
-  [/\eux[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ses/gi, "eux"],
-  [/s[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]es\b/gi, "s"],
-  [/ant[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]e\b/g, "ant"],
-  [/eur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]se\b/g, "eur"],
-  [/if[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ve\b/g, "if"],
-  [/é[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]e\b/g, "é"],
-  [/teur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]trice\b/g, "teur"],
-  [/eur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]rice\b/g, "eur"],
-  [/eur[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]euse\b/g, "eur"],
-  [/teurs[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]trices\b/g, "teurs"],
-  [/eurs[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]rices\b/g, "eurs"],
-  [/eurs[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]euses\b/g, "eurs"],
-  [/ains[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]es\b/g, "ains"],
-  [/un[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]une\b/g, "un"],
-  [/un[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]e\b/g, "un"],
+  [addSeparatorsRegex("le_a\\b"), "le"], // Ajout de "\b" pour les cas comme "Nouvelle-Aquitaine".
+  [addSeparatorsRegex("le_la\\b"), "le"],
+  [addSeparatorsRegex("en_nes"), "ens"],
+  [addSeparatorsRegex("if_ves"), "ifs"],
+  [addSeparatorsRegex("eur_ses"), "eurs"],
+  [addSeparatorsRegex("eurs_ses"), "eurs"],
+  [addSeparatorsRegex("eaux_elles"), "eaux"],
+  [addSeparatorsRegex("eau_elle"), "eau"],
+  [addSeparatorsRegex("teur_trice"), "teur"],
+  [addSeparatorsRegex("\\bceux_elles"), "ceux"],
+  [addSeparatorsRegex("cet_te"), "ce"],
+  [addSeparatorsRegex("\\eux_ses"), "eux"],
+  [addSeparatorsRegex("s_es\\b"), "s"],
+  [addSeparatorsRegex("ant_e\\b", "g"), "ant"],
+  [addSeparatorsRegex("eur_se\\b", "g"), "eur"],
+  [addSeparatorsRegex("if_ve\\b", "g"), "if"],
+  [addSeparatorsRegex("é_e\\b", "g"), "é"],
+  [addSeparatorsRegex("teur_trice\\b", "g"), "teur"],
+  [addSeparatorsRegex("eur_rice\\b", "g"), "eur"],
+  [addSeparatorsRegex("eur_euse\\b", "g"), "eur"],
+  [addSeparatorsRegex("teurs_trices\\b", "g"), "teurs"],
+  [addSeparatorsRegex("eurs_rices\\b", "g"), "eurs"],
+  [addSeparatorsRegex("eurs_euses\\b", "g"), "eurs"],
+  [addSeparatorsRegex("ains_es\\b", "g"), "ains"],
+  [addSeparatorsRegex("un_une\\b", "g"), "un"],
+  [addSeparatorsRegex("un_e\\b", "g"), "un"],
   [/un\[e\]/g, "un"],
-  [/un[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]e\b/gi, "un"],
-  [/Un[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]e\b/gi, "Un"],
+  [addSeparatorsRegex("un_e\\b"), "un"],
+  [addSeparatorsRegex("Un_e\\b"), "Un"],
   // "Elle" n'a pas besoin d'être sensible à la casse
-  [/il[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-](?:e|E)(?:l|L)(?:l|L)(?:e|E)\b/g, "il"],
+  [addSeparatorsRegex("il_(?:e|E)(?:l|L)(?:l|L)(?:e|E)\\b", "g"), "il"],
   [
-    /ils[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-](?:e|E)(?:l|L)(?:l|L)(?:e|E)(?:s|S)\b/g,
+    addSeparatorsRegex("ils_(?:e|E)(?:l|L)(?:l|L)(?:e|E)(?:s|S)\\b", "g"),
     "ils",
   ],
-  [/Il[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-](?:e|E)(?:l|L)(?:l|L)(?:e|E)\b/g, "Il"],
+  [addSeparatorsRegex("Il_(?:e|E)(?:l|L)(?:l|L)(?:e|E)\\b", "g"), "Il"],
   [
-    /Ils[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-](?:e|E)(?:l|L)(?:l|L)(?:e|E)(?:s|S)\b/g,
+    addSeparatorsRegex("Ils_(?:e|E)(?:l|L)(?:l|L)(?:e|E)(?:s|S)\\b", "g"),
     "Ils",
   ],
 
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]rices\b/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]rice\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ices\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ice\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]es\b/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ES\b/gi, "S"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]euses\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]se\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]fe\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ve\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]fes\b/gi, "s"],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ales\b/gi, ""],
+  [addSeparatorsRegex("_rices\\b"), "s"],
+  [addSeparatorsRegex("_rice\\b"), ""],
+  [addSeparatorsRegex("_ices\\b"), ""],
+  [addSeparatorsRegex("_ice\\b"), ""],
+  [addSeparatorsRegex("_es\\b"), "s"],
+  [addSeparatorsRegex("_ES\\b"), "S"],
+  [addSeparatorsRegex("_euses\\b"), ""],
+  [addSeparatorsRegex("_se\\b"), ""],
+  [addSeparatorsRegex("_fe\\b"), ""],
+  [addSeparatorsRegex("_ve\\b"), ""],
+  [addSeparatorsRegex("_fes\\b"), "s"],
+  [addSeparatorsRegex("_ales\\b"), ""],
 
   // Posait des problèmes avec les expressions comme « faites-les» ou « listez-les » et les noms comme « Morzy-les-Gaillardes »
-  // [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]le\b/gi, ""],
-  // [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]les\b/gi, ""],
-  // [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]elle\b/gi, ""],
+  // [addSeparatorsRegex("_le\\b"), ""],
+  // [addSeparatorsRegex("_les\\b"), ""],
+  // [addSeparatorsRegex("_elle\\b"), ""],
   // [/(?<=\w(?<!ez|es))[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]le(?!-)\b/gi, ""],
   // [/(?<=\w(?<!ez|es))[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]les(?!-)\b/gi, ""],
 
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ière\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ère\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]ne\b/gi, ""],
-  [/[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]nes\b/gi, "s"],
+  [addSeparatorsRegex("_ière\\b"), ""],
+  [addSeparatorsRegex("_ère\\b"), ""],
+  [addSeparatorsRegex("_ne\\b"), ""],
+  [addSeparatorsRegex("_nes\\b"), "s"],
   // Faux positif: ne pas corriger "shift-e"
-  [/(?<=\w(?<!(?:s|S)hift))[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]e\b/gi, ""],
+  [addSeparatorsRegex("(?<=\\w(?<!(?:s|S)hift))_e\\b"), ""],
 
   // Gestions spécifiques pour "-le" pour inclure les expressions comme "Teste-le !" et lieux comme "Sennecey-le-Grand"
-  [/il[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]le(?![-])\b/gi, "il"],
-  [/ils[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]les(?![-])\b/gi, "ils"],
-  [/el[·|·|·|‧|܁|.|⋅|-|•|∙|-|\/|.|-]le(?![-])\b/gi, "el"],
+  [addSeparatorsRegex("il_le(?![-])\\b"), "il"],
+  [addSeparatorsRegex("ils_les(?![-])\\b"), "ils"],
+  [addSeparatorsRegex("el_le(?![-])\\b"), "el"],
 
   // VOCABULAIRE DIVERS
   // *** A ***
