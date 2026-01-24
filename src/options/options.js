@@ -86,7 +86,7 @@ fautesCourantesInput.addEventListener("input", () => {
 });
 
 fautesTypographiquesInput.addEventListener("input", () => {
-  if (fautesTypographiques.checked) {
+  if (fautesTypographiquesInput.checked) {
     chrome.storage.sync.set({ fautesTypographiques: true });
   } else {
     chrome.storage.sync.set({ fautesTypographiques: false });
