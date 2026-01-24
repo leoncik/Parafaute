@@ -121,6 +121,10 @@ class TextObserver {
         );
         textObserver.#observer.disconnect();
       }
+
+      // Process mutations asynchronously to avoid blocking user interactions
+      // Use setTimeout to yield to the event loop, allowing clicks and other events to be processed
+      setTimeout(() => {
       let i = 0;
       for (const textObserver of TextObserver.#observers) {
         textObserver.#observerCallback(records[i]);
@@ -132,6 +136,7 @@ class TextObserver {
           textObserver.#observer.observe(target, TextObserver.#CONFIG),
         ),
       );
+      }, 0);
     });
     // Attach an observer to each shadow root since MutationObserver objects can't see inside Shadow DOMs
     this.#targets.forEach((target) =>
