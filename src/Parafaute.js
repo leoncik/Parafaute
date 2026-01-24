@@ -83,16 +83,5 @@ chrome.storage.sync.get(
     if (checkedOptions.extensionScope || lang.match(/\bfr[-]?/)) {
       const observer = new TextObserver(textObserverCallback);
     }
-
-    window.addEventListener("beforeunload", () => {
-      replacementCounts = {
-        inclusive: 0,
-        anglicismes: 0,
-        fautesCourantes: 0,
-        fautesTypographiques: 0,
-        reforme1990: 0,
-      };
-      updateBadge();
-    });
   },
 );

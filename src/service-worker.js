@@ -5,7 +5,17 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === "complete") {
+  if (changeInfo.status === "loading") {
+    // Reset counts immediately when navigation starts (more reliable than beforeunload)
+    const zeroCounts = {
+      inclusive: 0,
+      anglicismes: 0,
+      fautesCourantes: 0,
+      fautesTypographiques: 0,
+      reforme1990: 0,
+    };
+    updateBadge(zeroCounts, tabId);
+  } else if (changeInfo.status === "complete") {
     updateBadgeForTab(tabId);
   }
 });
