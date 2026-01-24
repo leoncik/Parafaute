@@ -4,7 +4,6 @@ const anglicismes = [
 
   // EXPRESSIONS
   // Anglicisme lié à l'expression : "to make sense"
-  [/ne fait aucun sens\b/g, "n'a aucun sens"],
   [/ne faisait aucun sens\b/g, "n'avait aucun sens"],
   [/ne fait aucun sens\b/g, "n'a aucun sens"],
   [/ne font aucun sens\b/g, "n'ont aucun sens"],
@@ -107,6 +106,6 @@ const anglicismes = [
   [/uploader/g, "mettre en ligne"],
   [/Uploadé/g, "Mis en ligne"],
   [/uploadé/g, "mis en ligne"],
-  [/s'updater/g, "se mettre à jour"],
+  [/S'updater/g, "Se mettre à jour"],
   [/s’updater/g, "se mettre à jour"],
 ];
