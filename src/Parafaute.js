@@ -73,7 +73,7 @@ chrome.storage.sync.get(
         newText = replaceText(
           newText,
           fautesTypographiques,
-          "fautesTypographiques"
+          "fautesTypographiques",
         );
       }
       return newText;
@@ -99,5 +99,5 @@ chrome.storage.sync.get(
       };
       updateBadge();
     });
-  }
+  },
 );

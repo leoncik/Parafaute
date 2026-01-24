@@ -1,66 +1,62 @@
 const reforme1990 = [
+  //  Structure :
+  // [/faute/]: "correction",
 
-    //  Structure :
-    // [/faute/]: "correction",
-    
-    // VOCABULAIRE
+  // VOCABULAIRE
 
-    // *** A ***
-    [/ccroit\b/g, "ccroît"],
-    
-    // *** B ***
-    [/\bBrul/g, "Brûl"],
-    [/\bbrul/g, "brûl"],
-    
-    // *** C ***
-    [/Cout\b/g, "Coût"],
-    [/cout\b/g, "coût"],
-    [/Connaitre\b/g, "Connaître"],
-    [/connaitre\b/g, "connaître"],
-    
-    // *** D ***
-    [/ouçâtre\b/g, "ouceâtre"],
-    [/isparaitr/g, "isparaîtr"],
+  // *** A ***
+  [/ccroit\b/g, "ccroît"],
 
-    // *** E ***
-    [/Évènement\b/g, "Événement"],
-    [/évènement\b/g, "événement"],
-    [/nvoutant/g, "nvoûtant"],
-    [/ntraine\b/g, "ntraîne"],
-    [/nchainement\b/g, "nchaînement"],
+  // *** B ***
+  [/\bBrul/g, "Brûl"],
+  [/\bbrul/g, "brûl"],
 
-    // *** G ***
-    [/\bGout\b/g, "Goût"],
-    [/\bgout\b/g, "goût"],
+  // *** C ***
+  [/Cout\b/g, "Coût"],
+  [/cout\b/g, "coût"],
+  [/Connaitre\b/g, "Connaître"],
+  [/connaitre\b/g, "connaître"],
 
+  // *** D ***
+  [/ouçâtre\b/g, "ouceâtre"],
+  [/isparaitr/g, "isparaîtr"],
 
-    // *** I ***
-    [/\bIle\b/g, "Île"],
-    [/\bile\b/g, "ile"],
+  // *** E ***
+  [/Évènement\b/g, "Événement"],
+  [/évènement\b/g, "événement"],
+  [/nvoutant/g, "nvoûtant"],
+  [/ntraine\b/g, "ntraîne"],
+  [/nchainement\b/g, "nchaînement"],
 
-    // *** O ***
-    [/Ognon\b/g, "Oignon"],
-    [/ognon\b/g, "oignon"],
+  // *** G ***
+  [/\bGout\b/g, "Goût"],
+  [/\bgout\b/g, "goût"],
 
-    // *** P ***
-    [/plait\b/g, "plaît"],
-    [/\bparait\b/g, "paraît"],
+  // *** I ***
+  [/\bIle\b/g, "Île"],
+  [/\bile\b/g, "ile"],
 
-     // *** M ***
-    [/Maître\b/g, "Maitre"],
-    [/maître\b/g, "maitre"],
+  // *** O ***
+  [/Ognon\b/g, "Oignon"],
+  [/ognon\b/g, "oignon"],
 
-     // *** N ***
-     [/énufar/g, "énuphar"],
+  // *** P ***
+  [/plait\b/g, "plaît"],
+  [/\bparait\b/g, "paraît"],
 
-     // *** S ***
-     [/agefemme/g, "age-femme"],
-     [/\bSurement/g, "Sûrement"],
-     [/\bsurement/g, "sûrement"],
+  // *** M ***
+  [/Maître\b/g, "Maitre"],
+  [/maître\b/g, "maitre"],
 
-    //  Tréma
-    [/güe/g, "guë"],
-    [/güi/g, "guï"],
+  // *** N ***
+  [/énufar/g, "énuphar"],
 
+  // *** S ***
+  [/agefemme/g, "age-femme"],
+  [/\bSurement/g, "Sûrement"],
+  [/\bsurement/g, "sûrement"],
 
-]
+  //  Tréma
+  [/güe/g, "guë"],
+  [/güi/g, "guï"],
+];

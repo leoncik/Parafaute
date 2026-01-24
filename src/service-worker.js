@@ -25,7 +25,7 @@ function updateBadgeForTab(tabId) {
           fautesTypographiques: 0,
           reforme1990: 0,
         },
-        tabId
+        tabId,
       );
     } else if (response && response.counts) {
       updateBadge(response.counts, tabId);
@@ -37,11 +37,11 @@ function updateBadge(counts, tabId) {
   tabCounts[tabId] = counts;
   let totalCount = Object.values(counts).reduce((sum, count) => sum + count, 0);
   let badgeText = "";
-  
+
   if (totalCount > 0) {
     badgeText = totalCount > 99 ? "99+" : totalCount.toString();
   }
-  
+
   chrome.action.setBadgeText({
     text: badgeText,
     tabId: tabId,
@@ -77,6 +77,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
     });
     // Indicates we will send a response asynchronously
-    return true; 
+    return true;
   }
 });
