@@ -79,13 +79,8 @@ chrome.storage.sync.get(
       return newText;
     };
 
-    if (
-      checkedOptions.extensionScope ||
-      document
-        .querySelector("html")
-        .getAttribute("lang")
-        .match(/\bfr[-]?/)
-    ) {
+    const lang = document.querySelector("html")?.getAttribute("lang") || "";
+    if (checkedOptions.extensionScope || lang.match(/\bfr[-]?/)) {
       const observer = new TextObserver(textObserverCallback);
     }
 
