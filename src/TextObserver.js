@@ -300,6 +300,19 @@ class TextObserver {
       return false;
     }
 
+    // Skip text nodes inside form input elements (input, textarea, select, option)
+    // These should not be modified as they contain user input or form values.
+    // ? Additional testing may be needed to determine if this is a good choice.
+    const parentTag = node.parentNode.tagName;
+    if (
+      parentTag === "INPUT" ||
+      parentTag === "TEXTAREA" ||
+      parentTag === "SELECT" ||
+      parentTag === "OPTION"
+    ) {
+      return false;
+    }
+
     // HACK: workaround to avoid breaking icon fonts
     if (
       this.#performanceOptions.iconFonts &&
