@@ -34,7 +34,7 @@ const reforme1990 = [
 
   // *** I ***
   [/\bIle\b/g, "Île"],
-  [/\bile\b/g, "ile"],
+  [/\bile\b/g, "île"],
 
   // *** O ***
   [/Ognon\b/g, "Oignon"],
