@@ -102,7 +102,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           (response) => {
             if (chrome.runtime.lastError) {
               // Content script may not be loaded yet, which is fine
-              console.log("Content script not ready:", chrome.runtime.lastError);
+              console.log(
+                "Content script not ready:",
+                chrome.runtime.lastError,
+              );
             }
             sendResponse({ success: true });
           },
