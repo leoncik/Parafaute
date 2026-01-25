@@ -25,7 +25,7 @@ Cette extension utilise la bibliothèque [TextObserver](https://github.com/Danie
 
 Vous pouvez télécharger facilement l'extension depuis :
 
-- Le [Chrome Web Store](https://chrome.google.com/webstore/detail/parafaute/jfnefaojdbdjdaobckpmbgfibannmpcg) pour l'utiliser sur Google Chrome et tout navigateur basé sur Chromium (Brave, Opera, Vivaldi etc.).
+- Le [Chrome Web Store](https://chrome.google.com/webstore/detail/parafaute/jfnefaojdbdjdaobckpmbgfibannmpcg) pour l'utiliser sur Google Chrome et tout navigateur basé sur Chromium (Brave, Opera, Vivaldi, etc.).
 
 - Le site des [Modules pour Firefox](https://addons.mozilla.org/fr/firefox/addon/parafaute/) pour l'utiliser sur Firefox.
 
