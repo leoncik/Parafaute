@@ -1,5 +1,10 @@
 // Liste des séparateurs pouvant faire office de point médian.
-const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.-]";
+// Inclut les caractères invisibles de formatage qui peuvent apparaître dans le HTML :
+// - \u00AD : soft hyphen (&shy;) - point de césure potentiel avec tiret
+// - \u200B : zero-width space - point de césure sans tiret
+// Le "+" permet d’inclure dans la détection plusieurs séparateurs consécutifs (ex: "·­" = point médian + soft hyphen).
+// Note : le "-" doit être à la fin de la classe pour être littéral (sinon il crée une plage de caractères).
+const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.\\u00AD\\u200B-]+";
 
 /**
  * Construit une expression régulière avec des séparateurs médians.
@@ -10,12 +15,12 @@ const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.-]";
  * @returns {RegExp} Expression régulière compilée.
  *
  * @example
- * // Retourne /tou[·‧܁⋅•∙\/.-]te[·‧܁⋅•∙\/.-]s/gi
+ * // Retourne /tou[·‧܁⋅•∙\/.­-]+te[·‧܁⋅•∙\/.­-]+s/gi
  * addSeparatorsRegex("tou_te_s")
  *
  * @example
  * // Avec des flags personnalisés.
- * addSeparatorsRegex("un_e\\b", "g") // Retourne /un[·‧܁⋅•∙\/.-]e\b/g
+ * addSeparatorsRegex("un_e\\b", "g") // Retourne /un[·‧܁⋅•∙\/.­-]+e\b/g
  */
 const addSeparatorsRegex = (pattern, flags = "gi") =>
   new RegExp(pattern.replace(/_/g, MEDIAN_SEPARATORS), flags);
@@ -78,11 +83,14 @@ const inclusive = [
   [/\((ve|VE)\)/gi, ""],
   [/\((fe|FE)\)/gi, ""],
 
-  // Liste des points médians avec variantes : [·‧܁⋅•∙\/.-]
+  // Liste des points médians avec variantes (voir MEDIAN_SEPARATORS)
 
   [addSeparatorsRegex("tou_te_s"), "tous"],
   [addSeparatorsRegex("tou_tes"), "tous"],
   [addSeparatorsRegex("teur_trice_s"), "teurs"],
+  [addSeparatorsRegex("teur_euse_s"), "teurs"],
+  [addSeparatorsRegex("teurs_trices\\b", "g"), "teurs"],
+  [addSeparatorsRegex("teurs_euses\\b", "g"), "teurs"],
   [addSeparatorsRegex("eur_rice_s"), "eurs"],
   [addSeparatorsRegex("tous_tes"), "tous"],
   [addSeparatorsRegex("ier_ère_s"), "s"],
@@ -118,9 +126,9 @@ const inclusive = [
   [addSeparatorsRegex("if_ve\\b", "g"), "if"],
   [addSeparatorsRegex("é_e\\b", "g"), "é"],
   [addSeparatorsRegex("teur_trice\\b", "g"), "teur"],
+  [addSeparatorsRegex("teur_euse\\b", "g"), "teur"],
   [addSeparatorsRegex("eur_rice\\b", "g"), "eur"],
   [addSeparatorsRegex("eur_euse\\b", "g"), "eur"],
-  [addSeparatorsRegex("teurs_trices\\b", "g"), "teurs"],
   [addSeparatorsRegex("eurs_rices\\b", "g"), "eurs"],
   [addSeparatorsRegex("eurs_euses\\b", "g"), "eurs"],
   [addSeparatorsRegex("ains_es\\b", "g"), "ains"],
@@ -147,12 +155,12 @@ const inclusive = [
   [addSeparatorsRegex("_ice\\b"), ""],
   [addSeparatorsRegex("_es\\b"), "s"],
   [addSeparatorsRegex("_ES\\b"), "S"],
-  [addSeparatorsRegex("_euses\\b"), ""],
   [addSeparatorsRegex("_se\\b"), ""],
   [addSeparatorsRegex("_fe\\b"), ""],
   [addSeparatorsRegex("_ve\\b"), ""],
   [addSeparatorsRegex("_fes\\b"), "s"],
   [addSeparatorsRegex("_ales\\b"), ""],
+  [addSeparatorsRegex("_euses\\b"), ""],
 
   // Posait des problèmes avec les expressions comme « faites-les» ou « listez-les » et les noms comme « Morzy-les-Gaillardes »
   // [addSeparatorsRegex("_le\\b"), ""],
