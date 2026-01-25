@@ -22,7 +22,10 @@
   "permissions": ["storage"],
   "browser_specific_settings": {
     "gecko": {
-      "id": "parafaute@leoncik.com"
+      "id": "parafaute@leoncik.com",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
   "background": {
