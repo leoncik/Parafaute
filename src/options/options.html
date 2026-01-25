@@ -1,146 +1,112 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parafaute: options</title>
-    <link rel="stylesheet" href="options.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
     <div class="container">
-      <header class="header">
-        <h1>Parafaute</h1>
-      </header>
+        <header class="header">
+            <h1>Parafaute</h1>
+        </header>
 
-      <main class="content">
-        <section class="section">
-          <h2 class="section-title">Filtres de correction</h2>
-
-          <div class="option">
-            <div class="option-info">
-              <label for="anglicismes">Corriger les anglicismes</label>
-              <span class="option-description"
-                >Remplace les anglicismes courants par leurs équivalents
-                français</span
-              >
-            </div>
-            <div class="toggle">
-              <input id="anglicismes" type="checkbox" checked />
-              <span class="slider"></span>
-            </div>
-          </div>
-
-          <div class="option">
-            <div class="option-info">
-              <label for="inclusive">Corriger l'écriture inclusive</label>
-              <span class="option-description"
-                >Convertit les formes inclusives en formes classiques</span
-              >
-            </div>
-            <div class="toggle">
-              <input id="inclusive" type="checkbox" checked />
-              <span class="slider"></span>
-            </div>
-          </div>
-
-          <div class="option">
-            <div class="option-info">
-              <label for="fautes-courantes"
-                >Corriger les fautes courantes</label
-              >
-              <span class="option-description"
-                >Corrige les fautes d'orthographe fréquentes</span
-              >
-            </div>
-            <div class="toggle">
-              <input id="fautes-courantes" type="checkbox" checked />
-              <span class="slider"></span>
-            </div>
-          </div>
-
-          <div class="option">
-            <div class="option-info">
-              <label for="fautes-typographiques"
-                >Corriger les fautes typographiques</label
-              >
-              <span class="option-description"
-                >Corrige les espaces et la ponctuation</span
-              >
-            </div>
-            <div class="toggle">
-              <input id="fautes-typographiques" type="checkbox" />
-              <span class="slider"></span>
-            </div>
-          </div>
-
-          <div class="option-group">
-            <div class="option">
-              <div class="option-info">
-                <label for="reforme-1990">Normaliser l'orthographe</label>
-                <span class="option-description"
-                  >Uniformise l'orthographe selon la réforme de 1990 ou
-                  l'orthographe classique</span
-                >
-              </div>
-              <div class="toggle">
-                <input id="reforme-1990" type="checkbox" />
-                <span class="slider"></span>
-              </div>
-            </div>
-            <div class="sub-options hidden" id="reforme-suboptions">
-              <div class="radio-option">
-                <input
-                  type="radio"
-                  id="reforme-classique"
-                  name="reforme-mode"
-                  value="classique"
-                  checked
-                />
-                <label for="reforme-classique">
-                  <span class="radio-custom"></span>
-                  <span class="radio-label">Vers l'orthographe classique</span>
+        <main class="content">
+            <section class="section">
+                <h2 class="section-title">Filtres de correction</h2>
+                
+                <label class="option" for="anglicismes">
+                    <span class="option-info">
+                        <span class="option-label">Corriger les anglicismes</span>
+                        <span class="option-description">Remplace les anglicismes courants par leurs équivalents français</span>
+                    </span>
+                    <span class="toggle">
+                        <input id="anglicismes" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </span>
                 </label>
-              </div>
-              <div class="radio-option">
-                <input
-                  type="radio"
-                  id="reforme-nouvelle"
-                  name="reforme-mode"
-                  value="nouvelle"
-                />
-                <label for="reforme-nouvelle">
-                  <span class="radio-custom"></span>
-                  <span class="radio-label"
-                    >Vers la nouvelle orthographe (1990)</span
-                  >
+
+                <label class="option" for="inclusive">
+                    <span class="option-info">
+                        <span class="option-label">Corriger l'écriture inclusive</span>
+                        <span class="option-description">Convertit les formes inclusives en formes classiques</span>
+                    </span>
+                    <span class="toggle">
+                        <input id="inclusive" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </span>
                 </label>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section class="section">
-          <h2 class="section-title">Paramètres</h2>
+                <label class="option" for="fautes-courantes">
+                    <span class="option-info">
+                        <span class="option-label">Corriger les fautes courantes</span>
+                        <span class="option-description">Corrige les fautes d'orthographe fréquentes</span>
+                    </span>
+                    <span class="toggle">
+                        <input id="fautes-courantes" type="checkbox" checked>
+                        <span class="slider"></span>
+                    </span>
+                </label>
 
-          <div class="option">
-            <div class="option-info">
-              <label for="extension-scope"
-                >Activer sur les sites non-francophones</label
-              >
-              <span class="option-description"
-                >Par défaut, l'extension n'est active que sur les sites en
-                français</span
-              >
-            </div>
-            <div class="toggle">
-              <input id="extension-scope" type="checkbox" />
-              <span class="slider"></span>
-            </div>
-          </div>
-        </section>
-      </main>
+                <label class="option" for="fautes-typographiques">
+                    <span class="option-info">
+                        <span class="option-label">Corriger les fautes typographiques</span>
+                        <span class="option-description">Corrige les espaces et la ponctuation</span>
+                    </span>
+                    <span class="toggle">
+                        <input id="fautes-typographiques" type="checkbox">
+                        <span class="slider"></span>
+                    </span>
+                </label>
+
+                <div class="option-group">
+                    <label class="option" for="reforme-1990">
+                        <span class="option-info">
+                            <span class="option-label">Normaliser l'orthographe</span>
+                            <span class="option-description">Uniformise l'orthographe selon la réforme de 1990 ou l'orthographe classique</span>
+                        </span>
+                        <span class="toggle">
+                            <input id="reforme-1990" type="checkbox">
+                            <span class="slider"></span>
+                        </span>
+                    </label>
+                    <div class="sub-options hidden" id="reforme-suboptions">
+                        <div class="radio-option">
+                            <input type="radio" id="reforme-classique" name="reforme-mode" value="classique" checked>
+                            <label for="reforme-classique">
+                                <span class="radio-custom"></span>
+                                <span class="radio-label">Vers l'orthographe classique</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="reforme-nouvelle" name="reforme-mode" value="nouvelle">
+                            <label for="reforme-nouvelle">
+                                <span class="radio-custom"></span>
+                                <span class="radio-label">Vers la nouvelle orthographe (1990)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Paramètres</h2>
+
+                <label class="option" for="extension-scope">
+                    <span class="option-info">
+                        <span class="option-label">Activer sur les sites non-francophones</span>
+                        <span class="option-description">Par défaut, l'extension n'est active que sur les sites en français</span>
+                    </span>
+                    <span class="toggle">
+                        <input id="extension-scope" type="checkbox">
+                        <span class="slider"></span>
+                    </span>
+                </label>
+            </section>
+        </main>
     </div>
 
     <script src="options.js"></script>
-  </body>
+</body>
 </html>

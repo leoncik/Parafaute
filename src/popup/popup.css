@@ -138,7 +138,7 @@ body {
     font-weight: 600;
 }
 
-.option label {
+.option-label {
     font-size: 0.8125rem;
     color: #2d3748;
     cursor: pointer;
