@@ -88,5 +88,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     // Indicates we will send a response asynchronously
     return true;
+  } else if (message.action === "forwardToContentScript") {
+    // Forward message from popup to active tab's content script
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]) {
+        chrome.tabs.sendMessage(
+          tabs[0].id,
+          {
+            action: "settingsChanged",
+            filterName: message.filterName,
+            activated: message.activated,
+          },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              // Content script may not be loaded yet, which is fine
+              console.log("Content script not ready:", chrome.runtime.lastError);
+            }
+            sendResponse({ success: true });
+          },
+        );
+      } else {
+        sendResponse({ success: false });
+      }
+    });
+    // Indicates we will send a response asynchronously
+    return true;
   }
 });

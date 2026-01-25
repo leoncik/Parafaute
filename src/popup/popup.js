@@ -8,8 +8,23 @@ const fautesTypographiquesInput = document.getElementById(
 const reforme1990Input = document.getElementById("reforme-1990");
 const extensionScopeInput = document.getElementById("extension-scope");
 
-// Reload button
-const reloadTabButton = document.querySelector(".reload-tab-button");
+// Function to send settings change message to active tab's content script via service worker
+function notifyContentScript(filterName, activated) {
+  chrome.runtime.sendMessage(
+    {
+      action: "forwardToContentScript",
+      filterName: filterName,
+      activated: activated,
+    },
+    (response) => {
+      // Handle errors gracefully (e.g., content script not loaded)
+      if (chrome.runtime.lastError) {
+        // Content script may not be loaded yet, which is fine
+        console.log("Service worker not ready:", chrome.runtime.lastError);
+      }
+    },
+  );
+}
 
 // Initialize the options with the user's option settings
 chrome.storage.sync.get(
@@ -65,73 +80,46 @@ chrome.storage.sync.get(
 
 // Set options on input change
 anglicismesInput.addEventListener("input", () => {
-  reloadTabButton.classList.contains("hidden") &&
-    reloadTabButton.classList.remove("hidden");
-  if (anglicismesInput.checked) {
-    chrome.storage.sync.set({ anglicismes: true });
-  } else {
-    chrome.storage.sync.set({ anglicismes: false });
-  }
+  const activated = anglicismesInput.checked;
+  chrome.storage.sync.set({ anglicismes: activated }, () => {
+    notifyContentScript("anglicismes", activated);
+  });
 });
 
 inclusiveInput.addEventListener("input", () => {
-  reloadTabButton.classList.contains("hidden") &&
-    reloadTabButton.classList.remove("hidden");
-  if (inclusiveInput.checked) {
-    chrome.storage.sync.set({ inclusive: true });
-  } else {
-    chrome.storage.sync.set({ inclusive: false });
-  }
+  const activated = inclusiveInput.checked;
+  chrome.storage.sync.set({ inclusive: activated }, () => {
+    notifyContentScript("inclusive", activated);
+  });
 });
 
 fautesCourantesInput.addEventListener("input", () => {
-  reloadTabButton.classList.contains("hidden") &&
-    reloadTabButton.classList.remove("hidden");
-  if (fautesCourantesInput.checked) {
-    chrome.storage.sync.set({ fautesCourantes: true });
-  } else {
-    chrome.storage.sync.set({ fautesCourantes: false });
-  }
+  const activated = fautesCourantesInput.checked;
+  chrome.storage.sync.set({ fautesCourantes: activated }, () => {
+    notifyContentScript("fautesCourantes", activated);
+  });
 });
 
 fautesTypographiquesInput.addEventListener("input", () => {
-  reloadTabButton.classList.contains("hidden") &&
-    reloadTabButton.classList.remove("hidden");
-  if (fautesTypographiquesInput.checked) {
-    chrome.storage.sync.set({ fautesTypographiques: true });
-  } else {
-    chrome.storage.sync.set({ fautesTypographiques: false });
-  }
+  const activated = fautesTypographiquesInput.checked;
+  chrome.storage.sync.set({ fautesTypographiques: activated }, () => {
+    notifyContentScript("fautesTypographiques", activated);
+  });
 });
 
 reforme1990Input.addEventListener("input", () => {
-  reloadTabButton.classList.contains("hidden") &&
-    reloadTabButton.classList.remove("hidden");
-  if (reforme1990Input.checked) {
-    chrome.storage.sync.set({ reforme1990: true });
-  } else {
-    chrome.storage.sync.set({ reforme1990: false });
-  }
+  const activated = reforme1990Input.checked;
+  chrome.storage.sync.set({ reforme1990: activated }, () => {
+    notifyContentScript("reforme1990", activated);
+  });
 });
 
 extensionScopeInput.addEventListener("input", () => {
-  reloadTabButton.classList.contains("hidden") &&
-    reloadTabButton.classList.remove("hidden");
-  if (extensionScopeInput.checked) {
-    chrome.storage.sync.set({ extensionScope: true });
-  } else {
-    chrome.storage.sync.set({ extensionScope: false });
-  }
+  const activated = extensionScopeInput.checked;
+  chrome.storage.sync.set({ extensionScope: activated }, () => {
+    notifyContentScript("extensionScope", activated);
+  });
 });
-
-// Button to reload current tab in order to activate changed settings
-const reloadMainTab = () => {
-  reloadTabButton.classList.add("hidden");
-  chrome.tabs.reload();
-  // Close popup after reloading
-  window.close();
-};
-reloadTabButton.addEventListener("click", reloadMainTab);
 
 document.addEventListener("DOMContentLoaded", function () {
   chrome.runtime.sendMessage(
