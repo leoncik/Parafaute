@@ -1,72 +1,139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="popup.css">
-        <title>Parafaute: options</title>
-    </head>
-    <body>
-        <h1 class="title">Parafaute</h1>
-        <h2>Filtres</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parafaute: options</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="content" role="main">
+        <div class="section">
+          <h2 class="section-title">Filtres</h2>
 
-        <div class="option-list">
-            <div class="option">
-                <label for="anglicismes">Anglicismes</label>
-                <input id="anglicismes" type="checkbox" checked>
+          <label class="option" for="anglicismes">
+            <span class="option-label">Corriger les anglicismes</span>
+            <span class="toggle">
+              <input id="anglicismes" type="checkbox" checked />
+              <span class="slider"></span>
+            </span>
+          </label>
+
+          <label class="option" for="inclusive">
+            <span class="option-label">Corriger l'écriture inclusive</span>
+            <span class="toggle">
+              <input id="inclusive" type="checkbox" checked />
+              <span class="slider"></span>
+            </span>
+          </label>
+
+          <label class="option" for="fautes-courantes">
+            <span class="option-label">Corriger les fautes courantes</span>
+            <span class="toggle">
+              <input id="fautes-courantes" type="checkbox" checked />
+              <span class="slider"></span>
+            </span>
+          </label>
+
+          <label class="option" for="fautes-typographiques">
+            <span class="option-label">Corriger les fautes typographiques</span>
+            <span class="toggle">
+              <input id="fautes-typographiques" type="checkbox" />
+              <span class="slider"></span>
+            </span>
+          </label>
+
+          <div class="option-group">
+            <label class="option" for="reforme-1990">
+              <span class="option-label">Normaliser l'orthographe</span>
+              <span class="toggle">
+                <input id="reforme-1990" type="checkbox" />
+                <span class="slider"></span>
+              </span>
+            </label>
+            <div class="sub-options hidden" id="reforme-suboptions">
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="reforme-classique"
+                  name="reforme-mode"
+                  value="classique"
+                  checked
+                />
+                <label for="reforme-classique">
+                  <span class="radio-custom"></span>
+                  <span class="radio-label">Vers l'orthographe classique</span>
+                </label>
+              </div>
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="reforme-nouvelle"
+                  name="reforme-mode"
+                  value="nouvelle"
+                />
+                <label for="reforme-nouvelle">
+                  <span class="radio-custom"></span>
+                  <span class="radio-label"
+                    >Vers la nouvelle orthographe (1990)</span
+                  >
+                </label>
+              </div>
             </div>
-            <div class="option">
-                <label for="inclusive">Écriture inclusive</label>
-                <input id="inclusive" type="checkbox" checked>
-            </div>
-            <div class="option">
-                <label for="fautes-courantes">Fautes courantes</label>
-                <input id="fautes-courantes" type="checkbox" checked>
-            </div>
-            <div class="option">
-                <label for="fautes-typographiques">Fautes de typographie</label>
-                <input id="fautes-typographiques" type="checkbox" checked>
-            </div>
-            <div class="option">
-                <label for="reforme-1990">Réforme de 1990</label>
-                <input id="reforme-1990" type="checkbox" checked>
-            </div>
-            <div class="option">
-                <label for="extension-scope">Activer l'extension sur les sites non-francophones</label>
-                <input id="extension-scope" type="checkbox">
-            </div>
-        </div>
-        <div class="reload">
-            <button class="reload-tab-button hidden">Recharger la page courante</button>
+          </div>
+
+          <label class="option" for="extension-scope">
+            <span class="option-label"
+              >Activer sur les sites non-francophones</span
+            >
+            <span class="toggle">
+              <input id="extension-scope" type="checkbox" />
+              <span class="slider"></span>
+            </span>
+          </label>
         </div>
 
-        <h2>Corrections appliquées</h2>
-        <div class="count-item">
-            <span class="count-label">Anglicismes&nbsp;:</span>
-            <span id="anglicismes-count" class="count-value">0</span>
+        <div class="section">
+          <h2 class="section-title">Corrections appliquées</h2>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-label">Anglicismes</span>
+              <span id="anglicismes-count" class="stat-value">0</span>
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">Écriture inclusive</span>
+              <span id="inclusive-count" class="stat-value">0</span>
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">Fautes courantes</span>
+              <span id="fautesCourantes-count" class="stat-value">0</span>
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">Fautes typographiques</span>
+              <span id="fautesTypographiques-count" class="stat-value">0</span>
+            </div>
+
+            <div class="stat-card">
+              <span class="stat-label">Normalisation orthographique</span>
+              <span id="reforme1990-count" class="stat-value">0</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="stat-card total">
+              <span class="stat-label">Total</span>
+              <span id="total" class="stat-value">0</span>
+            </div>
+          </div>
         </div>
-        <div class="count-item">
-            <span class="count-label">Écriture inclusive&nbsp;:</span>
-            <span id="inclusive-count" class="count-value">0</span>
-        </div>        
-        <div class="count-item">
-            <span class="count-label">Fautes courantes&nbsp;:</span>
-            <span id="fautesCourantes-count" class="count-value">0</span>
-        </div>
-        <div class="count-item">
-            <span class="count-label">Fautes Typographiques&nbsp;:</span>
-            <span id="fautesTypographiques-count" class="count-value">0</span>
-        </div>
-        <div class="count-item">
-            <span class="count-label">Réforme de 1990&nbsp;:</span>
-            <span id="reforme1990-count" class="count-value">0</span>
-        </div>
-        <hr>
-        <div class="count-item">
-            <span class="count-label">Total&nbsp;:</span>
-            <span id="total" class="count-value">0</span>
-        </div>
-        <script src="popup.js"></script>
-    </body>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
 </html>

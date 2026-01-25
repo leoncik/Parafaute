@@ -1,94 +1,120 @@
 // Input elements
-const anglicismesInput = document.getElementById('anglicismes');
-const inclusiveInput = document.getElementById('inclusive');
-const fautesCourantesInput = document.getElementById('fautes-courantes');
-const fautesTypographiquesInput = document.getElementById('fautes-typographiques');
-const reforme1990Input = document.getElementById('reforme-1990');
-const extensionScopeInput = document.getElementById('extension-scope');
+const anglicismesInput = document.getElementById("anglicismes");
+const inclusiveInput = document.getElementById("inclusive");
+const fautesCourantesInput = document.getElementById("fautes-courantes");
+const fautesTypographiquesInput = document.getElementById(
+  "fautes-typographiques",
+);
+const reforme1990Input = document.getElementById("reforme-1990");
+const extensionScopeInput = document.getElementById("extension-scope");
+
+// Radio buttons for reforme1990 mode
+const reformeClassiqueInput = document.getElementById("reforme-classique");
+const reformeNouvelleInput = document.getElementById("reforme-nouvelle");
+const reformeSuboptions = document.getElementById("reforme-suboptions");
+
+// Toggle sub-options visibility based on reforme1990 state
+function updateReformeSuboptionsVisibility(isEnabled) {
+  if (isEnabled) {
+    reformeSuboptions.classList.remove("hidden");
+  } else {
+    reformeSuboptions.classList.add("hidden");
+  }
+}
 
 // Initialize the options with the user's option settings
-chrome.storage.sync.get([
-  'anglicismes',
-  'inclusive',
-  'fautesCourantes',
-  'fautesTypographiques',
-  'reforme1990',
-  'extensionScope'
-], function(options) {
+browser.storage.sync
+  .get([
+    "anglicismes",
+    "inclusive",
+    "fautesCourantes",
+    "fautesTypographiques",
+    "reforme1990",
+    "reforme1990Mode",
+    "extensionScope",
+  ])
+  .then((options) => {
+    // Set default options if storage data does not exist and check popup checkboxes accordingly.
+    if (Object.keys(options).length === 0) {
+      browser.storage.sync.set({ fautesCourantes: true });
+      browser.storage.sync.set({ anglicismes: true });
+      browser.storage.sync.set({ inclusive: true });
+      browser.storage.sync.set({ fautesTypographiques: false });
+      browser.storage.sync.set({ reforme1990: false });
+      browser.storage.sync.set({ reforme1990Mode: "classique" });
+      browser.storage.sync.set({ extensionScope: false });
 
-  // Set default options if chrome storage data does not exist and check popup checkboxes accordingly.
-  if (Object.keys(options).length === 0) {
-    chrome.storage.sync.set({'fautesCourantes': true});
-    chrome.storage.sync.set({'anglicismes': true});
-    chrome.storage.sync.set({'inclusive': true});
-    chrome.storage.sync.set({'fautesTypographiques': false});
-    chrome.storage.sync.set({'reforme1990': false});
-    chrome.storage.sync.set({'extensionScope': false});
+      anglicismesInput.checked = true;
+      inclusiveInput.checked = true;
+      fautesCourantesInput.checked = true;
+      fautesTypographiquesInput.checked = false;
+      reforme1990Input.checked = false;
+      reformeClassiqueInput.checked = true;
+      reformeNouvelleInput.checked = false;
+      extensionScopeInput.checked = false;
+      updateReformeSuboptionsVisibility(false);
+    } else {
+      // Check or uncheck options from popup according to user choices retrieved from storage
+      anglicismesInput.checked = options.anglicismes ?? true;
+      inclusiveInput.checked = options.inclusive ?? true;
+      fautesCourantesInput.checked = options.fautesCourantes ?? true;
+      fautesTypographiquesInput.checked = options.fautesTypographiques ?? false;
+      reforme1990Input.checked = options.reforme1990 ?? false;
+      extensionScopeInput.checked = options.extensionScope ?? false;
 
-    anglicismesInput.checked = true;
-    inclusiveInput.checked = true;
-    fautesCourantesInput.checked = true;
-    fautesTypographiquesInput.checked = false;
-    reforme1990Input.checked = false;
-    extensionScopeInput.checked = false;
-  }
+      // Set reforme1990 mode radio buttons
+      const mode = options.reforme1990Mode ?? "classique";
+      if (mode === "nouvelle") {
+        reformeNouvelleInput.checked = true;
+        reformeClassiqueInput.checked = false;
+      } else {
+        reformeClassiqueInput.checked = true;
+        reformeNouvelleInput.checked = false;
+      }
 
-  // Check or uncheck options from popup according to user choices retrieved from storage
-  if (Object.keys(options).length !== 0) {
-    (options.anglicismes) ? anglicismesInput.checked = true : anglicismesInput.checked = false;
-    (options.inclusive) ? inclusiveInput.checked = true : inclusiveInput.checked = false;
-    (options.fautesCourantes) ? fautesCourantesInput.checked = true : fautesCourantesInput.checked = false;
-    (options.fautesTypographiques) ? fautesTypographiquesInput.checked = true : fautesTypographiquesInput.checked = false;
-    (options.reforme1990) ? reforme1990Input.checked = true : reforme1990Input.checked = false;
-    (options.extensionScope) ? extensionScopeInput.checked = true : extensionScopeInput.checked = false;
-  }
-});
+      // Update sub-options visibility
+      updateReformeSuboptionsVisibility(options.reforme1990 ?? false);
+    }
+  });
 
 // Set options on input change
 anglicismesInput.addEventListener("input", () => {
-  if (anglicismesInput.checked) {
-    chrome.storage.sync.set({'anglicismes': true});
-  } else {
-    chrome.storage.sync.set({'anglicismes': false});
-  }
-})
+  browser.storage.sync.set({ anglicismes: anglicismesInput.checked });
+});
 
 inclusiveInput.addEventListener("input", () => {
-  if (inclusiveInput.checked) {
-    chrome.storage.sync.set({'inclusive': true});
-  } else {
-    chrome.storage.sync.set({'inclusive': false});
-  }
-})
+  browser.storage.sync.set({ inclusive: inclusiveInput.checked });
+});
 
 fautesCourantesInput.addEventListener("input", () => {
-  if (fautesCourantesInput.checked) {
-    chrome.storage.sync.set({'fautesCourantes': true});
-  } else {
-    chrome.storage.sync.set({'fautesCourantes': false});
-  }
-})
+  browser.storage.sync.set({ fautesCourantes: fautesCourantesInput.checked });
+});
 
-fautesTypographiques.addEventListener("input", () => {
-  if (fautesTypographiques.checked) {
-    chrome.storage.sync.set({'fautesTypographiques': true});
-  } else {
-    chrome.storage.sync.set({'fautesTypographiques': false});
-  }
-})
+fautesTypographiquesInput.addEventListener("input", () => {
+  browser.storage.sync.set({
+    fautesTypographiques: fautesTypographiquesInput.checked,
+  });
+});
 
 reforme1990Input.addEventListener("input", () => {
-  if (reforme1990Input.checked) {
-    chrome.storage.sync.set({'reforme1990': true});
-  } else {
-    chrome.storage.sync.set({'reforme1990': false});
+  const activated = reforme1990Input.checked;
+  updateReformeSuboptionsVisibility(activated);
+  browser.storage.sync.set({ reforme1990: activated });
+});
+
+// Radio button handlers for reforme1990 mode
+reformeClassiqueInput.addEventListener("change", () => {
+  if (reformeClassiqueInput.checked) {
+    browser.storage.sync.set({ reforme1990Mode: "classique" });
   }
-})
+});
+
+reformeNouvelleInput.addEventListener("change", () => {
+  if (reformeNouvelleInput.checked) {
+    browser.storage.sync.set({ reforme1990Mode: "nouvelle" });
+  }
+});
 
 extensionScopeInput.addEventListener("input", () => {
-  if (extensionScopeInput.checked) {
-    chrome.storage.sync.set({'extensionScope': true});
-  } else {
-    chrome.storage.sync.set({'extensionScope': false});
-  }
-})
+  browser.storage.sync.set({ extensionScope: extensionScopeInput.checked });
+});

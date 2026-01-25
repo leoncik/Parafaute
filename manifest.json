@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Parafaute",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "author": "leoncik",
   "description": "Une extension pour vous abriter des fautes courantes et des barbarismes (anglicismes et écriture inclusive)",
   "homepage_url": "https://github.com/leoncik/Parafaute",
@@ -19,9 +19,7 @@
     "chrome_style": true,
     "open_in_tab": false
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   "browser_specific_settings": {
     "gecko": {
       "id": "parafaute@leoncik.com"
@@ -32,9 +30,7 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
+      "matches": ["<all_urls>"],
       "js": [
         "src/dictionnaires/inclusive.js",
         "src/dictionnaires/anglicismes.js",
@@ -43,7 +39,8 @@
         "src/dictionnaires/reforme1990.js",
         "src/TextObserver.js",
         "src/Parafaute.js"
-      ]
+      ],
+      "all_frames": true
     }
   ]
 }
