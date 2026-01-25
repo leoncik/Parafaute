@@ -63,7 +63,12 @@ function createTextObserverCallback(checkedOptions) {
       newText = replaceText(newText, anglicismes, "anglicismes");
     }
     if (checkedOptions.reforme1990) {
-      newText = replaceText(newText, reforme1990, "reforme1990");
+      // Select the appropriate dictionary based on the mode
+      const reforme1990Dict =
+        checkedOptions.reforme1990Mode === "nouvelle"
+          ? reforme1990ToNouvelle
+          : reforme1990ToClassique;
+      newText = replaceText(newText, reforme1990Dict, "reforme1990");
     }
     if (checkedOptions.fautesCourantes) {
       newText = replaceText(newText, fautesCourantes, "fautesCourantes");
@@ -87,6 +92,7 @@ function initializeObserver(shouldReprocess = true) {
       "fautesCourantes",
       "fautesTypographiques",
       "reforme1990",
+      "reforme1990Mode",
       "extensionScope",
     ],
     function (checkedOptions) {
