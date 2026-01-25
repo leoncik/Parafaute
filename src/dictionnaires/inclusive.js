@@ -1,5 +1,10 @@
 // Liste des séparateurs pouvant faire office de point médian.
-const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.-]";
+// Inclut les caractères invisibles de formatage qui peuvent apparaître dans le HTML :
+// - \u00AD : soft hyphen (&shy;) - point de césure potentiel avec tiret
+// - \u200B : zero-width space - point de césure sans tiret
+// Le "+" permet d’inclure dans la détection plusieurs séparateurs consécutifs (ex: "·­" = point médian + soft hyphen).
+// Note : le "-" doit être à la fin de la classe pour être littéral (sinon il crée une plage de caractères).
+const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.\\u00AD\\u200B-]+";
 
 /**
  * Construit une expression régulière avec des séparateurs médians.
@@ -10,12 +15,12 @@ const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.-]";
  * @returns {RegExp} Expression régulière compilée.
  *
  * @example
- * // Retourne /tou[·‧܁⋅•∙\/.-]te[·‧܁⋅•∙\/.-]s/gi
+ * // Retourne /tou[·‧܁⋅•∙\/.­-]+te[·‧܁⋅•∙\/.­-]+s/gi
  * addSeparatorsRegex("tou_te_s")
  *
  * @example
  * // Avec des flags personnalisés.
- * addSeparatorsRegex("un_e\\b", "g") // Retourne /un[·‧܁⋅•∙\/.-]e\b/g
+ * addSeparatorsRegex("un_e\\b", "g") // Retourne /un[·‧܁⋅•∙\/.­-]+e\b/g
  */
 const addSeparatorsRegex = (pattern, flags = "gi") =>
   new RegExp(pattern.replace(/_/g, MEDIAN_SEPARATORS), flags);
@@ -78,7 +83,7 @@ const inclusive = [
   [/\((ve|VE)\)/gi, ""],
   [/\((fe|FE)\)/gi, ""],
 
-  // Liste des points médians avec variantes : [·‧܁⋅•∙\/.-]
+  // Liste des points médians avec variantes (voir MEDIAN_SEPARATORS)
 
   [addSeparatorsRegex("tou_te_s"), "tous"],
   [addSeparatorsRegex("tou_tes"), "tous"],
