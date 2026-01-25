@@ -18,6 +18,9 @@ const anglicismes = [
 
   // VOCABULAIRE
 
+  // *** A ***
+  [/\basap\b/gi, "dès que possible"],
+
   // *** B ***
   [/un best-of/g, "une anthologie"],
   [/ce bullshit/g, "ces conneries"],
