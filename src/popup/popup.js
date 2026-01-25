@@ -13,6 +13,33 @@ const reformeClassiqueInput = document.getElementById("reforme-classique");
 const reformeNouvelleInput = document.getElementById("reforme-nouvelle");
 const reformeSuboptions = document.getElementById("reforme-suboptions");
 
+// Function to update the stats grid with current counts
+function updateStatsGrid() {
+  chrome.runtime.sendMessage(
+    { action: "getDetailedCount" },
+    function (response) {
+      if (response && response.counts) {
+        document.getElementById("inclusive-count").textContent =
+          response.counts.inclusive || 0;
+        document.getElementById("anglicismes-count").textContent =
+          response.counts.anglicismes || 0;
+        document.getElementById("fautesCourantes-count").textContent =
+          response.counts.fautesCourantes || 0;
+        document.getElementById("fautesTypographiques-count").textContent =
+          response.counts.fautesTypographiques || 0;
+        document.getElementById("reforme1990-count").textContent =
+          response.counts.reforme1990 || 0;
+
+        let totalCount = Object.values(response.counts).reduce(
+          (sum, count) => sum + count,
+          0,
+        );
+        document.getElementById("total").textContent = totalCount;
+      }
+    },
+  );
+}
+
 // Function to send settings change message to active tab's content script via service worker
 function notifyContentScript(filterName, activated) {
   chrome.runtime.sendMessage(
@@ -27,6 +54,8 @@ function notifyContentScript(filterName, activated) {
         // Content script may not be loaded yet, which is fine
         console.log("Service worker not ready:", chrome.runtime.lastError);
       }
+      // Update stats grid after a small delay to allow content script to process
+      setTimeout(updateStatsGrid, 200);
     },
   );
 }
@@ -158,27 +187,5 @@ extensionScopeInput.addEventListener("input", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  chrome.runtime.sendMessage(
-    { action: "getDetailedCount" },
-    function (response) {
-      if (response && response.counts) {
-        document.getElementById("inclusive-count").textContent =
-          response.counts.inclusive || 0;
-        document.getElementById("anglicismes-count").textContent =
-          response.counts.anglicismes || 0;
-        document.getElementById("fautesCourantes-count").textContent =
-          response.counts.fautesCourantes || 0;
-        document.getElementById("fautesTypographiques-count").textContent =
-          response.counts.fautesTypographiques || 0;
-        document.getElementById("reforme1990-count").textContent =
-          response.counts.reforme1990 || 0;
-
-        let totalCount = Object.values(response.counts).reduce(
-          (sum, count) => sum + count,
-          0,
-        );
-        document.getElementById("total").textContent = totalCount;
-      }
-    },
-  );
+  updateStatsGrid();
 });
