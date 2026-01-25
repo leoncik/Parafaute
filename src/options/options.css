@@ -78,6 +78,11 @@ body {
     transform: translateX(4px);
 }
 
+.option:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
 .option-info {
     flex: 1;
     margin-right: 16px;
@@ -183,6 +188,11 @@ body {
     font-weight: 600;
 }
 
+.radio-option input[type="radio"]:focus-visible + label .radio-custom {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
 /* Custom toggle switch */
 .toggle {
     position: relative;
@@ -228,6 +238,11 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(24px);
+}
+
+.toggle input:focus-visible + .slider {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
 }
 
 .hidden {
