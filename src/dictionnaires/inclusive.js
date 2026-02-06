@@ -110,7 +110,8 @@ const inclusive = [
   [/\((te|TE)\)/gi, ""],
   [/\((ve|VE)\)/gi, ""],
   [/\((fe|FE)\)/gi, ""],
-  [/\((x|X)\)/gi, ""],
+  // Uniquement entre séparateurs médians pour éviter les faux positifs mathématiques (f(x), cos(x)…)
+  [/(?<=[·‧܁⋅•∙\/.\u00AD\u200B-])\(x\)(?=[·‧܁⋅•∙\/.\u00AD\u200B-])/gi, ""],
 
   // Liste des points médians avec variantes (voir MEDIAN_SEPARATORS)
 
