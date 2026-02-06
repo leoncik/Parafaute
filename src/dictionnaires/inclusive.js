@@ -126,8 +126,8 @@ const inclusive = [
   [addSeparatorsRegex("EUR_RICE_S", "g"), "EURS"],
   [addSeparatorsRegex("tous_tes", "g"), "tous"],
   [addSeparatorsRegex("TOUS_TES", "g"), "TOUS"],
-  [addSeparatorsRegex("ier_ère_s", "g"), "s"],
-  [addSeparatorsRegex("IER_ÈRE_S", "g"), "S"],
+  [addSeparatorsRegex("er_ère_s", "g"), "ers"],
+  [addSeparatorsRegex("ER_ÈRE_S", "g"), "ERS"],
   [addSeparatorsRegex("s_e_s", "g"), "s"],
   [addSeparatorsRegex("S_E_S", "g"), "S"],
 
@@ -137,6 +137,9 @@ const inclusive = [
   [addSeparatorsRegex("_EUR_RICE\\b", "g"), "EUR"],
   [addSeparatorsRegex("_fe_s", "g"), "s"],
   [addSeparatorsRegex("_FE_S", "g"), "S"],
+  // "·e·x·s" : combinaison féminin + neutre "x" + pluriel (ex: "représentant·e·x·s" → "représentants")
+  [addSeparatorsRegex("_e_x_s", "g"), "s"],
+  [addSeparatorsRegex("_E_X_S", "g"), "S"],
   [addSeparatorsRegex("_e_s", "g"), "s"],
   [addSeparatorsRegex("_E_S", "g"), "S"],
   [addSeparatorsRegex("_x_se\\b", "g"), "x"],
@@ -156,6 +159,9 @@ const inclusive = [
   [addSeparatorsRegex("LE_A\\b", "g"), "LE"],
   [addSeparatorsRegex("le_la\\b", "g"), "le"],
   [addSeparatorsRegex("LE_LA\\b", "g"), "LE"],
+  [addSeparatorsRegex("la_le\\b", "g"), "le"],
+  [addSeparatorsRegex("La_Le\\b", "g"), "Le"],
+  [addSeparatorsRegex("LA_LE\\b", "g"), "LE"],
   [addSeparatorsRegex("en_ennes\\b", "g"), "ens"],
   [addSeparatorsRegex("EN_ENNES\\b", "g"), "ENS"],
   [addSeparatorsRegex("en_enne\\b", "g"), "en"],
@@ -214,6 +220,27 @@ const inclusive = [
   [addSeparatorsRegex("UN_E\\b", "g"), "UN"],
   [/un\[e\]/g, "un"],
   [addSeparatorsRegex("Un_e\\b", "g"), "Un"],
+  // Chaînes de pronoms avec séparateurs (elle·iel·il, elle·il, etc.)
+  // Les formes à 3 pronoms doivent précéder les formes à 2 pronoms.
+  [addSeparatorsRegex("\\belle_iel_il\\b", "g"), "il"],
+  [addSeparatorsRegex("\\bElle_Iel_Il\\b", "g"), "Il"],
+  [addSeparatorsRegex("\\bELLE_IEL_IL\\b", "g"), "IL"],
+  [addSeparatorsRegex("\\bil_iel_elle\\b", "g"), "il"],
+  [addSeparatorsRegex("\\bIl_Iel_Elle\\b", "g"), "Il"],
+  [addSeparatorsRegex("\\bIL_IEL_ELLE\\b", "g"), "IL"],
+  [addSeparatorsRegex("\\belles_iels_ils\\b", "g"), "ils"],
+  [addSeparatorsRegex("\\bElles_Iels_Ils\\b", "g"), "Ils"],
+  [addSeparatorsRegex("\\bELLES_IELS_ILS\\b", "g"), "ILS"],
+  [addSeparatorsRegex("\\bils_iels_elles\\b", "g"), "ils"],
+  [addSeparatorsRegex("\\bIls_Iels_Elles\\b", "g"), "Ils"],
+  [addSeparatorsRegex("\\bILS_IELS_ELLES\\b", "g"), "ILS"],
+  // elle·il / il·elle (sans iel)
+  [addSeparatorsRegex("\\belle_il\\b", "g"), "il"],
+  [addSeparatorsRegex("\\bElle_Il\\b", "g"), "Il"],
+  [addSeparatorsRegex("\\bELLE_IL\\b", "g"), "IL"],
+  [addSeparatorsRegex("\\belles_ils\\b", "g"), "ils"],
+  [addSeparatorsRegex("\\bElles_Ils\\b", "g"), "Ils"],
+  [addSeparatorsRegex("\\bELLES_ILS\\b", "g"), "ILS"],
   // "Elle" n'a pas besoin d'être sensible à la casse
   [addSeparatorsRegex("il_(?:e|E)(?:l|L)(?:l|L)(?:e|E)\\b", "g"), "il"],
   [
@@ -259,6 +286,9 @@ const inclusive = [
   [addSeparatorsRegex("_ne\\b", "g"), ""],
   [addSeparatorsRegex("_nes\\b", "g"), "s"],
   [addSeparatorsRegex("_NES\\b", "g"), "S"],
+  // "·e·x" : combinaison féminin + neutre "x" singulier (ex: "représentant·e·x" → "représentant")
+  [addSeparatorsRegex("_e_x\\b", "g"), ""],
+  [addSeparatorsRegex("_E_X\\b", "g"), ""],
   // Faux positif: ne pas corriger "shift-e"
   [addSeparatorsRegex("(?<=\\w(?<!(?:s|S)hift))_e\\b", "g"), ""],
 
@@ -453,15 +483,46 @@ const inclusive = [
   [/elle\b et le [a-zA-ZÀ-ÖØ-öø-ÿ-]*el\b/g, "el"],
 
   [/euses\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
+  [/euses\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
+  [/euses\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
+  [/euses\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
   [/euses\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
   [/eux\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
+  [/eux\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
+  [/eux\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
+  [/eux\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
   [/eux\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
 
   [/eur\b \/ [a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
   [/eur\/[a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
+
+  // Doublets avec "/" et déterminants (ex: "le directeur/la directrice" → "le directeur")
+  // teur/trice avec déterminants
+  [/teur\s?\/\s?la [a-zA-ZÀ-ÖØ-öø-ÿ-]*trice\b/g, "teur"],
+  [/teur\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*trice\b/g, "teur"],
+  // trice/teur avec déterminants (2 étapes : déterminant + nom)
+  [/la (?=[a-zA-ZÀ-ÖØ-öø-ÿ-]*trice\s?\/\s?le [a-zA-ZÀ-ÖØ-öø-ÿ-]*teur\b)/g, "le "],
+  [/trice\s?\/\s?le [a-zA-ZÀ-ÖØ-öø-ÿ-]*teur\b/g, "teur"],
+  [/trice\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*teur\b/g, "teur"],
+  // eur/euse avec déterminants
+  [/eur\s?\/\s?la [a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
+  [/la (?=[a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\s?\/\s?le [a-zA-ZÀ-ÖØ-öø-ÿ-]*eur\b)/g, "le "],
+  [/euse\s?\/\s?le [a-zA-ZÀ-ÖØ-öø-ÿ-]*eur\b/g, "eur"],
+  [/euse\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*eur\b/g, "eur"],
+  // Variantes pluriel avec "/"
+  [/teurs\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "teurs"],
+  [/trices\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
+  [/eurs\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eurs"],
+  [/euses\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
   [/eurs\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
+  [/eurs\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
+  [/eurs\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
+  [/eurs\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
   [/eurs\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
   [/trices\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
+  [/trices\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
+  [/trices\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
+  [/trices\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
   [/trices\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
   [/teur ou une [a-zA-ZÀ-ÖØ-öø-ÿ-]*trice/g, "teur"],
   [/teur ou de [a-zA-ZÀ-ÖØ-öø-ÿ-]*trice/g, "teur"],
@@ -510,4 +571,25 @@ const inclusive = [
   [/çais\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*çaises\b/g, "çais"],
   [/çais\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*çaises\b/g, "çais"],
   [/çais\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*çaises\b/g, "çais"],
+
+  // Doublets génériques où féminin = masculin + "e"
+  // Utilise une rétroréférence pour couvrir tous les mots (ex: "clientes et clients", "invitées et invités").
+  // Doit être APRÈS les règles spécifiques de suffixes pour ne pas interférer.
+
+  // Pluriel avec "et" (le déterminant "les/des/aux" ne change pas)
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)es\b et (?:les |des |aux )?\1s\b/g, "$1s"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)s\b et (?:les |des |aux )?\1es\b/g, "$1s"],
+  // Singulier avec "ou" et déterminant (le déterminant fait partie du match)
+  [/la ([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\b ou le \1\b/g, "le $1"],
+  [/une ([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\b ou un \1\b/g, "un $1"],
+  [/le ([a-zA-ZÀ-ÖØ-öø-ÿ]+)\b ou la \1e\b/g, "le $1"],
+  [/un ([a-zA-ZÀ-ÖØ-öø-ÿ]+)\b ou une \1e\b/g, "un $1"],
+  // Singulier avec "ou" sans déterminant
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\b ou \1\b/g, "$1"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)\b ou \1e\b/g, "$1"],
+  // Slash
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)es\s?\/\s?\1s\b/g, "$1s"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)s\s?\/\s?\1es\b/g, "$1s"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\s?\/\s?\1\b/g, "$1"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)\s?\/\s?\1e\b/g, "$1"],
 ];
