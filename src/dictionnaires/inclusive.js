@@ -181,6 +181,36 @@ const inclusive = [
   [addSeparatorsRegex("ils_les(?![-])\\b"), "ils"],
   [addSeparatorsRegex("el_le(?![-])\\b"), "el"],
 
+  // ÉCRITURE INCLUSIVE AVEC "X"
+  // Le "x" est parfois utilisé comme alternative au point médian
+  // (ex : "étudiantxe" au lieu de "étudiant·e").
+  // Contrairement au point médian, le "x" est une lettre ordinaire, ce qui nécessite
+  // des règles spécifiques pour éviter les faux positifs (axe, luxe, fixe, etc.).
+
+  // Mots spécifiques
+  [/\bunxe\b/g, "un"],
+  [/\bUnxe\b/g, "Un"],
+  [/\btousxtes\b/g, "tous"],
+  [/\bTousxtes\b/g, "Tous"],
+
+  // Terminaisons composées (suffixe féminin complexe après "x")
+  [/teurxtrices\b/gi, "teurs"],
+  [/teurxtrice\b/gi, "teur"],
+  [/eurxeuses\b/gi, "eurs"],
+  [/eurxeuse\b/gi, "eur"],
+  [/eurxrices\b/gi, "eurs"],
+  [/eurxrice\b/gi, "eur"],
+  [/ifxves\b/gi, "ifs"],
+  [/ifxve\b/gi, "if"],
+  [/enxnes\b/gi, "ens"],
+  [/enxne\b/gi, "en"],
+
+  // Terminaison générique : consonne ou voyelle accentuée + "xe(s)"
+  // Les mots français courants en "-xe" sont précédés d'une voyelle
+  // non accentuée (axe, boxe, fixe, luxe...), ce qui les exclut de cette règle.
+  [/(?<=[bcdfghjklmnpqrstvwyzéèêëàâùûîïôö])xes\b/gi, "s"],
+  [/(?<=[bcdfghjklmnpqrstvwyzéèêëàâùûîïôö])xe\b/gi, ""],
+
   // VOCABULAIRE DIVERS
   // *** A ***
   [/Autrice/g, "Auteur"],
