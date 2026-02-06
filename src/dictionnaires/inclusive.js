@@ -83,6 +83,31 @@ const inclusive = [
   [/\((ve|VE)\)/gi, ""],
   [/\((fe|FE)\)/gi, ""],
 
+  // Formes compactes avec parenthèses (déterminants)
+  // le(a) → le, la(e) → le
+  [/\ble\s?\(a\)/g, "le"],
+  [/\bLe\s?\(a\)/g, "Le"],
+  [/\bLE\s?\(A\)/g, "LE"],
+  [/\bla\s?\(e\)/g, "le"],
+  [/\bLa\s?\(e\)/g, "Le"],
+  [/\bLA\s?\(E\)/g, "LE"],
+  // un(e) est déjà couvert par la règle (e|E) ci-dessus
+  // du(de la) → du
+  [/\bdu\s?\(de la\)/g, "du"],
+  [/\bDu\s?\(de la\)/g, "Du"],
+  [/\bDU\s?\(DE LA\)/g, "DU"],
+  // au(à la) → au
+  [/\bau\s?\(à la\)/g, "au"],
+  [/\bAu\s?\(à la\)/g, "Au"],
+  [/\bAU\s?\(À LA\)/g, "AU"],
+  // il(elle) → il, ils(elles) → ils
+  [/\bil\s?\(elle\)/g, "il"],
+  [/\bIl\s?\(elle\)/g, "Il"],
+  [/\bIL\s?\(ELLE\)/g, "IL"],
+  [/\bils\s?\(elles\)/g, "ils"],
+  [/\bIls\s?\(elles\)/g, "Ils"],
+  [/\bILS\s?\(ELLES\)/g, "ILS"],
+
   // Liste des points médians avec variantes (voir MEDIAN_SEPARATORS)
 
   [addSeparatorsRegex("tou_te_s", "g"), "tous"],
@@ -357,6 +382,7 @@ const inclusive = [
   [/euses\b et des [a-zA-Z-é]*eurs\b/g, "eurs"],
   [/euses\b et les [a-zA-Z-é]*eurs\b/g, "eurs"],
   [/euses\b et de [a-zA-Z-é]*eurs\b/g, "eurs"],
+  [/euses\b et aux [a-zA-Z-é]*eurs\b/g, "eurs"],
 
   [/euse\b ou le [a-zA-Z-é]*eur\b/g, "eur"],
 
@@ -364,6 +390,7 @@ const inclusive = [
   [/eurs\b et des [a-zA-Z-é]*euses\b/g, "eurs"],
   [/eurs\b et les [a-zA-Z-é]*euses\b/g, "eurs"],
   [/eurs\b et de [a-zA-Z-é]*euses\b/g, "eurs"],
+  [/eurs\b et aux [a-zA-Z-é]*euses\b/g, "eurs"],
 
   [/eur\b ou la [a-zA-Z-é]*euse\b/g, "eur"],
 
@@ -371,6 +398,7 @@ const inclusive = [
   [/ens\b et des [a-zA-Z-é]*ennes\b/g, "ens"],
   [/ens\b et les [a-zA-Z-é]*ennes\b/g, "ens"],
   [/ens\b et de [a-zA-Z-é]*ennes\b/g, "ens"],
+  [/ens\b et aux [a-zA-Z-é]*ennes\b/g, "ens"],
 
   [/en\b ou la [a-zA-Z-é]*enne\b/g, "en"],
 
@@ -378,6 +406,7 @@ const inclusive = [
   [/ennes\b et des [a-zA-Z-é]*ens\b/g, "ens"],
   [/ennes\b et les [a-zA-Z-é]*ens\b/g, "ens"],
   [/ennes\b et de [a-zA-Z-é]*ens\b/g, "ens"],
+  [/ennes\b et aux [a-zA-Z-é]*ens\b/g, "ens"],
 
   [/enne\b ou le [a-zA-Z-é]*en\b/g, "en"],
 
@@ -385,6 +414,7 @@ const inclusive = [
   [/els\b et des [a-zA-Z-é]*elles\b/g, "els"],
   [/els\b et les [a-zA-Z-é]*elles\b/g, "els"],
   [/els\b et de [a-zA-Z-é]*elles\b/g, "els"],
+  [/els\b et aux [a-zA-Z-é]*elles\b/g, "els"],
 
   [/el\b et la [a-zA-Z-é]*elle\b/g, "el"],
 
@@ -392,32 +422,46 @@ const inclusive = [
   [/elles\b et des [a-zA-Z-é]*els\b/g, "els"],
   [/elles\b et les [a-zA-Z-é]*els\b/g, "els"],
   [/elles\b et de [a-zA-Z-é]*els\b/g, "els"],
+  [/elles\b et aux [a-zA-Z-é]*els\b/g, "els"],
 
   [/elle\b et le [a-zA-Z-é]*el\b/g, "el"],
 
   [/euses\b et [a-zA-Z-é]*eux\b/g, "eux"],
+  [/euses\b et aux [a-zA-Z-é]*eux\b/g, "eux"],
   [/eux\b et [a-zA-Z-é]*euses\b/g, "eux"],
+  [/eux\b et aux [a-zA-Z-é]*euses\b/g, "eux"],
 
   [/eur\b \/ [a-zA-Z-é]*euse\b/g, "eur"],
   [/eur\/[a-zA-Z-é]*euse\b/g, "eur"],
   [/eurs\b et [a-zA-Z-é]*trices\b/g, "eurs"],
+  [/eurs\b et aux [a-zA-Z-é]*trices\b/g, "eurs"],
   [/trices\b et [a-zA-Z-é]*teurs\b/g, "teurs"],
+  [/trices\b et aux [a-zA-Z-é]*teurs\b/g, "teurs"],
   [/teur ou une [a-zA-Z-é]*trice/g, "teur"],
   [/teur ou de [a-zA-Z-é]*trice/g, "teur"],
 
   [/trices\b et [a-zA-Z-é]*eurs\b/g, "eurs"],
   [/trices\b et des [a-zA-Z-é]*eurs\b/g, "eurs"],
   [/trices\b et les [a-zA-Z-é]*eurs\b/g, "eurs"],
+  [/trices\b et aux [a-zA-Z-é]*eurs\b/g, "eurs"],
 
   [/antes\b et [a-zA-Z-é]*ants\b/g, "ants"],
   [/antes\b et des [a-zA-Z-é]*ants\b/g, "ants"],
   [/antes\b et les [a-zA-Z-é]*ants\b/g, "ants"],
+  [/antes\b et aux [a-zA-Z-é]*ants\b/g, "ants"],
+
+  [/ants\b et [a-zA-Z-é]*antes\b/g, "ants"],
+  [/ants\b et des [a-zA-Z-é]*antes\b/g, "ants"],
+  [/ants\b et les [a-zA-Z-é]*antes\b/g, "ants"],
+  [/ants\b et aux [a-zA-Z-é]*antes\b/g, "ants"],
 
   [/çaises\b et [a-zA-Z-é]*çais\b/g, "çais"],
   [/çaises\b et des [a-zA-Z-é]*çais\b/g, "çais"],
   [/çaises\b et les [a-zA-Z-é]*çais\b/g, "çais"],
+  [/çaises\b et aux [a-zA-Z-é]*çais\b/g, "çais"],
 
   [/çais\b et [a-zA-Z-é]*çaises\b/g, "çais"],
   [/çais\b et des [a-zA-Z-é]*çaises\b/g, "çais"],
   [/çais\b et les [a-zA-Z-é]*çaises\b/g, "çais"],
+  [/çais\b et aux [a-zA-Z-é]*çaises\b/g, "çais"],
 ];
