@@ -221,7 +221,11 @@ const inclusive = [
   [addSeparatorsRegex("_nes\\b", "g"), "s"],
   [addSeparatorsRegex("_NES\\b", "g"), "S"],
   // Faux positif: ne pas corriger "shift-e"
-  [addSeparatorsRegex("(?<=\\w(?<!(?:s|S)hift))_e\\b"), ""],
+  [addSeparatorsRegex("(?<=\\w(?<!(?:s|S)hift))_e\\b"), ""],  // "x" comme marqueur neutre (ex. "adérents·x" → "adérents", "tous·x" → "tous")
+  // On restreint aux vrais points médians pour éviter les faux positifs techniques
+  // (ex. "grep -x", "v3.x", "usr/x" ne doivent pas être modifiés).
+  [/[·‧܁⋅•∙]+x\b/g, ""],
+  [/[·‧܁⋅•∙]+X\b/g, ""],
 
   // Gestions spécifiques pour "-le" pour inclure les expressions comme "Teste-le !" et lieux comme "Sennecey-le-Grand"
   [addSeparatorsRegex("il_le(?![-])\\b", "g"), "il"],
@@ -237,11 +241,23 @@ const inclusive = [
   // Contrairement au point médian, le "x" est une lettre ordinaire, ce qui nécessite
   // des règles spécifiques pour éviter les faux positifs (axe, luxe, fixe, etc.).
 
-  // Mots spécifiques
+  // Mots spécifiques (concaténation directe avec "x")
   [/\bunxe\b/g, "un"],
   [/\bUnxe\b/g, "Un"],
   [/\btousxtes\b/g, "tous"],
   [/\bTousxtes\b/g, "Tous"],
+
+  // Mots spécifiques (séparateur + "x" en fin de mot)
+  // On utilise addSeparatorsRegex car le mot complet est ancré, sans risque de faux positif.
+  [addSeparatorsRegex("\\btous_x\\b", "g"), "tous"],
+  [addSeparatorsRegex("\\bTOUS_X\\b", "g"), "TOUS"],
+  [addSeparatorsRegex("\\bTous_x\\b", "g"), "Tous"],
+  [addSeparatorsRegex("\\bami_x\\b", "g"), "ami"],
+  [addSeparatorsRegex("\\bAMI_X\\b", "g"), "AMI"],
+  [addSeparatorsRegex("\\bAmi_x\\b", "g"), "Ami"],
+  [addSeparatorsRegex("\\bamis_x\\b", "g"), "amis"],
+  [addSeparatorsRegex("\\bAMIS_X\\b", "g"), "AMIS"],
+  [addSeparatorsRegex("\\bAmis_x\\b", "g"), "Amis"],
 
   // Terminaisons composées (suffixe féminin complexe après "x")
   [/teurxtrices\b/g, "teurs"],
@@ -264,6 +280,33 @@ const inclusive = [
   [/ENXNES\b/g, "ENS"],
   [/enxne\b/g, "en"],
   [/ENXNE\b/g, "EN"],
+
+  // Terminaisons avec séparateur + "x" (suffixes courants)
+  // On utilise addSeparatorsRegex car la terminaison est suffisamment spécifique.
+  [addSeparatorsRegex("ants_x\\b", "g"), "ants"],
+  [addSeparatorsRegex("ANTS_X\\b", "g"), "ANTS"],
+  [addSeparatorsRegex("ant_x\\b", "g"), "ant"],
+  [addSeparatorsRegex("ANT_X\\b", "g"), "ANT"],
+  [addSeparatorsRegex("ents_x\\b", "g"), "ents"],
+  [addSeparatorsRegex("ENTS_X\\b", "g"), "ENTS"],
+  [addSeparatorsRegex("ent_x\\b", "g"), "ent"],
+  [addSeparatorsRegex("ENT_X\\b", "g"), "ENT"],
+  [addSeparatorsRegex("és_x\\b", "g"), "és"],
+  [addSeparatorsRegex("ÉS_X\\b", "g"), "ÉS"],
+  [addSeparatorsRegex("é_x\\b", "g"), "é"],
+  [addSeparatorsRegex("É_X\\b", "g"), "É"],
+  [addSeparatorsRegex("eurs_x\\b", "g"), "eurs"],
+  [addSeparatorsRegex("EURS_X\\b", "g"), "EURS"],
+  [addSeparatorsRegex("eur_x\\b", "g"), "eur"],
+  [addSeparatorsRegex("EUR_X\\b", "g"), "EUR"],
+  [addSeparatorsRegex("ifs_x\\b", "g"), "ifs"],
+  [addSeparatorsRegex("IFS_X\\b", "g"), "IFS"],
+  [addSeparatorsRegex("if_x\\b", "g"), "if"],
+  [addSeparatorsRegex("IF_X\\b", "g"), "IF"],
+  [addSeparatorsRegex("ains_x\\b", "g"), "ains"],
+  [addSeparatorsRegex("AINS_X\\b", "g"), "AINS"],
+  [addSeparatorsRegex("ain_x\\b", "g"), "ain"],
+  [addSeparatorsRegex("AIN_X\\b", "g"), "AIN"],
 
   // Terminaison générique : consonne ou voyelle accentuée + "xe(s)"
   // Les mots français courants en "-xe" sont précédés d'une voyelle
