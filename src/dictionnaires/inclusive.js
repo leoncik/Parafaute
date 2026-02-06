@@ -60,6 +60,9 @@ const inclusive = [
   [/Tous et toutes/g, "Tous"],
   [/Toustes/g, "Tous"],
   [/toustes/g, "tous"],
+  [/\btouste\b/g, "tout"],
+  [/\bTouste\b/g, "Tout"],
+  [/\bTOUSTE\b/g, "TOUT"],
 
   // Formes compactes avec parenthèses (déterminants)
   // Doit être AVANT la section typographie pour que "la(e)" → "le"
@@ -107,6 +110,7 @@ const inclusive = [
   [/\((te|TE)\)/gi, ""],
   [/\((ve|VE)\)/gi, ""],
   [/\((fe|FE)\)/gi, ""],
+  [/\((x|X)\)/gi, ""],
 
   // Liste des points médians avec variantes (voir MEDIAN_SEPARATORS)
 
@@ -162,6 +166,44 @@ const inclusive = [
   [addSeparatorsRegex("la_le\\b", "g"), "le"],
   [addSeparatorsRegex("La_Le\\b", "g"), "Le"],
   [addSeparatorsRegex("LA_LE\\b", "g"), "LE"],
+  // la·e → le (ex: "Je la·e respecte" → "Je le respecte")
+  [addSeparatorsRegex("\\bla_e\\b", "g"), "le"],
+  [addSeparatorsRegex("\\bLa_E\\b", "g"), "Le"],
+  [addSeparatorsRegex("\\bLA_E\\b", "g"), "LE"],
+  // Articles partitifs : du·de la → du
+  [addSeparatorsRegex("\\bdu_de la\\b", "g"), "du"],
+  [addSeparatorsRegex("\\bDU_DE LA\\b", "g"), "DU"],
+  [addSeparatorsRegex("\\bde la_du\\b", "g"), "du"],
+  [addSeparatorsRegex("\\bDE LA_DU\\b", "g"), "DU"],
+  // Déterminants possessifs : mon·ma, ton·ta, son·sa
+  [addSeparatorsRegex("\\bmon_ma\\b", "g"), "mon"],
+  [addSeparatorsRegex("\\bMon_Ma\\b", "g"), "Mon"],
+  [addSeparatorsRegex("\\bMON_MA\\b", "g"), "MON"],
+  [addSeparatorsRegex("\\bma_mon\\b", "g"), "mon"],
+  [addSeparatorsRegex("\\bMa_Mon\\b", "g"), "Mon"],
+  [addSeparatorsRegex("\\bMA_MON\\b", "g"), "MON"],
+  [addSeparatorsRegex("\\bton_ta\\b", "g"), "ton"],
+  [addSeparatorsRegex("\\bTon_Ta\\b", "g"), "Ton"],
+  [addSeparatorsRegex("\\bTON_TA\\b", "g"), "TON"],
+  [addSeparatorsRegex("\\bta_ton\\b", "g"), "ton"],
+  [addSeparatorsRegex("\\bTa_Ton\\b", "g"), "Ton"],
+  [addSeparatorsRegex("\\bTA_TON\\b", "g"), "TON"],
+  [addSeparatorsRegex("\\bson_sa\\b", "g"), "son"],
+  [addSeparatorsRegex("\\bSon_Sa\\b", "g"), "Son"],
+  [addSeparatorsRegex("\\bSON_SA\\b", "g"), "SON"],
+  [addSeparatorsRegex("\\bsa_son\\b", "g"), "son"],
+  [addSeparatorsRegex("\\bSa_Son\\b", "g"), "Son"],
+  [addSeparatorsRegex("\\bSA_SON\\b", "g"), "SON"],
+  // Formes abrégées des possessifs (ex: "son·a cousin·e")
+  [addSeparatorsRegex("\\bmon_a\\b", "g"), "mon"],
+  [addSeparatorsRegex("\\bMon_a\\b", "g"), "Mon"],
+  [addSeparatorsRegex("\\bMON_A\\b", "g"), "MON"],
+  [addSeparatorsRegex("\\bton_a\\b", "g"), "ton"],
+  [addSeparatorsRegex("\\bTon_a\\b", "g"), "Ton"],
+  [addSeparatorsRegex("\\bTON_A\\b", "g"), "TON"],
+  [addSeparatorsRegex("\\bson_a\\b", "g"), "son"],
+  [addSeparatorsRegex("\\bSon_a\\b", "g"), "Son"],
+  [addSeparatorsRegex("\\bSON_A\\b", "g"), "SON"],
   [addSeparatorsRegex("en_ennes\\b", "g"), "ens"],
   [addSeparatorsRegex("EN_ENNES\\b", "g"), "ENS"],
   [addSeparatorsRegex("en_enne\\b", "g"), "en"],
@@ -185,7 +227,12 @@ const inclusive = [
   [addSeparatorsRegex("teur_trice", "g"), "teur"],
   [addSeparatorsRegex("TEUR_TRICE", "g"), "TEUR"],
   [addSeparatorsRegex("\\bceux_elles", "g"), "ceux"],
+  [addSeparatorsRegex("\\bCeux_Elles", "g"), "Ceux"],
   [addSeparatorsRegex("\\bCEUX_ELLES", "g"), "CEUX"],
+  // Pronoms démonstratifs : celui·elle → celui
+  [addSeparatorsRegex("\\bcelui_elle\\b", "g"), "celui"],
+  [addSeparatorsRegex("\\bCelui_Elle\\b", "g"), "Celui"],
+  [addSeparatorsRegex("\\bCELUI_ELLE\\b", "g"), "CELUI"],
   [addSeparatorsRegex("cet_te", "g"), "ce"],
   [addSeparatorsRegex("CET_TE", "g"), "CE"],
   [addSeparatorsRegex("eux_ses\\b", "g"), "eux"],
@@ -234,6 +281,19 @@ const inclusive = [
   [addSeparatorsRegex("\\bils_iels_elles\\b", "g"), "ils"],
   [addSeparatorsRegex("\\bIls_Iels_Elles\\b", "g"), "Ils"],
   [addSeparatorsRegex("\\bILS_IELS_ELLES\\b", "g"), "ILS"],
+  // elle·iel / il·iel (2 pronoms avec iel)
+  [addSeparatorsRegex("\\belle_iel\\b", "g"), "il"],
+  [addSeparatorsRegex("\\bElle_Iel\\b", "g"), "Il"],
+  [addSeparatorsRegex("\\bELLE_IEL\\b", "g"), "IL"],
+  [addSeparatorsRegex("\\bil_iel\\b", "g"), "il"],
+  [addSeparatorsRegex("\\bIl_Iel\\b", "g"), "Il"],
+  [addSeparatorsRegex("\\bIL_IEL\\b", "g"), "IL"],
+  [addSeparatorsRegex("\\belles_iels\\b", "g"), "ils"],
+  [addSeparatorsRegex("\\bElles_Iels\\b", "g"), "Ils"],
+  [addSeparatorsRegex("\\bELLES_IELS\\b", "g"), "ILS"],
+  [addSeparatorsRegex("\\bils_iels\\b", "g"), "ils"],
+  [addSeparatorsRegex("\\bIls_Iels\\b", "g"), "Ils"],
+  [addSeparatorsRegex("\\bILS_IELS\\b", "g"), "ILS"],
   // elle·il / il·elle (sans iel)
   [addSeparatorsRegex("\\belle_il\\b", "g"), "il"],
   [addSeparatorsRegex("\\bElle_Il\\b", "g"), "Il"],
@@ -241,6 +301,19 @@ const inclusive = [
   [addSeparatorsRegex("\\belles_ils\\b", "g"), "ils"],
   [addSeparatorsRegex("\\bElles_Ils\\b", "g"), "Ils"],
   [addSeparatorsRegex("\\bELLES_ILS\\b", "g"), "ILS"],
+  // Pronoms compléments : lui·elle → lui, elles·eux → eux
+  [addSeparatorsRegex("\\blui_elle\\b", "g"), "lui"],
+  [addSeparatorsRegex("\\bLui_Elle\\b", "g"), "Lui"],
+  [addSeparatorsRegex("\\bLUI_ELLE\\b", "g"), "LUI"],
+  [addSeparatorsRegex("\\belle_lui\\b", "g"), "lui"],
+  [addSeparatorsRegex("\\bElle_Lui\\b", "g"), "Lui"],
+  [addSeparatorsRegex("\\bELLE_LUI\\b", "g"), "LUI"],
+  [addSeparatorsRegex("\\belles_eux\\b", "g"), "eux"],
+  [addSeparatorsRegex("\\bElles_Eux\\b", "g"), "Eux"],
+  [addSeparatorsRegex("\\bELLES_EUX\\b", "g"), "EUX"],
+  [addSeparatorsRegex("\\beux_elles\\b", "g"), "eux"],
+  [addSeparatorsRegex("\\bEux_Elles\\b", "g"), "Eux"],
+  [addSeparatorsRegex("\\bEUX_ELLES\\b", "g"), "EUX"],
   // "Elle" n'a pas besoin d'être sensible à la casse
   [addSeparatorsRegex("il_(?:e|E)(?:l|L)(?:l|L)(?:e|E)\\b", "g"), "il"],
   [
@@ -317,6 +390,12 @@ const inclusive = [
   [/\bUnxe\b/g, "Un"],
   [/\btousxtes\b/g, "tous"],
   [/\bTousxtes\b/g, "Tous"],
+  [/\btouxes\b/g, "tous"],
+  [/\bTouxes\b/g, "Tous"],
+  [/\bTOUXES\b/g, "TOUS"],
+  [/\btouxe\b/g, "tout"],
+  [/\bTouxe\b/g, "Tout"],
+  [/\bTOUXE\b/g, "TOUT"],
 
   // Mots spécifiques (séparateur + "x" en fin de mot)
   // On utilise addSeparatorsRegex car le mot complet est ancré, sans risque de faux positif.
@@ -404,9 +483,23 @@ const inclusive = [
   [/\bcellui/g, "celui"],
   [/\bCellui/g, "Celui"],
   [/\bCELLUI/g, "CELUI"],
+  [/\bceus\b/g, "ceux"],
+  [/\bCeus\b/g, "Ceux"],
+  [/\bCEUS\b/g, "CEUX"],
+  [/\bcèx\b/g, "ce"],
+  [/\bCèx\b/g, "Ce"],
+  [/\bCÈX\b/g, "CE"],
   [/\bcopaines/g, "copains"],
   [/\bCopaines/g, "Copains"],
   [/\bCOPAINES/g, "COPAINS"],
+
+  // *** E ***
+  [/\belleux\b/g, "eux"],
+  [/\bElleux\b/g, "Eux"],
+  [/\bELLEUX\b/g, "EUX"],
+  [/\beuxes\b/g, "eux"],
+  [/\bEuxes\b/g, "Eux"],
+  [/\bEUXES\b/g, "EUX"],
 
   // *** I ***
   [/\bIel\b/g, "Il"],
