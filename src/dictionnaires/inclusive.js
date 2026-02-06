@@ -61,6 +61,33 @@ const inclusive = [
   [/Toustes/g, "Tous"],
   [/toustes/g, "tous"],
 
+  // Formes compactes avec parenthèses (déterminants)
+  // Doit être AVANT la section typographie pour que "la(e)" → "le"
+  // et non "la(e)" → "la" via la règle générique (e).
+  // le(a) → le, la(e) → le
+  [/\ble\s?\(a\)/g, "le"],
+  [/\bLe\s?\(a\)/g, "Le"],
+  [/\bLE\s?\(A\)/g, "LE"],
+  [/\bla\s?\(e\)/g, "le"],
+  [/\bLa\s?\(e\)/g, "Le"],
+  [/\bLA\s?\(E\)/g, "LE"],
+  // un(e) → un : couvert par la règle (e|E) ci-dessous
+  // du(de la) → du
+  [/\bdu\s?\(de la\)/g, "du"],
+  [/\bDu\s?\(de la\)/g, "Du"],
+  [/\bDU\s?\(DE LA\)/g, "DU"],
+  // au(à la) → au
+  [/\bau\s?\(à la\)/g, "au"],
+  [/\bAu\s?\(à la\)/g, "Au"],
+  [/\bAU\s?\(À LA\)/g, "AU"],
+  // il(elle) → il, ils(elles) → ils
+  [/\bil\s?\(elle\)/g, "il"],
+  [/\bIl\s?\(elle\)/g, "Il"],
+  [/\bIL\s?\(ELLE\)/g, "IL"],
+  [/\bils\s?\(elles\)/g, "ils"],
+  [/\bIls\s?\(elles\)/g, "Ils"],
+  [/\bILS\s?\(ELLES\)/g, "ILS"],
+
   // TYPOGRAPHIE
   [/\((e|E)\)/gi, ""],
   [/\((e|E)(s|S)\)/gi, ""],
@@ -80,31 +107,6 @@ const inclusive = [
   [/\((te|TE)\)/gi, ""],
   [/\((ve|VE)\)/gi, ""],
   [/\((fe|FE)\)/gi, ""],
-
-  // Formes compactes avec parenthèses (déterminants)
-  // le(a) → le, la(e) → le
-  [/\ble\s?\(a\)/g, "le"],
-  [/\bLe\s?\(a\)/g, "Le"],
-  [/\bLE\s?\(A\)/g, "LE"],
-  [/\bla\s?\(e\)/g, "le"],
-  [/\bLa\s?\(e\)/g, "Le"],
-  [/\bLA\s?\(E\)/g, "LE"],
-  // un(e) est déjà couvert par la règle (e|E) ci-dessus
-  // du(de la) → du
-  [/\bdu\s?\(de la\)/g, "du"],
-  [/\bDu\s?\(de la\)/g, "Du"],
-  [/\bDU\s?\(DE LA\)/g, "DU"],
-  // au(à la) → au
-  [/\bau\s?\(à la\)/g, "au"],
-  [/\bAu\s?\(à la\)/g, "Au"],
-  [/\bAU\s?\(À LA\)/g, "AU"],
-  // il(elle) → il, ils(elles) → ils
-  [/\bil\s?\(elle\)/g, "il"],
-  [/\bIl\s?\(elle\)/g, "Il"],
-  [/\bIL\s?\(ELLE\)/g, "IL"],
-  [/\bils\s?\(elles\)/g, "ils"],
-  [/\bIls\s?\(elles\)/g, "Ils"],
-  [/\bILS\s?\(ELLES\)/g, "ILS"],
 
   // Liste des points médians avec variantes (voir MEDIAN_SEPARATORS)
 
@@ -371,10 +373,10 @@ const inclusive = [
   [/\bIlles\b/g, "Ils"],
   [/\bILLES\b/g, "ILS"],
 
-  [/teurice/g, "teur"],
-  [/TEURICE/g, "TEUR"],
   [/teurices/g, "teurs"],
   [/TEURICES/g, "TEURS"],
+  [/teurice/g, "teur"],
+  [/TEURICE/g, "TEUR"],
 
   // PROFESSIONS
   // Afin de prendre en compte les couples type : "déterminant féminin - nom féminin - déterminant masculin - nom masculin".
