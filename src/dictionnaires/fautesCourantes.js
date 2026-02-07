@@ -8,17 +8,17 @@ const fautesCourantes = [
   [/sa va\b/g, "ça va"],
   [/Sa va\b/g, "Ça va"],
 
-  [/Si il\b/g, "S'il"],
-  [/si il\b/g, "s'il"],
+  [/Si il\b/g, "S’il"],
+  [/si il\b/g, "s’il"],
 
-  [/Il s'en suit un vif débat\b/g, "S'ensuit un vif débat"],
-  [/il s'en suit un vif débat\b/g, "s'ensuit un vif débat"],
+  [/Il s'en suit un vif débat\b/g, "S’ensuit un vif débat"],
+  [/il s'en suit un vif débat\b/g, "s’ensuit un vif débat"],
 
-  [/Il s'en suivit un vif débat\b/g, "S'ensuivit un vif débat"],
-  [/il s'en suivit un vif débat\b/g, "s'ensuivit un vif débat"],
+  [/Il s'en suivit un vif débat\b/g, "S’ensuivit un vif débat"],
+  [/il s'en suivit un vif débat\b/g, "s’ensuivit un vif débat"],
 
-  [/Il s'en est suivi un vif débat\b/g, "S'est ensuivi un vif débat"],
-  [/il s'en est suivi un vif débat\b/g, "s'est ensuivi un vif débat"],
+  [/Il s'en est suivi un vif débat\b/g, "S’est ensuivi un vif débat"],
+  [/il s'en est suivi un vif débat\b/g, "s’est ensuivi un vif débat"],
 
   [/Le problème s'empire\b/g, "Le problème empire"],
   [/le problème s'empire\b/g, "le problème empire"],
@@ -36,8 +36,8 @@ const fautesCourantes = [
   [/y a t'il\b/g, "y a-t-il"],
 
   [/aux dépends\b/g, "aux dépens"],
-  [/chiffre d'affaire\b/g, "chiffre d'affaires"],
-  [/Chiffre d'affaire\b/g, "Chiffre d'affaires"],
+  [/chiffre d'affaire\b/g, "chiffre d’affaires"],
+  [/Chiffre d'affaire\b/g, "Chiffre d’affaires"],
   [/Il y à\b/g, "Il y a"],
   [/il y à\b/g, "il y a"],
 
@@ -138,8 +138,8 @@ const fautesCourantes = [
   [/plusieur\b/g, "plusieurs"],
 
   // *** S ***
-  [/S'appitoyer\b/g, "S'apitoyer"],
-  [/s'appitoyer\b/g, "s'apitoyer"],
+  [/S'appitoyer\b/g, "S’apitoyer"],
+  [/s'appitoyer\b/g, "s’apitoyer"],
   [/Syphon\b/g, "Siphon"],
   [/syphon\b/g, "siphon"],
 
