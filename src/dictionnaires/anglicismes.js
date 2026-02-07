@@ -3,18 +3,18 @@ const anglicismes = [
   // [/faute/]: "correction",
 
   // EXPRESSIONS
-  // Anglicisme lié à l'expression : "to make sense"
-  [/ne faisait aucun sens\b/g, "n'avait aucun sens"],
-  [/ne fait aucun sens\b/g, "n'a aucun sens"],
-  [/ne font aucun sens\b/g, "n'ont aucun sens"],
-  [/ne fait sens\b/g, "n'a de sens"],
-  [/ne font sens\b/g, "n'ont de sens"],
+  // Anglicisme lié à l’expression : "to make sense"
+  [/ne faisait aucun sens\b/g, "n’avait aucun sens"],
+  [/ne fait aucun sens\b/g, "n’a aucun sens"],
+  [/ne font aucun sens\b/g, "n’ont aucun sens"],
+  [/ne fait sens\b/g, "n’a de sens"],
+  [/ne font sens\b/g, "n’ont de sens"],
   [/fait sens\b/g, "a du sens"],
   [/faire du shopping\b/g, "faire des achats"],
-  [/saisir l'opportunité\b/g, "saisir l'occasion"],
+  [/saisir l'opportunité\b/g, "saisir l’occasion"],
 
-  // Être confortable (n'a aucun sens en parlant d'une personne ou d'une idée)
-  [/Je ne suis pas confortable\b/g, "Je ne suis pas à l'aise"],
+  // Être confortable (n’a aucun sens en parlant d’une personne ou d’une idée)
+  [/Je ne suis pas confortable\b/g, "Je ne suis pas à l’aise"],
 
   // VOCABULAIRE
   // /gi + preserveCase couvre minuscule, Majuscule initiale et TOUT MAJUSCULE.
@@ -49,7 +49,7 @@ const anglicismes = [
   // *** E ***
   // ⚠ Les règles e-mail/email doivent rester AVANT la règle mail (section M),
   // sinon \bmail\b matcherait le "mail" dans "e-mail"
-  [/\bde l['']e-mail\b/g, "de l'adresse électronique"],
+  [/\bde l['']e-mail\b/g, "de l’adresse électronique"],
   [/\bl['']e-mail\b/g, "le courriel"],
   [/\bl['']email\b/g, "le courriel"],
   [/\be-mail\b/gi, preserveCase("courriel")],
@@ -79,7 +79,7 @@ const anglicismes = [
   // ⚠ Les règles mail doivent rester APRÈS les règles e-mail (voir section E)
   [/\bmail\b/gi, preserveCase("courriel")],
   [/\bmainstream\b/gi, preserveCase("populaire")],
-  [/le management\b/gi, preserveCase("l'encadrement")],
+  [/le management\b/gi, preserveCase("l’encadrement")],
   [/\bmanagement\b/gi, preserveCase("encadrement")],
   [/\bmeetings\b/gi, preserveCase("réunions")],
   [/\bmeeting\b/gi, preserveCase("réunion")],
