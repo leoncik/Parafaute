@@ -1,5 +1,5 @@
 // Fonction utilitaire : préserve la casse du mot d'origine (minuscule, Majuscule initiale, TOUT MAJUSCULE).
-// Utilisée aussi par reforme1990.js (chargé après inclusive.js dans le manifest).
+// Utilisée par tous les dictionnaires (chargés après inclusive.js dans le manifest).
 function preserveCase(replacement) {
   return (match) => {
     // TOUT MAJUSCULE (ex: "IEL" → "IL")

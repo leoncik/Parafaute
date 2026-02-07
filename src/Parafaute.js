@@ -42,21 +42,26 @@ function replaceText(text, replacements, category) {
   let localCount = 0;
   for (let [regex, correction] of replacements) {
     if (typeof correction === "function") {
-      // Les corrections de type fonction ne supportent pas les rétroréférences ($1, $2…)
-      // mais n'en ont pas besoin (ex: preserveCase dans reforme1990.js).
+      // Correction par fonction (ex: preserveCase) : compter et remplacer en une passe.
       newText = newText.replace(regex, (...args) => {
         localCount++;
         return correction(args[0]);
       });
-    } else {
-      // Compter les occurrences avant le remplacement
+    } else if (correction.includes("$")) {
+      // La correction contient potentiellement des rétroréférences ($1, $2…).
+      // On doit passer la correction comme string à .replace() pour les résoudre,
+      // ce qui nécessite un comptage séparé via .match().
       const matches = newText.match(regex);
       if (matches) {
         localCount += matches.length;
-        // Passer la correction comme string directement à .replace()
-        // pour que les rétroréférences ($1, $2…) soient interprétées.
         newText = newText.replace(regex, correction);
       }
+    } else {
+      // Correction simple sans rétroréférence : compter et remplacer en une seule passe.
+      newText = newText.replace(regex, () => {
+        localCount++;
+        return correction;
+      });
     }
   }
   if (localCount > 0) {
