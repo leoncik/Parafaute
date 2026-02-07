@@ -17,7 +17,7 @@ Parafaute
 
 ## Description
 
-**Parafaute** est une extension pour navigateur ayant pour but de rendre la navigation sur le web plus agréable en corrigeant les fautes les plus courantes et certains barbarismes (anglicismes et écriture l'inclusive).
+**Parafaute** est une extension pour navigateur ayant pour but de rendre la navigation sur le web plus agréable en corrigeant les fautes les plus courantes et certains barbarismes (anglicismes et écriture inclusive).
 
 Cette extension utilise la bibliothèque [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Discord, etc.).
 
@@ -50,7 +50,6 @@ Vous pouvez changer ces options à tout moment pour ne sélectionner que les fil
 
 ![Options](https://github.com/user-attachments/assets/04b7b0fa-1265-4ab0-ac74-1319321e4a04)
 
-
 ## Fonctionnalités
 
 - Corrige divers types de fautes courantes :
@@ -60,12 +59,12 @@ Vous pouvez changer ces options à tout moment pour ne sélectionner que les fil
   - Remplace les anglicismes ayant un équivalent évident (ex : "challenge" → "défi").
   - Remplace les constructions de phrases anglophones (ex : "cela ne fait aucun sens" → "cela n'a aucun sens").
 - Corrige divers types d'écriture inclusive :
-  - Suppression des points médians (avec leurs divers variantes (point médian, tiret, point normal etc.)) (ex : "tou·te·s" → "tous").
+  - Suppression des points médians (avec leurs diverses variantes (point médian, tiret, point normal etc.)) (ex : "tou·te·s" → "tous").
   - Suppression des parenthèses finales (ex : "Abonné(e)s" → "Abonnés").
   - Remplacement des pronoms (ex : "iel" → "il").
   - Simplification des formules où féminin et masculin sont multipliés (ex : "Bonjour à toutes et tous" → "Bonjour à tous").
 - Corrige les erreurs courantes de typographie (ex : ajout d'espace fine insécable devant les points d'exclamation et point d'interrogation).
-- Normalise l'orthographe selon la réforme de 1990 (ex : "oignon" → "ognon") ou vers une graphie classique (ex : "ognon" → "oignon").
+- Normalise l'orthographe selon la réforme de 1990 (ex : "oignon" → "ognon") ou vers une graphie classique (ex : "ognon" → "oignon"). Cette option est un bonus visant simplement à homogénéiser l'orthographe.
 - Affiche le nombre total de corrections effectuées sur la page actuelle ainsi que le détail par filtre.
 - Respect de la vie privée : cette extension ne collecte aucune donnée personnelle et n'inclut aucune forme de télémétrie. La permission demandée à l'installation sert uniquement à sauvegarder les options dans le navigateur.
 

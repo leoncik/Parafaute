@@ -3,112 +3,115 @@ const anglicismes = [
   // [/faute/]: "correction",
 
   // EXPRESSIONS
-  // Anglicisme lié à l'expression : "to make sense"
-  [/ne faisait aucun sens\b/g, "n'avait aucun sens"],
-  [/ne fait aucun sens\b/g, "n'a aucun sens"],
-  [/ne font aucun sens\b/g, "n'ont aucun sens"],
-  [/ne fait sens\b/g, "n'a de sens"],
-  [/ne font sens\b/g, "n'ont de sens"],
+  // Anglicisme lié à l’expression : "to make sense"
+  [/ne faisait aucun sens\b/g, "n’avait aucun sens"],
+  [/ne fait aucun sens\b/g, "n’a aucun sens"],
+  [/ne font aucun sens\b/g, "n’ont aucun sens"],
+  [/ne fait sens\b/g, "n’a de sens"],
+  [/ne font sens\b/g, "n’ont de sens"],
   [/fait sens\b/g, "a du sens"],
-  [/faire du shopping\b/g, "faire des achats"],
-  [/saisir l’opportunité\b/g, "saisir l’occasion"],
+  [/faire du shopping\b/gi, preserveCase("faire des achats")],
+  [/saisir l'opportunité\b/gi, preserveCase("saisir l’occasion")],
 
-  // Être confortable (n'a aucun sens en parlant d'une personne ou d'une idée)
-  [/Je ne suis pas confortable\b/g, "Je ne suis pas à l'aise"],
+  // Être confortable (n’a aucun sens en parlant d’une personne ou d’une idée)
+  [/je ne suis pas confortable\b/gi, preserveCase("je ne suis pas à l’aise")],
 
   // VOCABULAIRE
+  // /gi + preserveCase couvre minuscule, Majuscule initiale et TOUT MAJUSCULE.
 
   // *** A ***
-  [/\basap\b/gi, "dès que possible"],
+  [/\bASAP\b/g, "Dès que possible"],
+  [/\basap\b/gi, preserveCase("dès que possible")],
 
   // *** B ***
-  [/un best-of/g, "une anthologie"],
-  [/ce bullshit/g, "ces conneries"],
-  [/du bullshit/g, "des conneries"],
+  [/un best-of\b/g, "une anthologie"],
+  [/\bbrainstorming\b/gi, preserveCase("remue-méninges")],
+  [/\bbriefing\b/gi, preserveCase("réunion préparatoire")],
+  [/ce bullshit\b/g, "ces conneries"],
+  [/du bullshit\b/g, "des conneries"],
+  [/\bburn-out\b/gi, preserveCase("épuisement professionnel")],
+  [/\bburnout\b/gi, preserveCase("épuisement professionnel")],
 
   // *** C ***
-  [/\bChallenge/g, "Défi"],
-  [/\bchallenge/g, "défi"],
-  [/\bChallenges/g, "Défis"],
-  [/\bchallenges/g, "défis"],
-  [/\bChecker/g, "Vérifier"],
-  [/\bchecker/g, "vérifier"],
-  [/\bCosy\b/g, "Douillet"],
-  [/\bcosy\b/g, "douillet"],
+  [/\bchallenges\b/gi, preserveCase("défis")],
+  [/\bchallenge\b/gi, preserveCase("défi")],
+  [/\bchecker\b/gi, preserveCase("vérifier")],
+  [/\bcoachs\b/gi, preserveCase("entraîneurs")],
+  [/\bcoach\b/gi, preserveCase("entraîneur")],
+  [/\bcosy\b/gi, preserveCase("douillet")],
+  [/\bcoworking\b/gi, preserveCase("cotravail")],
+  [/\bcrowdfunding\b/gi, preserveCase("financement participatif")],
 
   // *** D ***
-  [/Dispatcher/g, "Répartir"],
-  [/dispatcher/g, "répartir"],
+  [/\bdeadlines\b/gi, preserveCase("échéances")],
+  [/\bdeadline\b/gi, preserveCase("échéance")],
+  [/\bdispatcher\b/gi, preserveCase("répartir")],
 
   // *** E ***
-  [/\bde l['|’]e-mail\b/g, "de l'adresse électronique"],
-  [/\bl['|’]e-mail\b/g, "le courriel"],
-  [/\bl['|’]email\b/g, "le courriel"],
-  [/\be-mail\b/g, "courriel"],
-  [/\bE-mail\b/g, "Courriel"],
+  // ⚠ Les règles e-mail/email doivent rester AVANT la règle mail (section M),
+  // sinon \bmail\b matcherait le "mail" dans "e-mail"
+  [/\bde l['']e-mail\b/g, "de l’adresse électronique"],
+  [/\bl['']e-mail\b/g, "le courriel"],
+  [/\bl['']email\b/g, "le courriel"],
+  [/\be-mail\b/gi, preserveCase("courriel")],
+  [/\bemail\b/gi, preserveCase("courriel")],
 
   // *** F ***
-  [/\bflyer\b/g, "prospectus"],
-  [/\bFollower\b/g, "Abonné"],
-  [/\bfollower\b/g, "abonné"],
-  [/\bFollowers\b/g, "Abonnés"],
-  [/\bfollowers\b/g, "abonnés"],
-
-  // *** G ***
-  [/\bGiraffe\b/g, "Girafe"],
-  [/\bgiraffe\b/g, "girafe"],
+  [/\bfake news\b/gi, preserveCase("infox")],
+  [/\bfeedbacks\b/gi, preserveCase("retours")],
+  [/\bfeedback\b/gi, preserveCase("retour")],
+  [/\bflyers\b/gi, preserveCase("prospectus")],
+  [/\bflyer\b/gi, preserveCase("prospectus")],
+  [/\bfollowers\b/gi, preserveCase("abonnés")],
+  [/\bfollower\b/gi, preserveCase("abonné")],
 
   // *** H ***
-  [/\bHello\b/g, "Salut"],
-  [/\bhello\b/g, "salut"],
+  [/\bhashtags\b/gi, preserveCase("mots-dièse")],
+  [/\bhashtag\b/gi, preserveCase("mot-dièse")],
+  [/\bhello\b/gi, preserveCase("salut")],
 
   // *** J ***
-  [/\bJob\b/g, "Travail"],
-  [/\bjob\b/g, "travail"],
+  [/\bjob\b/gi, preserveCase("travail")],
 
   // *** L ***
-  [/\bLive\b/g, "Direct"],
-  [/\blive\b/g, "direct"],
+  [/\blive\b/gi, preserveCase("direct")],
 
   // *** M ***
-  [/\bmail\b/g, "courriel"],
-  [/\bMail\b/g, "Courriel"],
-  [/Mainstream\b/g, "Populaire"],
-  [/mainstream\b/g, "populaire"],
-
-  [/Le management/g, "L'encadrement"],
-  [/le management/g, "l'encadrement"],
-  [/management/g, "encadrement"],
+  // ⚠ Les règles mail doivent rester APRÈS les règles e-mail (voir section E)
+  [/\bmail\b/gi, preserveCase("courriel")],
+  [/\bmainstream\b/gi, preserveCase("populaire")],
+  [/le management\b/gi, preserveCase("l’encadrement")],
+  [/\bmanagement\b/gi, preserveCase("encadrement")],
+  [/\bmeetings\b/gi, preserveCase("réunions")],
+  [/\bmeeting\b/gi, preserveCase("réunion")],
 
   // *** N ***
-  [/\bNaming\b/g, "Nommage"],
-  [/\bnaming\b/g, "nommage"],
+  [/\bnewsletters\b/gi, preserveCase("infolettres")],
+  [/\bnewsletter\b/gi, preserveCase("infolettre")],
+  [/\bnaming\b/gi, preserveCase("nommage")],
 
   // *** P ***
-  [/un pitch/g, "une courte présentation"],
-  [/Un pitch/g, "Une courte présentation"],
-
-  [/Panel/g, "Échantillon"],
-  [/panel/g, "échantillon"],
+  [/\bpanel\b/gi, preserveCase("échantillon")],
+  [/un pitch\b/gi, preserveCase("une courte présentation")],
 
   // *** R ***
-  [/Renaming\b/g, "Renommage"],
-  [/renaming\b/g, "renommage"],
+  [/\brenaming\b/gi, preserveCase("renommage")],
 
   // *** S ***
-  [/Un storytelling\b/g, "Une narration"],
-  [/un storytelling\b/g, "une narration"],
+  [/\bstreaming\b/gi, preserveCase("diffusion en continu")],
+  [/un storytelling\b/gi, preserveCase("une narration")],
 
   // *** T ***
-  [/\bteam\b/g, "équipe"],
-  [/\bTeam\b/g, "Équipe"],
+  [/\bteam\b/gi, preserveCase("équipe")],
   [/un toaster\b/g, "un grille-pain"],
 
   // *** U ***
-  [/Uploader/g, "Mettre en ligne"],
-  [/uploader/g, "mettre en ligne"],
-  [/Uploadé/g, "Mis en ligne"],
-  [/uploadé/g, "mis en ligne"],
-  [/S'updater/g, "Se mettre à jour"],
-  [/s’updater/g, "se mettre à jour"],
+  [/\buploader\b/gi, preserveCase("mettre en ligne")],
+  // \b en fin de pattern ne fonctionne pas avec les caractères accentués (é ∉ \w)
+  [/\buploadé/gi, preserveCase("mis en ligne")],
+  [/\bs'updater\b/gi, preserveCase("se mettre à jour")],
+
+  // *** W ***
+  [/\bworkshops\b/gi, preserveCase("ateliers")],
+  [/\bworkshop\b/gi, preserveCase("atelier")],
 ];

@@ -1,117 +1,107 @@
 const fautesCourantes = [
   //  Structure :
   // [/faute/]: "correction",
+  // /gi + preserveCase couvre minuscule, Majuscule initiale et TOUT MAJUSCULE.
 
   // Expressions
-  [/en suspend\b/g, "en suspens"],
+  [/en suspend\b/gi, preserveCase("en suspens")],
 
-  [/sa va\b/g, "ça va"],
-  [/Sa va\b/g, "Ça va"],
+  [/sa va\b/gi, preserveCase("ça va")],
 
-  [/Si il\b/g, "S'il"],
-  [/si il\b/g, "s'il"],
+  [/si il\b/gi, preserveCase("s’il")],
 
-  [/Il s’en suit un vif débat\b/g, "S’ensuit un vif débat"],
-  [/il s’en suit un vif débat\b/g, "s’ensuit un vif débat"],
+  [/il s'en suit un vif débat\b/gi, preserveCase("s’ensuit un vif débat")],
 
-  [/Il s’en suivit un vif débat\b/g, "S’ensuivit un vif débat"],
-  [/il s’en suivit un vif débat\b/g, "s’ensuivit un vif débat"],
+  [/il s'en suivit un vif débat\b/gi, preserveCase("s’ensuivit un vif débat")],
 
-  [/Il s’en est suivi un vif débat\b/g, "S’est ensuivi un vif débat"],
-  [/il s’en est suivi un vif débat\b/g, "s’est ensuivi un vif débat"],
+  [
+    /il s'en est suivi un vif débat\b/gi,
+    preserveCase("s’est ensuivi un vif débat"),
+  ],
 
-  [/Le problème s’empire\b/g, "Le problème empire"],
-  [/le problème s’empire\b/g, "le problème empire"],
+  [/le problème s'empire\b/gi, preserveCase("le problème empire")],
 
-  [/Il empire le problème\b/g, "Il fait empirer le problème"],
-  [/il empire le problème\b/g, "il fait empirer le problème"],
+  [/il empire le problème\b/gi, preserveCase("il fait empirer le problème")],
 
-  [/Kilomètre-heure\b/g, "Kilomètre par heure"],
-  [/kilomètre-heure\b/g, "kilomètre par heure"],
+  [/kilomètre-heure\b/gi, preserveCase("kilomètre par heure")],
 
-  [/Kilowatt par heure\b/g, "Kilowattheure"],
-  [/kilowatt par heure\b/g, "kilowattheure"],
+  [/kilowatt par heure\b/gi, preserveCase("kilowattheure")],
 
-  [/Y a t'il\b/g, "Y a-t-il"],
-  [/y a t'il\b/g, "y a-t-il"],
+  [/y a t'il\b/gi, preserveCase("y a-t-il")],
 
-  [/aux dépends\b/g, "aux dépens"],
-  [/chiffre d'affaire\b/g, "chiffre d'affaires"],
-  [/Chiffre d'affaire\b/g, "Chiffre d'affaires"],
-  [/Il y à/g, "Il y a"],
-  [/il y à/g, "il y a"],
+  [/aux dépends\b/gi, preserveCase("aux dépens")],
+  [/chiffre d'affaire\b/gi, preserveCase("chiffre d’affaires")],
+  [/il y à\b/gi, preserveCase("il y a")],
+
+  [/quant même\b/gi, preserveCase("quand même")],
+  [/avoir tord\b/gi, preserveCase("avoir tort")],
+  [/pallier à /gi, preserveCase("pallier ")],
 
   // VOCABULAIRE
 
   // *** A ***
-  [/Appercevoir\b/g, "Apercevoir"],
-  [/appercevoir\b/g, "apercevoir"],
-  [/Aquérir\b/g, "Acquérir"],
-  [/aquérir\b/g, "acquérir"],
-  [/Applatir\b/g, "Aplatir"],
-  [/applatir\b/g, "aplatir"],
-  [/Acceuil\b/g, "Accueil"],
-  [/acceuil\b/g, "accueil"],
+  [/appercevoir\b/gi, preserveCase("apercevoir")],
+  [/aquérir\b/gi, preserveCase("acquérir")],
+  [/applatir\b/gi, preserveCase("aplatir")],
+  [/acceuil\b/gi, preserveCase("accueil")],
+  [/aurtographier\b/gi, preserveCase("autographier")],
 
   // *** B ***
-  [/banquaire\b/g, "bancaire"],
-  [/bizare\b/g, "bizarre"],
-  [/bizard\b/g, "bizarre"],
-  [/Bizare\b/g, "Bizarre"],
-  [/Bizard\b/g, "Bizarre"],
-  [/brebi\b/g, "brebis"],
-  [/Brebi\b/g, "Brebis"],
+  [/banquaire\b/gi, preserveCase("bancaire")],
+  [/bizare\b/gi, preserveCase("bizarre")],
+  [/bizard\b/gi, preserveCase("bizarre")],
+  [/brebi\b/gi, preserveCase("brebis")],
 
   // *** C ***
-  [/cauchemard\b/g, "cauchemar"],
-  [/Cauchemard\b/g, "Cauchemar"],
-  [/Concour\b/g, "Concours"],
-  [/concour\b/g, "concours"],
+  [/cauchemard\b/gi, preserveCase("cauchemar")],
+  [/concour\b/gi, preserveCase("concours")],
 
   // *** D ***
-  [/disfonctionnement/g, "dysfonctionnement"],
+  [/disfonctionnements\b/gi, preserveCase("dysfonctionnements")],
+  [/disfonctionnement\b/gi, preserveCase("dysfonctionnement")],
 
   // *** E ***
-  [/Enmener\b/g, "Emmener"],
-  [/enmener\b/g, "emmener"],
-  [/Échalotte\b/g, "Échalote"],
-  [/échalotte\b/g, "échalote"],
+  [/enmener\b/gi, preserveCase("emmener")],
+  [/échalotte\b/gi, preserveCase("échalote")],
+  [/exepté\b/gi, preserveCase("excepté")],
 
-  // ***F***
-  [/Faîtes\b/g, "Faites"],
-  [/faîtes\b/g, "faites"],
+  // *** F ***
+  [/faîtes\b/gi, preserveCase("faites")],
 
-  // ***H***
-  [/Hormi\b/g, "Hormis"],
-  [/hormi\b/g, "hormis"],
+  // *** G ***
+  [/\bgiraffe\b/gi, preserveCase("girafe")],
 
-  // *** P ***
-  [/parmis\b/g, "parmi"],
-  [/Parmis\b/g, "Parmi"],
-  [/pillule\b/g, "pilule"],
+  // *** H ***
+  [/hormi\b/gi, preserveCase("hormis")],
+
+  // *** I ***
+  [/infractus\b/gi, preserveCase("infarctus")],
+  [/inombrable\b/gi, preserveCase("innombrable")],
 
   // *** J ***
-  [/des jeux vidéos/g, "des jeux vidéo"],
-  [/les jeux vidéos/g, "les jeux vidéo"],
-  [/ces jeux vidéos/g, "ces jeux vidéo"],
+  [/(des|les|ces|mes|nos|ses|tes) jeux vidéos/gi, "$1 jeux vidéo"],
 
   // *** L ***
-  [/language/g, "langage"],
+  [/language\b/gi, preserveCase("langage")],
 
   // *** M ***
-  [/magazin\b/g, "magasin"],
+  [/magazin\b/gi, preserveCase("magasin")],
+
+  // *** O ***
+  [/occassion\b/gi, preserveCase("occasion")],
+
+  // *** R ***
+  [/repéter\b/gi, preserveCase("répéter")],
 
   // *** P ***
-  [/Plusieur\b/g, "Plusieurs"],
-  [/plusieur\b/g, "plusieurs"],
+  [/parmis\b/gi, preserveCase("parmi")],
+  [/pillule\b/gi, preserveCase("pilule")],
+  [/plusieur\b/gi, preserveCase("plusieurs")],
 
   // *** S ***
-  [/S'appitoyer\b/g, "S'apitoyer"],
-  [/s'appitoyer\b/g, "s'apitoyer"],
-  [/Syphon\b/g, "Siphon"],
-  [/syphon\b/g, "siphon"],
+  [/s'appitoyer\b/gi, preserveCase("s’apitoyer")],
+  [/syphon\b/gi, preserveCase("siphon")],
 
   // *** U ***
-  [/Univer\b/g, "Univers"],
-  [/univer\b/g, "univers"],
+  [/univer\b/gi, preserveCase("univers")],
 ];

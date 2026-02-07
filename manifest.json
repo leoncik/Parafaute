@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Parafaute",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": "leoncik",
   "description": "Une extension pour vous abriter des fautes courantes et des barbarismes (anglicismes et écriture inclusive)",
   "homepage_url": "https://github.com/leoncik/Parafaute",

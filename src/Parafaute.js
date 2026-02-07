@@ -44,10 +44,28 @@ function replaceText(text, replacements, category) {
   let newText = text;
   let localCount = 0;
   for (let [regex, correction] of replacements) {
-    newText = newText.replace(regex, () => {
-      localCount++;
-      return correction;
-    });
+    if (typeof correction === "function") {
+      // Correction par fonction (ex: preserveCase) : compter et remplacer en une passe.
+      newText = newText.replace(regex, (...args) => {
+        localCount++;
+        return correction(args[0]);
+      });
+    } else if (correction.includes("$")) {
+      // La correction contient potentiellement des rétroréférences ($1, $2…).
+      // On doit passer la correction comme string à .replace() pour les résoudre,
+      // ce qui nécessite un comptage séparé via .match().
+      const matches = newText.match(regex);
+      if (matches) {
+        localCount += matches.length;
+        newText = newText.replace(regex, correction);
+      }
+    } else {
+      // Correction simple sans rétroréférence : compter et remplacer en une seule passe.
+      newText = newText.replace(regex, () => {
+        localCount++;
+        return correction;
+      });
+    }
   }
   if (localCount > 0) {
     replacementCounts[category] += localCount;

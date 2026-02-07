@@ -406,7 +406,7 @@ class TextObserver {
 
     // Manually find and process open Shadow DOMs because MutationObserver doesn't pick them up
     if (this.#performanceOptions.shadows) {
-      const shadowRoots = document.createTreeWalker(
+      const shadowHosts = document.createTreeWalker(
         root,
         NodeFilter.SHOW_ELEMENT,
         {
@@ -414,13 +414,12 @@ class TextObserver {
             node.shadowRoot ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP,
         },
       );
-      let shadowRoot = shadowRoots.currentNode.shadowRoot;
-      // First node may or may not have a shadow root
-      if (!shadowRoot) {
-        shadowRoot = shadowRoots.nextNode();
+      let hostElement = shadowHosts.currentNode;
+      if (!hostElement?.shadowRoot) {
+        hostElement = shadowHosts.nextNode();
       }
-      while (shadowRoot) {
-        // Add newly found shadow roots to targets
+      while (hostElement?.shadowRoot) {
+        const shadowRoot = hostElement.shadowRoot;
         if (!this.#targets.has(shadowRoot)) {
           this.#processNodes(shadowRoot);
           this.#targets.add(shadowRoot);
@@ -429,7 +428,7 @@ class TextObserver {
             this.#observer.observe(shadowRoot, TextObserver.#CONFIG);
           }
         }
-        shadowRoot = shadowRoots.nextNode();
+        hostElement = shadowHosts.nextNode();
       }
     }
   }
