@@ -94,6 +94,10 @@ const fautesCourantes = [
   [/Faîtes\b/g, "Faites"],
   [/faîtes\b/g, "faites"],
 
+  // *** G ***
+  [/\bGiraffe\b/g, "Girafe"],
+  [/\bgiraffe\b/g, "girafe"],
+
   // *** H ***
   [/Hormi\b/g, "Hormis"],
   [/hormi\b/g, "hormis"],
