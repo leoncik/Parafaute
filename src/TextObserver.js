@@ -405,9 +405,8 @@ class TextObserver {
     }
 
     // Manually find and process open Shadow DOMs because MutationObserver doesn't pick them up
-    // TreeWalker returns host elements, not shadow roots; we must use element.shadowRoot
     if (this.#performanceOptions.shadows) {
-      const shadowRoots = document.createTreeWalker(
+      const shadowHosts = document.createTreeWalker(
         root,
         NodeFilter.SHOW_ELEMENT,
         {
@@ -415,20 +414,21 @@ class TextObserver {
             node.shadowRoot ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP,
         },
       );
-      let hostElement = shadowRoots.currentNode;
+      let hostElement = shadowHosts.currentNode;
       if (!hostElement?.shadowRoot) {
-        hostElement = shadowRoots.nextNode();
+        hostElement = shadowHosts.nextNode();
       }
       while (hostElement?.shadowRoot) {
         const shadowRoot = hostElement.shadowRoot;
         if (!this.#targets.has(shadowRoot)) {
           this.#processNodes(shadowRoot);
           this.#targets.add(shadowRoot);
+          // This function is called in the constructor before the observer is defined, so check that
           if (this.#observer !== undefined) {
             this.#observer.observe(shadowRoot, TextObserver.#CONFIG);
           }
         }
-        hostElement = shadowRoots.nextNode();
+        hostElement = shadowHosts.nextNode();
       }
     }
   }
