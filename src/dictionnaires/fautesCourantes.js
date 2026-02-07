@@ -11,17 +11,17 @@ const fautesCourantes = [
   [/Si il\b/g, "S'il"],
   [/si il\b/g, "s'il"],
 
-  [/Il s’en suit un vif débat\b/g, "S’ensuit un vif débat"],
-  [/il s’en suit un vif débat\b/g, "s’ensuit un vif débat"],
+  [/Il s'en suit un vif débat\b/g, "S'ensuit un vif débat"],
+  [/il s'en suit un vif débat\b/g, "s'ensuit un vif débat"],
 
-  [/Il s’en suivit un vif débat\b/g, "S’ensuivit un vif débat"],
-  [/il s’en suivit un vif débat\b/g, "s’ensuivit un vif débat"],
+  [/Il s'en suivit un vif débat\b/g, "S'ensuivit un vif débat"],
+  [/il s'en suivit un vif débat\b/g, "s'ensuivit un vif débat"],
 
-  [/Il s’en est suivi un vif débat\b/g, "S’est ensuivi un vif débat"],
-  [/il s’en est suivi un vif débat\b/g, "s’est ensuivi un vif débat"],
+  [/Il s'en est suivi un vif débat\b/g, "S'est ensuivi un vif débat"],
+  [/il s'en est suivi un vif débat\b/g, "s'est ensuivi un vif débat"],
 
-  [/Le problème s’empire\b/g, "Le problème empire"],
-  [/le problème s’empire\b/g, "le problème empire"],
+  [/Le problème s'empire\b/g, "Le problème empire"],
+  [/le problème s'empire\b/g, "le problème empire"],
 
   [/Il empire le problème\b/g, "Il fait empirer le problème"],
   [/il empire le problème\b/g, "il fait empirer le problème"],
@@ -38,8 +38,14 @@ const fautesCourantes = [
   [/aux dépends\b/g, "aux dépens"],
   [/chiffre d'affaire\b/g, "chiffre d'affaires"],
   [/Chiffre d'affaire\b/g, "Chiffre d'affaires"],
-  [/Il y à/g, "Il y a"],
-  [/il y à/g, "il y a"],
+  [/Il y à\b/g, "Il y a"],
+  [/il y à\b/g, "il y a"],
+
+  [/Quant même\b/g, "Quand même"],
+  [/quant même\b/g, "quand même"],
+  [/Avoir tord\b/g, "Avoir tort"],
+  [/avoir tord\b/g, "avoir tort"],
+  [/pallier à /g, "pallier "],
 
   // VOCABULAIRE
 
@@ -52,6 +58,8 @@ const fautesCourantes = [
   [/applatir\b/g, "aplatir"],
   [/Acceuil\b/g, "Accueil"],
   [/acceuil\b/g, "accueil"],
+  [/Aurtographier\b/g, "Autographier"],
+  [/aurtographier\b/g, "autographier"],
 
   // *** B ***
   [/banquaire\b/g, "bancaire"],
@@ -69,39 +77,63 @@ const fautesCourantes = [
   [/concour\b/g, "concours"],
 
   // *** D ***
-  [/disfonctionnement/g, "dysfonctionnement"],
+  [/Disfonctionnement\b/g, "Dysfonctionnement"],
+  [/disfonctionnement\b/g, "dysfonctionnement"],
+  [/Disfonctionnements\b/g, "Dysfonctionnements"],
+  [/disfonctionnements\b/g, "dysfonctionnements"],
 
   // *** E ***
   [/Enmener\b/g, "Emmener"],
   [/enmener\b/g, "emmener"],
   [/Échalotte\b/g, "Échalote"],
   [/échalotte\b/g, "échalote"],
+  [/Exepté\b/g, "Excepté"],
+  [/exepté\b/g, "excepté"],
 
-  // ***F***
+  // *** F ***
   [/Faîtes\b/g, "Faites"],
   [/faîtes\b/g, "faites"],
 
-  // ***H***
+  // *** H ***
   [/Hormi\b/g, "Hormis"],
   [/hormi\b/g, "hormis"],
 
-  // *** P ***
-  [/parmis\b/g, "parmi"],
-  [/Parmis\b/g, "Parmi"],
-  [/pillule\b/g, "pilule"],
+  // *** I ***
+  [/Infractus\b/g, "Infarctus"],
+  [/infractus\b/g, "infarctus"],
+  [/Inombrable\b/g, "Innombrable"],
+  [/inombrable\b/g, "innombrable"],
 
   // *** J ***
   [/des jeux vidéos/g, "des jeux vidéo"],
   [/les jeux vidéos/g, "les jeux vidéo"],
   [/ces jeux vidéos/g, "ces jeux vidéo"],
+  [/mes jeux vidéos/g, "mes jeux vidéo"],
+  [/nos jeux vidéos/g, "nos jeux vidéo"],
+  [/ses jeux vidéos/g, "ses jeux vidéo"],
+  [/tes jeux vidéos/g, "tes jeux vidéo"],
 
   // *** L ***
-  [/language/g, "langage"],
+  [/Language\b/g, "Langage"],
+  [/language\b/g, "langage"],
 
   // *** M ***
+  [/Magazin\b/g, "Magasin"],
   [/magazin\b/g, "magasin"],
 
+  // *** O ***
+  [/Occassion\b/g, "Occasion"],
+  [/occassion\b/g, "occasion"],
+
+  // *** R ***
+  [/Repéter\b/g, "Répéter"],
+  [/repéter\b/g, "répéter"],
+
   // *** P ***
+  [/parmis\b/g, "parmi"],
+  [/Parmis\b/g, "Parmi"],
+  [/Pillule\b/g, "Pilule"],
+  [/pillule\b/g, "pilule"],
   [/Plusieur\b/g, "Plusieurs"],
   [/plusieur\b/g, "plusieurs"],
 
