@@ -8,13 +8,16 @@ const fautesCourantes = [
 
   [/sa va\b/gi, preserveCase("ça va")],
 
-  [/si il\b/gi, preserveCase("s'il")],
+  [/si il\b/gi, preserveCase("s’il")],
 
-  [/il s'en suit un vif débat\b/gi, preserveCase("s'ensuit un vif débat")],
+  [/il s'en suit un vif débat\b/gi, preserveCase("s’ensuit un vif débat")],
 
-  [/il s'en suivit un vif débat\b/gi, preserveCase("s'ensuivit un vif débat")],
+  [/il s'en suivit un vif débat\b/gi, preserveCase("s’ensuivit un vif débat")],
 
-  [/il s'en est suivi un vif débat\b/gi, preserveCase("s'est ensuivi un vif débat")],
+  [
+    /il s'en est suivi un vif débat\b/gi,
+    preserveCase("s’est ensuivi un vif débat"),
+  ],
 
   [/le problème s'empire\b/gi, preserveCase("le problème empire")],
 
@@ -27,7 +30,7 @@ const fautesCourantes = [
   [/y a t'il\b/gi, preserveCase("y a-t-il")],
 
   [/aux dépends\b/gi, preserveCase("aux dépens")],
-  [/chiffre d'affaire\b/gi, preserveCase("chiffre d'affaires")],
+  [/chiffre d'affaire\b/gi, preserveCase("chiffre d’affaires")],
   [/il y à\b/gi, preserveCase("il y a")],
 
   [/quant même\b/gi, preserveCase("quand même")],
@@ -96,7 +99,7 @@ const fautesCourantes = [
   [/plusieur\b/gi, preserveCase("plusieurs")],
 
   // *** S ***
-  [/s'appitoyer\b/gi, preserveCase("s'apitoyer")],
+  [/s'appitoyer\b/gi, preserveCase("s’apitoyer")],
   [/syphon\b/gi, preserveCase("siphon")],
 
   // *** U ***
