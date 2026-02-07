@@ -1,15 +1,5 @@
-// Fonction utilitaire : préserve la casse de la première lettre du mot d'origine
-function preserveCase(replacement) {
-  return (match) => {
-    if (
-      match[0] === match[0].toUpperCase() &&
-      match[0] !== match[0].toLowerCase()
-    ) {
-      return replacement[0].toUpperCase() + replacement.slice(1);
-    }
-    return replacement;
-  };
-}
+// preserveCase(replacement) est définie dans inclusive.js (chargé avant ce fichier).
+// Elle gère 3 cas : minuscule, Majuscule initiale, TOUT MAJUSCULE.
 
 // ============================================================================
 // Dictionnaire pour convertir l'orthographe de 1990 vers l'orthographe classique
