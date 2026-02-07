@@ -41,9 +41,9 @@ function replaceText(text, replacements, category) {
   let newText = text;
   let localCount = 0;
   for (let [regex, correction] of replacements) {
-    newText = newText.replace(regex, () => {
+    newText = newText.replace(regex, (match) => {
       localCount++;
-      return correction;
+      return typeof correction === "function" ? correction(match) : correction;
     });
   }
   if (localCount > 0) {
