@@ -10,17 +10,18 @@ const anglicismes = [
   [/ne fait sens\b/g, "n’a de sens"],
   [/ne font sens\b/g, "n’ont de sens"],
   [/fait sens\b/g, "a du sens"],
-  [/faire du shopping\b/g, "faire des achats"],
-  [/saisir l'opportunité\b/g, "saisir l’occasion"],
+  [/faire du shopping\b/gi, preserveCase("faire des achats")],
+  [/saisir l'opportunité\b/gi, preserveCase("saisir l’occasion")],
 
   // Être confortable (n’a aucun sens en parlant d’une personne ou d’une idée)
-  [/Je ne suis pas confortable\b/g, "Je ne suis pas à l’aise"],
+  [/je ne suis pas confortable\b/gi, preserveCase("je ne suis pas à l’aise")],
 
   // VOCABULAIRE
   // /gi + preserveCase couvre minuscule, Majuscule initiale et TOUT MAJUSCULE.
 
   // *** A ***
-  [/\basap\b/gi, "dès que possible"],
+  [/\bASAP\b/g, "Dès que possible"],
+  [/\basap\b/gi, preserveCase("dès que possible")],
 
   // *** B ***
   [/un best-of\b/g, "une anthologie"],
