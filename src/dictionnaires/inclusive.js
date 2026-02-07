@@ -528,64 +528,31 @@ const inclusive = [
   // 2) remplacer la terminaison du nom
   [/trice\b ou un [a-zA-ZÀ-ÖØ-öø-ÿ-]*teur\b/g, "teur"],
 
-  [/euses\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-  [/euses\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-  [/euses\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-  [/euses\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-  [/euses\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
+  // Rétroréférence \1 = même radical (évite "élégantes et aux éléphants" → "élégants")
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)euses\b et (?:des |les |de |aux )?\1eurs\b/g, "$1eurs"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1euses\b/g, "$1eurs"],
 
   [/euse\b ou le [a-zA-ZÀ-ÖØ-öø-ÿ-]*eur\b/g, "eur"],
 
-  [/eurs\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eurs"],
-  [/eurs\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eurs"],
-  [/eurs\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eurs"],
-  [/eurs\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eurs"],
-  [/eurs\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eurs"],
-
   [/eur\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
 
-  [/ens\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*ennes\b/g, "ens"],
-  [/ens\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*ennes\b/g, "ens"],
-  [/ens\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*ennes\b/g, "ens"],
-  [/ens\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*ennes\b/g, "ens"],
-  [/ens\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*ennes\b/g, "ens"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ens\b et (?:des |les |de |aux )?\1ennes\b/g, "$1ens"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ennes\b et (?:des |les |de |aux )?\1ens\b/g, "$1ens"],
 
   [/en\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*enne\b/g, "en"],
 
-  [/ennes\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*ens\b/g, "ens"],
-  [/ennes\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*ens\b/g, "ens"],
-  [/ennes\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*ens\b/g, "ens"],
-  [/ennes\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*ens\b/g, "ens"],
-  [/ennes\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*ens\b/g, "ens"],
-
   [/enne\b ou le [a-zA-ZÀ-ÖØ-öø-ÿ-]*en\b/g, "en"],
 
-  [/els\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*elles\b/g, "els"],
-  [/els\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*elles\b/g, "els"],
-  [/els\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*elles\b/g, "els"],
-  [/els\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*elles\b/g, "els"],
-  [/els\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*elles\b/g, "els"],
+  // el/elle : féminin en "lles" (ex. professionnels et aux professionnelles)
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)els\b et (?:des |les |de |aux )?\1lles\b/g, "$1els"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)elles\b et (?:des |les |de |aux )?\1els\b/g, "$1els"],
 
   [/el\b et la [a-zA-ZÀ-ÖØ-öø-ÿ-]*elle\b/g, "el"],
 
-  [/elles\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*els\b/g, "els"],
-  [/elles\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*els\b/g, "els"],
-  [/elles\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*els\b/g, "els"],
-  [/elles\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*els\b/g, "els"],
-  [/elles\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*els\b/g, "els"],
-
   [/elle\b et le [a-zA-ZÀ-ÖØ-öø-ÿ-]*el\b/g, "el"],
 
-  [/euses\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
-  [/euses\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
-  [/euses\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
-  [/euses\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
-  [/euses\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*eux\b/g, "eux"],
-  [/eux\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
-  [/eux\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
-  [/eux\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
-  [/eux\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
-  [/eux\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eux"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)euses\b et (?:des |les |de |aux )?\1eux\b/g, "$1eux"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eux\b et (?:des |les |de |aux )?\1euses\b/g, "$1eux"],
 
   [/eur\b \/ [a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
   [/eur\/[a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
@@ -608,63 +575,30 @@ const inclusive = [
   [/trices\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
   [/eurs\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eurs"],
   [/euses\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-  [/eurs\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
-  [/eurs\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
-  [/eurs\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
-  [/eurs\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
-  [/eurs\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*trices\b/g, "eurs"],
-  [/trices\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
-  [/trices\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
-  [/trices\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
-  [/trices\b et de [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
-  [/trices\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
+  // eur/trice (acteur/actrice) et teur/trice (directeur/directrice)
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1rices\b/g, "$1eurs"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)trices\b et (?:des |les |de |aux )?\1teurs\b/g, "$1teurs"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)trices\b et (?:des |les |de |aux )?\1eurs\b/g, "$1eurs"],
   [/teur ou une [a-zA-ZÀ-ÖØ-öø-ÿ-]*trice/g, "teur"],
   [/teur ou de [a-zA-ZÀ-ÖØ-öø-ÿ-]*trice/g, "teur"],
 
-  [/trices\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-  [/trices\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-  [/trices\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-  [/trices\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
-
-  [/antes\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*ants\b/g, "ants"],
-  [/antes\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*ants\b/g, "ants"],
-  [/antes\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*ants\b/g, "ants"],
-  [/antes\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*ants\b/g, "ants"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)antes\b et (?:des |les |de |aux )?\1ants\b/g, "$1ants"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ants\b et (?:des |les |de |aux )?\1antes\b/g, "$1ants"],
 
   [/ante\b ou le [a-zA-ZÀ-ÖØ-öø-ÿ-]*ant\b/g, "ant"],
   [/ante\b ou un [a-zA-ZÀ-ÖØ-öø-ÿ-]*ant\b/g, "ant"],
 
-  [/ants\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*antes\b/g, "ants"],
-  [/ants\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*antes\b/g, "ants"],
-  [/ants\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*antes\b/g, "ants"],
-  [/ants\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*antes\b/g, "ants"],
-
   [/ant\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*ante\b/g, "ant"],
   [/ant\b ou une [a-zA-ZÀ-ÖØ-öø-ÿ-]*ante\b/g, "ant"],
 
-  [/ives\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*ifs\b/g, "ifs"],
-  [/ives\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*ifs\b/g, "ifs"],
-  [/ives\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*ifs\b/g, "ifs"],
-  [/ives\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*ifs\b/g, "ifs"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ives\b et (?:des |les |de |aux )?\1ifs\b/g, "$1ifs"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ifs\b et (?:des |les |de |aux )?\1ives\b/g, "$1ifs"],
 
   [/ive\b ou le [a-zA-ZÀ-ÖØ-öø-ÿ-]*if\b/g, "if"],
-
-  [/ifs\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*ives\b/g, "ifs"],
-  [/ifs\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*ives\b/g, "ifs"],
-  [/ifs\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*ives\b/g, "ifs"],
-  [/ifs\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*ives\b/g, "ifs"],
-
   [/if\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*ive\b/g, "if"],
 
-  [/çaises\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*çais\b/g, "çais"],
-  [/çaises\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*çais\b/g, "çais"],
-  [/çaises\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*çais\b/g, "çais"],
-  [/çaises\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*çais\b/g, "çais"],
-
-  [/çais\b et [a-zA-ZÀ-ÖØ-öø-ÿ-]*çaises\b/g, "çais"],
-  [/çais\b et des [a-zA-ZÀ-ÖØ-öø-ÿ-]*çaises\b/g, "çais"],
-  [/çais\b et les [a-zA-ZÀ-ÖØ-öø-ÿ-]*çaises\b/g, "çais"],
-  [/çais\b et aux [a-zA-ZÀ-ÖØ-öø-ÿ-]*çaises\b/g, "çais"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)çaises\b et (?:des |les |de |aux )?\1çais\b/g, "$1çais"],
+  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)çais\b et (?:des |les |de |aux )?\1çaises\b/g, "$1çais"],
 
   // Doublets génériques où féminin = masculin + "e"
   // Utilise une rétroréférence pour couvrir tous les mots (ex: "clientes et clients", "invitées et invités").

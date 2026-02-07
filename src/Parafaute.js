@@ -41,10 +41,23 @@ function replaceText(text, replacements, category) {
   let newText = text;
   let localCount = 0;
   for (let [regex, correction] of replacements) {
-    newText = newText.replace(regex, (match) => {
-      localCount++;
-      return typeof correction === "function" ? correction(match) : correction;
-    });
+    if (typeof correction === "function") {
+      // Les corrections de type fonction ne supportent pas les rétroréférences ($1, $2…)
+      // mais n'en ont pas besoin (ex: preserveCase dans reforme1990.js).
+      newText = newText.replace(regex, (...args) => {
+        localCount++;
+        return correction(args[0]);
+      });
+    } else {
+      // Compter les occurrences avant le remplacement
+      const matches = newText.match(regex);
+      if (matches) {
+        localCount += matches.length;
+        // Passer la correction comme string directement à .replace()
+        // pour que les rétroréférences ($1, $2…) soient interprétées.
+        newText = newText.replace(regex, correction);
+      }
+    }
   }
   if (localCount > 0) {
     replacementCounts[category] += localCount;
