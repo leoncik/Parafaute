@@ -17,7 +17,7 @@ Parafaute
 
 ## Description
 
-**Parafaute** est une extension pour navigateur ayant pour but de rendre la navigation sur le web plus agréable en corrigeant les fautes les plus courantes et certains barbarismes (anglicismes et écriture inclusive).
+**Parafaute** : extension de navigateur qui corrige les erreurs de langue en temps réel, supprime l’écriture inclusive et remplace les anglicismes pour proposer un français correct et lisible sur le web.
 
 Cette extension utilise la bibliothèque [TextObserver](https://github.com/DanielZTing/TextObserver), ce qui lui permet de corriger les fautes sur des sites où le rendu de la page est généré dynamiquement (comme Facebook, Discord, etc.).
 
