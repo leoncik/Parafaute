@@ -255,7 +255,10 @@ const inclusive = [
   [addSeparatorsRegex("_fes\\b", "g"), "s"],
   [addSeparatorsRegex("_FES\\b", "g"), "S"],
   [addSeparatorsRegex("_ales\\b"), ""],
-  [addSeparatorsRegex("_euses\\b"), ""],
+  [addSeparatorsRegex("s_euses\\b", "g"), "s"],
+  [addSeparatorsRegex("S_EUSES\\b", "g"), "S"],
+  [addSeparatorsRegex("_euses\\b", "g"), "s"],
+  [addSeparatorsRegex("_EUSES\\b", "g"), "S"],
 
   // Posait des problèmes avec les expressions comme « faites-les» ou « listez-les » et les noms comme « Morzy-les-Gaillardes »
   // [addSeparatorsRegex("_le\\b"), ""],
