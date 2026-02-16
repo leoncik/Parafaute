@@ -3,7 +3,7 @@
   "name": "Parafaute",
   "version": "2.1.2",
   "author": "leoncik",
-  "description": "Corrige en temps réel les erreurs de langue, supprime l’écriture inclusive et remplace les anglicismes pour proposer un français correct et lisible sur le web.",
+  "description": "Corrige en temps réel les erreurs de langue, supprime l’écriture inclusive et remplace les anglicismes.",
   "homepage_url": "https://github.com/leoncik/Parafaute",
   "icons": {
     "48": "src/icons/icon-48.png"
