@@ -258,6 +258,12 @@ const inclusive = [
 
   [addSeparatorsRegex("_ière\\b"), ""],
   [addSeparatorsRegex("_ère\\b"), ""],
+  // Les règles "s_ères" et "S_ÈRES" doivent être avant "_ères" et" _ÈRES"
+  // sinon "gauchers·ères" serait transformé en "gaucherss".
+  [addSeparatorsRegex("s_ères\\b", "g"), "s"],
+  [addSeparatorsRegex("S_ÈRES\\b", "g"), "S"],
+  [addSeparatorsRegex("_ères\\b", "g"), "s"],
+  [addSeparatorsRegex("_ÈRES\\b", "g"), "S"],
   [addSeparatorsRegex("_ennes\\b", "g"), "s"],
   [addSeparatorsRegex("_ENNES\\b", "g"), "S"],
   [addSeparatorsRegex("_enne\\b"), ""],
