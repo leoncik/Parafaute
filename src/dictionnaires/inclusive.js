@@ -254,7 +254,17 @@ const inclusive = [
   [addSeparatorsRegex("S_FES\\b", "g"), "S"],
   [addSeparatorsRegex("_fes\\b", "g"), "s"],
   [addSeparatorsRegex("_FES\\b", "g"), "S"],
-  [addSeparatorsRegex("_ales\\b"), ""],
+  // ·ales : quand le mot se termine déjà par "x" (ex. principaux, égaux), on supprime "·ales"
+  // pour obtenir le masculin pluriel (principaux·ales → principaux). Sinon _ales → "s" donnerait "principalss".
+  [addSeparatorsRegex("x_ales\\b", "g"), "x"],
+  [addSeparatorsRegex("X_ALES\\b", "g"), "X"],
+  // Adjectifs en -al dont le pluriel est -aux (général, égal…) : général·ales → généraux.
+  [addSeparatorsRegex("al_ales\\b", "g"), "aux"],
+  [addSeparatorsRegex("AL_ALES\\b", "g"), "AUX"],
+  [addSeparatorsRegex("s_ales\\b", "g"), "s"],
+  [addSeparatorsRegex("S_ALES\\b", "g"), "S"],
+  [addSeparatorsRegex("_ales\\b", "g"), "s"],
+  [addSeparatorsRegex("_ALES\\b", "g"), "S"],
   [addSeparatorsRegex("s_euses\\b", "g"), "s"],
   [addSeparatorsRegex("S_EUSES\\b", "g"), "S"],
   [addSeparatorsRegex("_euses\\b", "g"), "s"],
