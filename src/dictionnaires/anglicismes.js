@@ -31,6 +31,9 @@ const anglicismes = [
   [/du bullshit\b/g, "des conneries"],
   [/\bburn-out\b/gi, preserveCase("épuisement professionnel")],
   [/\bburnout\b/gi, preserveCase("épuisement professionnel")],
+  [/\bbadante\b/gi, preserveCase("déprimante")],
+  [/\bbadant\b/gi, preserveCase("déprimant")],
+  [/\bbader\b/gi, preserveCase("déprimer")],
 
   // *** C ***
   [/\bchallenges\b/gi, preserveCase("défis")],
@@ -41,6 +44,19 @@ const anglicismes = [
   [/\bcosy\b/gi, preserveCase("douillet")],
   [/\bcoworking\b/gi, preserveCase("cotravail")],
   [/\bcrowdfunding\b/gi, preserveCase("financement participatif")],
+  // Crush (bien-aimé) : déterminant + crush uniquement, genre selon le déterminant.
+  [/\bmon\s+crush\b/gi, preserveCase("mon bien-aimé")],
+  [/\bton\s+crush\b/gi, preserveCase("ton bien-aimé")],
+  [/\bson\s+crush\b/gi, preserveCase("son bien-aimé")],
+  [/\bun\s+crush\b/gi, preserveCase("un bien-aimé")],
+  [/\ble\s+crush\b/gi, preserveCase("le bien-aimé")],
+  [/\bce\s+crush\b/gi, preserveCase("ce bien-aimé")],
+  [/\bma\s+crush\b/gi, preserveCase("ma bien-aimée")],
+  [/\bta\s+crush\b/gi, preserveCase("ta bien-aimée")],
+  [/\bsa\s+crush\b/gi, preserveCase("sa bien-aimée")],
+  [/\bune\s+crush\b/gi, preserveCase("une bien-aimée")],
+  [/\bla\s+crush\b/gi, preserveCase("la bien-aimée")],
+  [/\bcette\s+crush\b/gi, preserveCase("cette bien-aimée")],
 
   // *** D ***
   [/\bdeadlines\b/gi, preserveCase("échéances")],
