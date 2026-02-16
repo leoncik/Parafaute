@@ -31,6 +31,9 @@ const anglicismes = [
   [/du bullshit\b/g, "des conneries"],
   [/\bburn-out\b/gi, preserveCase("épuisement professionnel")],
   [/\bburnout\b/gi, preserveCase("épuisement professionnel")],
+  [/\bbadante\b/gi, preserveCase("déprimante")],
+  [/\bbadant\b/gi, preserveCase("déprimant")],
+  [/\bbader\b/gi, preserveCase("déprimer")],
 
   // *** C ***
   [/\bchallenges\b/gi, preserveCase("défis")],
