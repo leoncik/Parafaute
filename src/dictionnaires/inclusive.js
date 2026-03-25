@@ -130,6 +130,7 @@ const inclusive = [
   [addSeparatorsRegex("teurs_trices\\b"), preserveCase("teurs")],
   [addSeparatorsRegex("teurs_euses\\b"), preserveCase("teurs")],
   [addSeparatorsRegex("eur_rice_s"), preserveCase("eurs")],
+  [addSeparatorsRegex("eur_drice_s"), preserveCase("eurs")],
   [addSeparatorsRegex("tous_tes"), preserveCase("tous")],
   [addSeparatorsRegex("er_ère_s"), preserveCase("ers")],
   [addSeparatorsRegex("er_èr_es"), preserveCase("ers")],
@@ -457,6 +458,8 @@ const inclusive = [
   [/trices\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*teurs\b/g, "teurs"],
   [/eurs\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*euses\b/g, "eurs"],
   [/euses\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
+  [/eurs\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*drices\b/g, "eurs"],
+  [/drices\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
   // eur/trice (acteur/actrice) et teur/trice (directeur/directrice)
   [
     /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1rices\b/g,
@@ -470,6 +473,17 @@ const inclusive = [
     /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)trices\b et (?:des |les |de |aux )?\1eurs\b/g,
     "$1eurs",
   ],
+  [
+    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1drices\b/g,
+    "$1eurs",
+  ],
+  [
+    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)drices\b et (?:des |les |de |aux )?\1eurs\b/g,
+    "$1eurs",
+  ],
+  [/ambassadrices\b et (?:des |les |de |aux )?ambassadeurs\b/g, "ambassadeurs"],
+  [/ambassadeurs\b et (?:des |les |de |aux )?ambassadrices\b/g, "ambassadeurs"],
+  [/\bambassadeurs\b et \bambassadeurs\b/gi, preserveCase("ambassadeurs")],
   [/teur ou une [a-zA-ZÀ-ÖØ-öø-ÿ-]*trice/g, "teur"],
   [/teur ou de [a-zA-ZÀ-ÖØ-öø-ÿ-]*trice/g, "teur"],
 
