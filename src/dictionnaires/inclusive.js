@@ -190,11 +190,13 @@ const inclusive = [
   [addSeparatorsRegex("eaux_elles\\b"), preserveCase("eaux")],
   [addSeparatorsRegex("eau_elle\\b"), preserveCase("eau")],
   [addSeparatorsRegex("teur_trice"), preserveCase("teur")],
+  [addSeparatorsRegex("\\belles_ceux\\b"), preserveCase("ceux")],
   [addSeparatorsRegex("\\bceux_elles"), preserveCase("ceux")],
   [addSeparatorsRegex("\\bcelles_ceux\\b"), preserveCase("ceux")],
   [addSeparatorsRegex("\\bceux_celles\\b"), preserveCase("ceux")],
   // Pronoms démonstratifs : celui·elle → celui
   [addSeparatorsRegex("\\bcelui_elle\\b"), preserveCase("celui")],
+  [addSeparatorsRegex("\\belle_celui\\b"), preserveCase("celui")],
   // Déterminants démonstratifs compacts : cet·te, ce·tte, cette·ce → ce
   [addSeparatorsRegex("\\bcet_te\\b"), preserveCase("ce")],
   [addSeparatorsRegex("\\bce_tte\\b"), preserveCase("ce")],
