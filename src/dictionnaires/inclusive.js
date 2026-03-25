@@ -224,13 +224,21 @@ const inclusive = [
   // Les formes à 3 pronoms doivent précéder les formes à 2 pronoms.
   [addSeparatorsRegex("\\belle_iel_il\\b"), preserveCase("il")],
   [addSeparatorsRegex("\\bil_iel_elle\\b"), preserveCase("il")],
+  [addSeparatorsRegex("\\biel_elle_il\\b"), preserveCase("il")],
+  [addSeparatorsRegex("\\biel_il_elle\\b"), preserveCase("il")],
   [addSeparatorsRegex("\\belles_iels_ils\\b"), preserveCase("ils")],
   [addSeparatorsRegex("\\bils_iels_elles\\b"), preserveCase("ils")],
+  [addSeparatorsRegex("\\biels_elles_ils\\b"), preserveCase("ils")],
+  [addSeparatorsRegex("\\biels_ils_elles\\b"), preserveCase("ils")],
   // elle·iel / il·iel (2 pronoms avec iel)
   [addSeparatorsRegex("\\belle_iel\\b"), preserveCase("il")],
   [addSeparatorsRegex("\\bil_iel\\b"), preserveCase("il")],
+  [addSeparatorsRegex("\\biel_elle\\b"), preserveCase("il")],
+  [addSeparatorsRegex("\\biel_il\\b"), preserveCase("il")],
   [addSeparatorsRegex("\\belles_iels\\b"), preserveCase("ils")],
   [addSeparatorsRegex("\\bils_iels\\b"), preserveCase("ils")],
+  [addSeparatorsRegex("\\biels_elles\\b"), preserveCase("ils")],
+  [addSeparatorsRegex("\\biels_ils\\b"), preserveCase("ils")],
   // elle·il / il·elle (sans iel)
   [addSeparatorsRegex("\\belle_il\\b"), preserveCase("il")],
   [addSeparatorsRegex("\\belles_ils\\b"), preserveCase("ils")],
