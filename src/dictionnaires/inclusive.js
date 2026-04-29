@@ -106,6 +106,7 @@ const inclusive = [
   [/\((euse|EUSE)\)/gi, ""],
   [/\((trice|TRICE)\)/gi, ""],
   [/\((trices|TRICES)\)/gi, ""],
+  [/\((rices|RICES)\)/gi, ""],
   [/\((rice|RICE)\)/gi, ""],
   [/\((ice|ICE)\)/gi, ""],
   [/\((ne|NE)\)/gi, ""],
