@@ -210,6 +210,7 @@ const inclusive = [
   [addSeparatorsRegex("\\bton_a\\b"), preserveCase("ton")],
   [addSeparatorsRegex("\\bson_a\\b"), preserveCase("son")],
   [addSeparatorsRegex("en_ennes\\b"), preserveCase("ens")],
+  [addSeparatorsRegex("en_enne_s"), preserveCase("ens")],
   [addSeparatorsRegex("en_enne\\b"), preserveCase("en")],
   [addSeparatorsRegex("en_nes\\b"), preserveCase("ens")],
   [addSeparatorsRegex("ifs_ives\\b"), preserveCase("ifs")],
