@@ -130,6 +130,7 @@ const inclusive = [
   [addSeparatorsRegex("teurs_trices\\b"), preserveCase("teurs")],
   [addSeparatorsRegex("teurs_euses\\b"), preserveCase("teurs")],
   [addSeparatorsRegex("eur_rice_s"), preserveCase("eurs")],
+  [addSeparatorsRegex("eur_ices\\b"), preserveCase("eurs")],
   [addSeparatorsRegex("eur_ice_s"), preserveCase("eurs")],
   [addSeparatorsRegex("eur_drice_s"), preserveCase("eurs")],
   [addSeparatorsRegex("tous_tes"), preserveCase("tous")],
@@ -256,6 +257,7 @@ const inclusive = [
   [addSeparatorsRegex("S_RICES\\b", "g"), "S"],
   [addSeparatorsRegex("_rices\\b", "g"), "s"],
   [addSeparatorsRegex("_RICES\\b", "g"), "S"],
+  // Garder les règles spécifiques eur_ice_s / eur_ices avant ces règles génériques.
   [addSeparatorsRegex("_rice\\b"), ""],
   [addSeparatorsRegex("_ices\\b"), ""],
   [addSeparatorsRegex("_ice\\b"), ""],
