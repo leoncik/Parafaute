@@ -154,6 +154,7 @@ const inclusive = [
   [addSeparatorsRegex("tou_tes"), preserveCase("tous")],
   [addSeparatorsRegex("teur_trice_s"), preserveCase("teurs")],
   [addSeparatorsRegex("teur_euse_s"), preserveCase("teurs")],
+  [addSeparatorsRegex("eur_euse_s"), preserveCase("eurs")],
   [addSeparatorsRegex("teurs_trices\\b"), preserveCase("teurs")],
   [addSeparatorsRegex("teurs_euses\\b"), preserveCase("teurs")],
   [addSeparatorsRegex("eur_rice_s"), preserveCase("eurs")],
