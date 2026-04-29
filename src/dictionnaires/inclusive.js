@@ -232,6 +232,7 @@ const inclusive = [
   [addSeparatorsRegex("\\bce_tte\\b"), preserveCase("ce")],
   [addSeparatorsRegex("\\bcette_ce\\b"), preserveCase("ce")],
   [addSeparatorsRegex("eux_ses\\b"), preserveCase("eux")],
+  [addSeparatorsRegex("eux_euse_s"), preserveCase("eux")],
   [addSeparatorsRegex("eux_euse\\b"), preserveCase("eux")],
   [addSeparatorsRegex("s_es\\b"), preserveCase("s")],
   [addSeparatorsRegex("ant_e\\b"), preserveCase("ant")],
