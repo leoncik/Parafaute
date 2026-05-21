@@ -25,6 +25,8 @@ function preserveCase(replacement) {
 // Le "+" permet d’inclure dans la détection plusieurs séparateurs consécutifs (ex: "·­" = point médian + soft hyphen).
 // Note : le "-" doit être à la fin de la classe pour être littéral (sinon il crée une plage de caractères).
 const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.\\u00AD\\u200B-]+";
+// Variante sans "." : utilisée par la règle générique _e\b pour éviter les sigles (F.E.A.R, 1.E.8.).
+const MEDIAN_NO_DOT = "[·‧܁⋅•∙\\/\\u00AD\\u200B-]+";
 
 /**
  * Construit une expression régulière avec des séparateurs médians.
@@ -51,24 +53,37 @@ const inclusive = [
 
   // EXPRESSIONS
   // /gi + preserveCase couvre minuscule, Majuscule initiale et TOUT MAJUSCULE.
-  [/le ou la/gi, preserveCase("le")],
-  [/la ou le/gi, preserveCase("le")],
+  [/\ble ou la\b/gi, preserveCase("le")],
+  [/\bla ou le\b/gi, preserveCase("le")],
+  [/le\s?\/\s?la/gi, preserveCase("le")],
+  [/la\s?\/\s?le/gi, preserveCase("le")],
   [/celles et ceux/gi, preserveCase("ceux")],
   [/ceux et celles/gi, preserveCase("ceux")],
   [/celui\/celle/gi, preserveCase("celui")],
+  [/celui\s?\/\s?celle/gi, preserveCase("celui")],
   [/celle\/celui/gi, preserveCase("celui")],
-  [/celui ou celle/gi, preserveCase("celui")],
-  [/celle ou celui/gi, preserveCase("celui")],
+  [/celle\s?\/\s?celui/gi, preserveCase("celui")],
+  [/\bcelui ou celle\b/gi, preserveCase("celui")],
+  [/\bcelle ou celui\b/gi, preserveCase("celui")],
   // Pronoms sujets : il/iel et elle/iel avec "ou" (ex. "il ou iel" → "il")
+  [/\bil ou elle\b/gi, preserveCase("il")],
+  [/\belle ou il\b/gi, preserveCase("il")],
+  [/\bil\s?\/\s?elle\b/gi, preserveCase("il")],
+  [/\belle\s?\/\s?il\b/gi, preserveCase("il")],
   [/\bil ou iel\b/gi, preserveCase("il")],
   [/\biel ou il\b/gi, preserveCase("il")],
   [/\belle ou iel\b/gi, preserveCase("il")],
   [/\biel ou elle\b/gi, preserveCase("il")],
+  [/\bils ou elles\b/gi, preserveCase("ils")],
+  [/\belles ou ils\b/gi, preserveCase("ils")],
+  [/\bils\s?\/\s?elles\b/gi, preserveCase("ils")],
+  [/\belles\s?\/\s?ils\b/gi, preserveCase("ils")],
   [/\bils ou iels\b/gi, preserveCase("ils")],
   [/\biels ou ils\b/gi, preserveCase("ils")],
   [/\belles ou iels\b/gi, preserveCase("ils")],
   [/\biels ou elles\b/gi, preserveCase("ils")],
   [/auteur\/autrice/gi, preserveCase("auteur")],
+  [/auteur\s?\/\s?autrice/gi, preserveCase("auteur")],
   [/à tous et à toutes/gi, preserveCase("à tous")],
   [/à tous et toutes/gi, preserveCase("à tous")],
   [/à toutes et tous/gi, preserveCase("à tous")],
@@ -106,15 +121,29 @@ const inclusive = [
   [/\((euse|EUSE)\)/gi, ""],
   [/\((trice|TRICE)\)/gi, ""],
   [/\((trices|TRICES)\)/gi, ""],
+  [/\((drice|DRICE)\)/gi, ""],
+  [/\((drices|DRICES)\)/gi, ""],
+  [/\((rices|RICES)\)/gi, ""],
   [/\((rice|RICE)\)/gi, ""],
+  [/\((ices|ICES)\)/gi, ""],
   [/\((ice|ICE)\)/gi, ""],
+  [/\((ives|IVES)\)/gi, ""],
+  [/\((ive|IVE)\)/gi, ""],
   [/\((ne|NE)\)/gi, ""],
+  [/\((nes|NES)\)/gi, ""],
+  [/\((enne|ENNE)\)/gi, ""],
+  [/\((ennes|ENNES)\)/gi, ""],
   [/\((ère|ÈRE)\)/gi, ""],
+  [/\((ères|ÈRES)\)/gi, ""],
   [/\((ées|ÉES)\)/gi, ""],
   [/\((le|LE)\)/gi, ""],
+  [/\((les|LES)\)/gi, ""],
   [/\((te|TE)\)/gi, ""],
+  [/\((tes|TES)\)/gi, ""],
   [/\((ve|VE)\)/gi, ""],
+  [/\((ves|VES)\)/gi, ""],
   [/\((fe|FE)\)/gi, ""],
+  [/\((fes|FES)\)/gi, ""],
   // Uniquement entre séparateurs médians pour éviter les faux positifs mathématiques (f(x), cos(x)…)
   [/(?<=[·‧܁⋅•∙\/.\u00AD\u200B-])\(x\)(?=[·‧܁⋅•∙\/.\u00AD\u200B-])/gi, ""],
 
@@ -127,9 +156,12 @@ const inclusive = [
   [addSeparatorsRegex("tou_tes"), preserveCase("tous")],
   [addSeparatorsRegex("teur_trice_s"), preserveCase("teurs")],
   [addSeparatorsRegex("teur_euse_s"), preserveCase("teurs")],
+  [addSeparatorsRegex("eur_euse_s"), preserveCase("eurs")],
   [addSeparatorsRegex("teurs_trices\\b"), preserveCase("teurs")],
   [addSeparatorsRegex("teurs_euses\\b"), preserveCase("teurs")],
   [addSeparatorsRegex("eur_rice_s"), preserveCase("eurs")],
+  [addSeparatorsRegex("eur_ices\\b"), preserveCase("eurs")],
+  [addSeparatorsRegex("eur_ice_s"), preserveCase("eurs")],
   [addSeparatorsRegex("eur_drice_s"), preserveCase("eurs")],
   [addSeparatorsRegex("tous_tes"), preserveCase("tous")],
   [addSeparatorsRegex("er_ère_s"), preserveCase("ers")],
@@ -155,8 +187,8 @@ const inclusive = [
   [addSeparatorsRegex("_IVE_S", "g"), "S"],
   [addSeparatorsRegex("_ne_s", "g"), "s"],
   [addSeparatorsRegex("_NE_S", "g"), "S"],
-  [addSeparatorsRegex("_le_s", "g"), "s"],
-  [addSeparatorsRegex("_LE_S", "g"), "S"],
+  [addSeparatorsRegex("_le_s\\b", "g"), "s"],
+  [addSeparatorsRegex("_LE_S\\b", "g"), "S"],
   [addSeparatorsRegex("_se_s", "g"), "s"],
   [addSeparatorsRegex("_SE_S", "g"), "S"],
 
@@ -180,6 +212,7 @@ const inclusive = [
   [addSeparatorsRegex("\\bton_a\\b"), preserveCase("ton")],
   [addSeparatorsRegex("\\bson_a\\b"), preserveCase("son")],
   [addSeparatorsRegex("en_ennes\\b"), preserveCase("ens")],
+  [addSeparatorsRegex("en_enne_s"), preserveCase("ens")],
   [addSeparatorsRegex("en_enne\\b"), preserveCase("en")],
   [addSeparatorsRegex("en_nes\\b"), preserveCase("ens")],
   [addSeparatorsRegex("ifs_ives\\b"), preserveCase("ifs")],
@@ -202,6 +235,7 @@ const inclusive = [
   [addSeparatorsRegex("\\bce_tte\\b"), preserveCase("ce")],
   [addSeparatorsRegex("\\bcette_ce\\b"), preserveCase("ce")],
   [addSeparatorsRegex("eux_ses\\b"), preserveCase("eux")],
+  [addSeparatorsRegex("eux_euse_s"), preserveCase("eux")],
   [addSeparatorsRegex("eux_euse\\b"), preserveCase("eux")],
   [addSeparatorsRegex("s_es\\b"), preserveCase("s")],
   [addSeparatorsRegex("ant_e\\b"), preserveCase("ant")],
@@ -255,6 +289,7 @@ const inclusive = [
   [addSeparatorsRegex("S_RICES\\b", "g"), "S"],
   [addSeparatorsRegex("_rices\\b", "g"), "s"],
   [addSeparatorsRegex("_RICES\\b", "g"), "S"],
+  // Garder les règles spécifiques eur_ice_s / eur_ices avant ces règles génériques.
   [addSeparatorsRegex("_rice\\b"), ""],
   [addSeparatorsRegex("_ices\\b"), ""],
   [addSeparatorsRegex("_ice\\b"), ""],
@@ -310,15 +345,23 @@ const inclusive = [
   [addSeparatorsRegex("_ennes\\b", "g"), "s"],
   [addSeparatorsRegex("_ENNES\\b", "g"), "S"],
   [addSeparatorsRegex("_enne\\b"), ""],
-  [addSeparatorsRegex("_ne\\b"), ""],
+  [
+    new RegExp("(?<=\\w)" + MEDIAN_SEPARATORS + "n[eE]\\b", "gu"),
+    "",
+  ],
   [addSeparatorsRegex("s_nes\\b", "g"), "s"],
   [addSeparatorsRegex("S_NES\\b", "g"), "S"],
   [addSeparatorsRegex("_nes\\b", "g"), "s"],
   [addSeparatorsRegex("_NES\\b", "g"), "S"],
   // "·e·x" : combinaison féminin + neutre "x" singulier (ex: "représentant·e·x" → "représentant")
   [addSeparatorsRegex("_e_x\\b"), ""],
-  // Faux positif: ne pas corriger "shift-e"
-  [addSeparatorsRegex("(?<=\\w(?<!shift))_e\\b"), ""],
+  // Singulier avec point (etudiant.e) : terminal uniquement, pas au milieu d'une chaîne (.e.s → _e_s).
+  [new RegExp("(?<=[A-Za-zÀ-Öÿ]{2})\\.[eE]\\b(?!\\.)", "gu"), ""],
+  // Faux positifs : ne pas corriger "shift-e" (toutes casses) ni les sigles avec "." (F.E.A.R, 1.E.8.).
+  [
+    new RegExp(`(?<=\\w(?<![sS][hH][iI][fF][tT]))${MEDIAN_NO_DOT}[eE]\\b`, "gu"),
+    "",
+  ],
 
   // "x" comme marqueur neutre (ex. "adérents·x" → "adérents", "tous·x" → "tous")
   // On restreint aux vrais points médians pour éviter les faux positifs techniques
@@ -419,11 +462,11 @@ const inclusive = [
 
   // Rétroréférence \1 = même radical (évite "élégantes et aux éléphants" → "élégants")
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)euses\b et (?:des |les |de |aux )?\1eurs\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)euses\b et (?:des |les |de |aux )?\1eurs\b/g,
     "$1eurs",
   ],
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1euses\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1euses\b/g,
     "$1eurs",
   ],
 
@@ -431,23 +474,23 @@ const inclusive = [
 
   [/eur\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
 
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ens\b et (?:des |les |de |aux )?\1ennes\b/g, "$1ens"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ennes\b et (?:des |les |de |aux )?\1ens\b/g, "$1ens"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ens\b et (?:des |les |de |aux )?\1ennes\b/g, "$1ens"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ennes\b et (?:des |les |de |aux )?\1ens\b/g, "$1ens"],
 
   [/en\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*enne\b/g, "en"],
 
   [/enne\b ou le [a-zA-ZÀ-ÖØ-öø-ÿ-]*en\b/g, "en"],
 
   // el/elle : féminin en "lles" (ex. professionnels et aux professionnelles)
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)els\b et (?:des |les |de |aux )?\1lles\b/g, "$1els"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)elles\b et (?:des |les |de |aux )?\1els\b/g, "$1els"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)els\b et (?:des |les |de |aux )?\1lles\b/g, "$1els"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)elles\b et (?:des |les |de |aux )?\1els\b/g, "$1els"],
 
   [/el\b et la [a-zA-ZÀ-ÖØ-öø-ÿ-]*elle\b/g, "el"],
 
   [/elle\b et le [a-zA-ZÀ-ÖØ-öø-ÿ-]*el\b/g, "el"],
 
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)euses\b et (?:des |les |de |aux )?\1eux\b/g, "$1eux"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eux\b et (?:des |les |de |aux )?\1euses\b/g, "$1eux"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)euses\b et (?:des |les |de |aux )?\1eux\b/g, "$1eux"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eux\b et (?:des |les |de |aux )?\1euses\b/g, "$1eux"],
 
   [/eur\b \/ [a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
   [/eur\/[a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
@@ -477,23 +520,23 @@ const inclusive = [
   [/drices\s?\/\s?[a-zA-ZÀ-ÖØ-öø-ÿ-]*eurs\b/g, "eurs"],
   // eur/trice (acteur/actrice) et teur/trice (directeur/directrice)
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1rices\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1rices\b/g,
     "$1eurs",
   ],
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)trices\b et (?:des |les |de |aux )?\1teurs\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)trices\b et (?:des |les |de |aux )?\1teurs\b/g,
     "$1teurs",
   ],
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)trices\b et (?:des |les |de |aux )?\1eurs\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)trices\b et (?:des |les |de |aux )?\1eurs\b/g,
     "$1eurs",
   ],
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1drices\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eurs\b et (?:des |les |de |aux )?\1drices\b/g,
     "$1eurs",
   ],
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)drices\b et (?:des |les |de |aux )?\1eurs\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)drices\b et (?:des |les |de |aux )?\1eurs\b/g,
     "$1eurs",
   ],
   [/ambassadrices\b et (?:des |les |de |aux )?ambassadeurs\b/g, "ambassadeurs"],
@@ -503,11 +546,11 @@ const inclusive = [
   [/teur ou de [a-zA-ZÀ-ÖØ-öø-ÿ-]*trice/g, "teur"],
 
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)antes\b et (?:des |les |de |aux )?\1ants\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)antes\b et (?:des |les |de |aux )?\1ants\b/g,
     "$1ants",
   ],
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ants\b et (?:des |les |de |aux )?\1antes\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ants\b et (?:des |les |de |aux )?\1antes\b/g,
     "$1ants",
   ],
 
@@ -517,18 +560,18 @@ const inclusive = [
   [/ant\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*ante\b/g, "ant"],
   [/ant\b ou une [a-zA-ZÀ-ÖØ-öø-ÿ-]*ante\b/g, "ant"],
 
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ives\b et (?:des |les |de |aux )?\1ifs\b/g, "$1ifs"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ifs\b et (?:des |les |de |aux )?\1ives\b/g, "$1ifs"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ives\b et (?:des |les |de |aux )?\1ifs\b/g, "$1ifs"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ifs\b et (?:des |les |de |aux )?\1ives\b/g, "$1ifs"],
 
   [/ive\b ou le [a-zA-ZÀ-ÖØ-öø-ÿ-]*if\b/g, "if"],
   [/if\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*ive\b/g, "if"],
 
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)çaises\b et (?:des |les |de |aux )?\1çais\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)çaises\b et (?:des |les |de |aux )?\1çais\b/g,
     "$1çais",
   ],
   [
-    /([a-zA-ZÀ-ÖØ-öø-ÿ-]+)çais\b et (?:des |les |de |aux )?\1çaises\b/g,
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)çais\b et (?:des |les |de |aux )?\1çaises\b/g,
     "$1çais",
   ],
 
@@ -537,19 +580,19 @@ const inclusive = [
   // Doit être APRÈS les règles spécifiques de suffixes pour ne pas interférer.
 
   // Pluriel avec "et" (le déterminant "les/des/aux" ne change pas)
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)es\b et (?:les |des |aux )?\1s\b/g, "$1s"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)s\b et (?:les |des |aux )?\1es\b/g, "$1s"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ]+)es\b et (?:les |des |aux )?\1s\b/g, "$1s"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ]+)s\b et (?:les |des |aux )?\1es\b/g, "$1s"],
   // Singulier avec "ou" et déterminant (le déterminant fait partie du match)
   [/la ([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\b ou le \1\b/g, "le $1"],
   [/une ([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\b ou un \1\b/g, "un $1"],
   [/le ([a-zA-ZÀ-ÖØ-öø-ÿ]+)\b ou la \1e\b/g, "le $1"],
   [/un ([a-zA-ZÀ-ÖØ-öø-ÿ]+)\b ou une \1e\b/g, "un $1"],
   // Singulier avec "ou" sans déterminant
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\b ou \1\b/g, "$1"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)\b ou \1e\b/g, "$1"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\b ou \1\b/g, "$1"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ]+)\b ou \1e\b/g, "$1"],
   // Slash
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)es\s?\/\s?\1s\b/g, "$1s"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)s\s?\/\s?\1es\b/g, "$1s"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\s?\/\s?\1\b/g, "$1"],
-  [/([a-zA-ZÀ-ÖØ-öø-ÿ]+)\s?\/\s?\1e\b/g, "$1"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ]+)es\s?\/\s?\1s\b/g, "$1s"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ]+)s\s?\/\s?\1es\b/g, "$1s"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ]+)e\s?\/\s?\1\b/g, "$1"],
+  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ]+)\s?\/\s?\1e\b/g, "$1"],
 ];
