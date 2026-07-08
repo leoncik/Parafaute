@@ -27,11 +27,44 @@ function preserveCase(replacement) {
 const MEDIAN_SEPARATORS = "[·‧܁⋅•∙\\/.\\u00AD\\u200B-]+";
 // Variante sans "." : utilisée par la règle générique _e\b pour éviter les sigles (F.E.A.R, 1.E.8.).
 const MEDIAN_NO_DOT = "[·‧܁⋅•∙\\/\\u00AD\\u200B-]+";
+// Césure invisible optionnelle entre les lettres d'un suffixe inclusif (ex. "i\u00ADce").
+// Distinct de MEDIAN_SEPARATORS : ici le shy est *dans* un segment suffixe, pas *entre* segments.
+// N'utiliser que via inclusiveSuffix() sur les suffixes multi-lettres des règles inclusives.
+// Ne pas appliquer globalement dans addSeparatorsRegex (faux positifs sur texte non inclusif).
+const SOFT_BREAK = "(?:\\u00AD|\\u200B)?";
+const inclusiveSuffix = (suffix) => suffix.split("").join(SOFT_BREAK);
+
+// Suffixes inclusifs multi-lettres susceptibles d'être césurés.
+const SUF = {
+  ice: inclusiveSuffix("ice"),
+  ices: inclusiveSuffix("ices"),
+  trice: inclusiveSuffix("trice"),
+  trices: inclusiveSuffix("trices"),
+  rice: inclusiveSuffix("rice"),
+  rices: inclusiveSuffix("rices"),
+  drice: inclusiveSuffix("drice"),
+  drices: inclusiveSuffix("drices"),
+  euse: inclusiveSuffix("euse"),
+  euses: inclusiveSuffix("euses"),
+  ive: inclusiveSuffix("ive"),
+  ives: inclusiveSuffix("ives"),
+  enne: inclusiveSuffix("enne"),
+  ennes: inclusiveSuffix("ennes"),
+  RICE: inclusiveSuffix("RICE"),
+  RICES: inclusiveSuffix("RICES"),
+  IVE: inclusiveSuffix("IVE"),
+  IVES: inclusiveSuffix("IVES"),
+  EUSE: inclusiveSuffix("EUSE"),
+  EUSES: inclusiveSuffix("EUSES"),
+  ENNE: inclusiveSuffix("ENNE"),
+  ENNES: inclusiveSuffix("ENNES"),
+};
 
 /**
  * Construit une expression régulière avec des séparateurs médians.
  * Remplace chaque underscore "_" par le groupe de séparateurs médians.
- *
+ * Les segments de lettres restent stricts : pour tolérer une césure invisible *dans* un suffixe
+ * inclusif, utiliser inclusiveSuffix() / SUF sur ce suffixe uniquement.
  * @param {string} pattern - Texte à modifier avec des underscores comme placeholders.
  * @param {string} [flags="gi"] - Flags de l'expression régulière (par défaut: "gi").
  * @returns {RegExp} Expression régulière compilée.
@@ -154,15 +187,15 @@ const inclusive = [
 
   [addSeparatorsRegex("tou_te_s"), preserveCase("tous")],
   [addSeparatorsRegex("tou_tes"), preserveCase("tous")],
-  [addSeparatorsRegex("teur_trice_s"), preserveCase("teurs")],
-  [addSeparatorsRegex("teur_euse_s"), preserveCase("teurs")],
-  [addSeparatorsRegex("eur_euse_s"), preserveCase("eurs")],
-  [addSeparatorsRegex("teurs_trices\\b"), preserveCase("teurs")],
-  [addSeparatorsRegex("teurs_euses\\b"), preserveCase("teurs")],
-  [addSeparatorsRegex("eur_rice_s"), preserveCase("eurs")],
-  [addSeparatorsRegex("eur_ices\\b"), preserveCase("eurs")],
-  [addSeparatorsRegex("eur_ice_s"), preserveCase("eurs")],
-  [addSeparatorsRegex("eur_drice_s"), preserveCase("eurs")],
+  [addSeparatorsRegex(`teur_${SUF.trice}_s`), preserveCase("teurs")],
+  [addSeparatorsRegex(`teur_${SUF.euse}_s`), preserveCase("teurs")],
+  [addSeparatorsRegex(`eur_${SUF.euse}_s`), preserveCase("eurs")],
+  [addSeparatorsRegex(`teurs_${SUF.trices}\\b`), preserveCase("teurs")],
+  [addSeparatorsRegex(`teurs_${SUF.euses}\\b`), preserveCase("teurs")],
+  [addSeparatorsRegex(`eur_${SUF.rice}_s`), preserveCase("eurs")],
+  [addSeparatorsRegex(`eur_${SUF.ices}\\b`), preserveCase("eurs")],
+  [addSeparatorsRegex(`eur_${SUF.ice}_s`), preserveCase("eurs")],
+  [addSeparatorsRegex(`eur_${SUF.drice}_s`), preserveCase("eurs")],
   [addSeparatorsRegex("tous_tes"), preserveCase("tous")],
   [addSeparatorsRegex("er_ère_s"), preserveCase("ers")],
   [addSeparatorsRegex("er_èr_es"), preserveCase("ers")],
@@ -170,8 +203,8 @@ const inclusive = [
 
   [addSeparatorsRegex("_aux_lles\\b", "g"), "aux"],
   [addSeparatorsRegex("_AUX_LLES\\b", "g"), "AUX"],
-  [addSeparatorsRegex("_eur_rice\\b", "g"), "eur"],
-  [addSeparatorsRegex("_EUR_RICE\\b", "g"), "EUR"],
+  [addSeparatorsRegex(`_eur_${SUF.rice}\\b`, "g"), "eur"],
+  [addSeparatorsRegex(`_EUR_${SUF.RICE}\\b`, "g"), "EUR"],
   [addSeparatorsRegex("_fe_s", "g"), "s"],
   [addSeparatorsRegex("_FE_S", "g"), "S"],
   // "·e·x·s" : combinaison féminin + neutre "x" + pluriel (ex: "représentant·e·x·s" → "représentants")
@@ -181,10 +214,10 @@ const inclusive = [
   [addSeparatorsRegex("_E_S", "g"), "S"],
   [addSeparatorsRegex("_x_se\\b", "g"), "x"],
   [addSeparatorsRegex("_X_SE\\b", "g"), "X"],
-  [addSeparatorsRegex("_rice_s", "g"), "s"],
-  [addSeparatorsRegex("_RICE_S", "g"), "S"],
-  [addSeparatorsRegex("_ive_s", "g"), "s"],
-  [addSeparatorsRegex("_IVE_S", "g"), "S"],
+  [addSeparatorsRegex(`_${SUF.rice}_s`, "g"), "s"],
+  [addSeparatorsRegex(`_${SUF.RICE}_S`, "g"), "S"],
+  [addSeparatorsRegex(`_${SUF.ive}_s`, "g"), "s"],
+  [addSeparatorsRegex(`_${SUF.IVE}_S`, "g"), "S"],
   [addSeparatorsRegex("_ne_s", "g"), "s"],
   [addSeparatorsRegex("_NE_S", "g"), "S"],
   [addSeparatorsRegex("_le_s\\b", "g"), "s"],
@@ -211,18 +244,18 @@ const inclusive = [
   [addSeparatorsRegex("\\bmon_a\\b"), preserveCase("mon")],
   [addSeparatorsRegex("\\bton_a\\b"), preserveCase("ton")],
   [addSeparatorsRegex("\\bson_a\\b"), preserveCase("son")],
-  [addSeparatorsRegex("en_ennes\\b"), preserveCase("ens")],
-  [addSeparatorsRegex("en_enne_s"), preserveCase("ens")],
-  [addSeparatorsRegex("en_enne\\b"), preserveCase("en")],
+  [addSeparatorsRegex(`en_${SUF.ennes}\\b`), preserveCase("ens")],
+  [addSeparatorsRegex(`en_${SUF.enne}_s`), preserveCase("ens")],
+  [addSeparatorsRegex(`en_${SUF.enne}\\b`), preserveCase("en")],
   [addSeparatorsRegex("en_nes\\b"), preserveCase("ens")],
-  [addSeparatorsRegex("ifs_ives\\b"), preserveCase("ifs")],
+  [addSeparatorsRegex(`ifs_${SUF.ives}\\b`), preserveCase("ifs")],
   [addSeparatorsRegex("if_ves\\b"), preserveCase("ifs")],
-  [addSeparatorsRegex("if_ive\\b"), preserveCase("if")],
+  [addSeparatorsRegex(`if_${SUF.ive}\\b`), preserveCase("if")],
   [addSeparatorsRegex("eur_ses\\b"), preserveCase("eurs")],
   [addSeparatorsRegex("eurs_ses\\b"), preserveCase("eurs")],
   [addSeparatorsRegex("eaux_elles\\b"), preserveCase("eaux")],
   [addSeparatorsRegex("eau_elle\\b"), preserveCase("eau")],
-  [addSeparatorsRegex("teur_trice"), preserveCase("teur")],
+  [addSeparatorsRegex(`teur_${SUF.trice}`), preserveCase("teur")],
   [addSeparatorsRegex("\\belles_ceux\\b"), preserveCase("ceux")],
   [addSeparatorsRegex("\\bceux_elles"), preserveCase("ceux")],
   [addSeparatorsRegex("\\bcelles_ceux\\b"), preserveCase("ceux")],
@@ -235,21 +268,21 @@ const inclusive = [
   [addSeparatorsRegex("\\bce_tte\\b"), preserveCase("ce")],
   [addSeparatorsRegex("\\bcette_ce\\b"), preserveCase("ce")],
   [addSeparatorsRegex("eux_ses\\b"), preserveCase("eux")],
-  [addSeparatorsRegex("eux_euse_s"), preserveCase("eux")],
-  [addSeparatorsRegex("eux_euse\\b"), preserveCase("eux")],
+  [addSeparatorsRegex(`eux_${SUF.euse}_s`), preserveCase("eux")],
+  [addSeparatorsRegex(`eux_${SUF.euse}\\b`), preserveCase("eux")],
   [addSeparatorsRegex("s_es\\b"), preserveCase("s")],
   [addSeparatorsRegex("ant_e\\b"), preserveCase("ant")],
   [addSeparatorsRegex("eur_se\\b"), preserveCase("eur")],
   [addSeparatorsRegex("if_ve\\b"), preserveCase("if")],
   [addSeparatorsRegex("é_e\\b"), preserveCase("é")],
-  [addSeparatorsRegex("teur_euse\\b"), preserveCase("teur")],
-  [addSeparatorsRegex("eur_rice\\b"), preserveCase("eur")],
-  [addSeparatorsRegex("eur_drice\\b"), preserveCase("eur")],
-  [addSeparatorsRegex("eur_drices\\b"), preserveCase("eurs")],
-  [addSeparatorsRegex("eur_euse\\b"), preserveCase("eur")],
-  [addSeparatorsRegex("eurs_rices\\b"), preserveCase("eurs")],
-  [addSeparatorsRegex("eurs_drices\\b"), preserveCase("eurs")],
-  [addSeparatorsRegex("eurs_euses\\b"), preserveCase("eurs")],
+  [addSeparatorsRegex(`teur_${SUF.euse}\\b`), preserveCase("teur")],
+  [addSeparatorsRegex(`eur_${SUF.rice}\\b`), preserveCase("eur")],
+  [addSeparatorsRegex(`eur_${SUF.drice}\\b`), preserveCase("eur")],
+  [addSeparatorsRegex(`eur_${SUF.drices}\\b`), preserveCase("eurs")],
+  [addSeparatorsRegex(`eur_${SUF.euse}\\b`), preserveCase("eur")],
+  [addSeparatorsRegex(`eurs_${SUF.rices}\\b`), preserveCase("eurs")],
+  [addSeparatorsRegex(`eurs_${SUF.drices}\\b`), preserveCase("eurs")],
+  [addSeparatorsRegex(`eurs_${SUF.euses}\\b`), preserveCase("eurs")],
   [addSeparatorsRegex("ains_es\\b"), preserveCase("ains")],
   [addSeparatorsRegex("un_une\\b"), preserveCase("un")],
   [addSeparatorsRegex("un_e\\b"), preserveCase("un")],
@@ -285,26 +318,27 @@ const inclusive = [
   [addSeparatorsRegex("il_elle\\b"), preserveCase("il")],
   [addSeparatorsRegex("ils_elles\\b"), preserveCase("ils")],
 
-  [addSeparatorsRegex("s_rices\\b", "g"), "s"],
-  [addSeparatorsRegex("S_RICES\\b", "g"), "S"],
-  [addSeparatorsRegex("_rices\\b", "g"), "s"],
-  [addSeparatorsRegex("_RICES\\b", "g"), "S"],
+  [addSeparatorsRegex(`s_${SUF.rices}\\b`, "g"), "s"],
+  [addSeparatorsRegex(`S_${SUF.RICES}\\b`, "g"), "S"],
+  [addSeparatorsRegex(`_${SUF.rices}\\b`, "g"), "s"],
+  [addSeparatorsRegex(`_${SUF.RICES}\\b`, "g"), "S"],
   // Garder les règles spécifiques eur_ice_s / eur_ices avant ces règles génériques.
-  [addSeparatorsRegex("_rice\\b"), ""],
-  [addSeparatorsRegex("_ices\\b"), ""],
-  [addSeparatorsRegex("_ice\\b"), ""],
+  [addSeparatorsRegex(`_${SUF.rice}\\b`), ""],
+  [addSeparatorsRegex(`_${SUF.ices}\\b`), ""],
+  [addSeparatorsRegex(`_${SUF.ice}\\b`), ""],
   [addSeparatorsRegex("s_es\\b", "g"), "s"],
   [addSeparatorsRegex("S_ES\\b", "g"), "S"],
   [addSeparatorsRegex("_es\\b", "g"), "s"],
   [addSeparatorsRegex("_ES\\b", "g"), "S"],
   [addSeparatorsRegex("_se\\b"), ""],
   [addSeparatorsRegex("_fe\\b"), ""],
+  // _ive avant _ve : sinon "pensif·i­ve" perd seulement "­ve" via _ve (shy pris pour séparateur).
+  [addSeparatorsRegex(`s_${SUF.ives}\\b`, "g"), "s"],
+  [addSeparatorsRegex(`S_${SUF.IVES}\\b`, "g"), "S"],
+  [addSeparatorsRegex(`_${SUF.ives}\\b`, "g"), "s"],
+  [addSeparatorsRegex(`_${SUF.IVES}\\b`, "g"), "S"],
+  [addSeparatorsRegex(`_${SUF.ive}\\b`), ""],
   [addSeparatorsRegex("_ve\\b"), ""],
-  [addSeparatorsRegex("s_ives\\b", "g"), "s"],
-  [addSeparatorsRegex("S_IVES\\b", "g"), "S"],
-  [addSeparatorsRegex("_ives\\b", "g"), "s"],
-  [addSeparatorsRegex("_IVES\\b", "g"), "S"],
-  [addSeparatorsRegex("_ive\\b"), ""],
   [addSeparatorsRegex("s_fes\\b", "g"), "s"],
   [addSeparatorsRegex("S_FES\\b", "g"), "S"],
   [addSeparatorsRegex("_fes\\b", "g"), "s"],
@@ -320,10 +354,10 @@ const inclusive = [
   [addSeparatorsRegex("S_ALES\\b", "g"), "S"],
   [addSeparatorsRegex("_ales\\b", "g"), "s"],
   [addSeparatorsRegex("_ALES\\b", "g"), "S"],
-  [addSeparatorsRegex("s_euses\\b", "g"), "s"],
-  [addSeparatorsRegex("S_EUSES\\b", "g"), "S"],
-  [addSeparatorsRegex("_euses\\b", "g"), "s"],
-  [addSeparatorsRegex("_EUSES\\b", "g"), "S"],
+  [addSeparatorsRegex(`s_${SUF.euses}\\b`, "g"), "s"],
+  [addSeparatorsRegex(`S_${SUF.EUSES}\\b`, "g"), "S"],
+  [addSeparatorsRegex(`_${SUF.euses}\\b`, "g"), "s"],
+  [addSeparatorsRegex(`_${SUF.EUSES}\\b`, "g"), "S"],
 
   // Posait des problèmes avec les expressions comme « faites-les» ou « listez-les » et les noms comme « Morzy-les-Gaillardes »
   // [addSeparatorsRegex("_le\\b"), ""],
@@ -340,15 +374,12 @@ const inclusive = [
   [addSeparatorsRegex("S_ÈRES\\b", "g"), "S"],
   [addSeparatorsRegex("_ères\\b", "g"), "s"],
   [addSeparatorsRegex("_ÈRES\\b", "g"), "S"],
-  [addSeparatorsRegex("s_ennes\\b", "g"), "s"],
-  [addSeparatorsRegex("S_ENNES\\b", "g"), "S"],
-  [addSeparatorsRegex("_ennes\\b", "g"), "s"],
-  [addSeparatorsRegex("_ENNES\\b", "g"), "S"],
-  [addSeparatorsRegex("_enne\\b"), ""],
-  [
-    new RegExp("(?<=\\w)" + MEDIAN_SEPARATORS + "n[eE]\\b", "gu"),
-    "",
-  ],
+  [addSeparatorsRegex(`s_${SUF.ennes}\\b`, "g"), "s"],
+  [addSeparatorsRegex(`S_${SUF.ENNES}\\b`, "g"), "S"],
+  [addSeparatorsRegex(`_${SUF.ennes}\\b`, "g"), "s"],
+  [addSeparatorsRegex(`_${SUF.ENNES}\\b`, "g"), "S"],
+  [addSeparatorsRegex(`_${SUF.enne}\\b`), ""],
+  [new RegExp("(?<=\\w)" + MEDIAN_SEPARATORS + "n[eE]\\b", "gu"), ""],
   [addSeparatorsRegex("s_nes\\b", "g"), "s"],
   [addSeparatorsRegex("S_NES\\b", "g"), "S"],
   [addSeparatorsRegex("_nes\\b", "g"), "s"],
@@ -359,7 +390,10 @@ const inclusive = [
   [new RegExp("(?<=[A-Za-zÀ-Öÿ]{2})\\.[eE]\\b(?!\\.)", "gu"), ""],
   // Faux positifs : ne pas corriger "shift-e" (toutes casses) ni les sigles avec "." (F.E.A.R, 1.E.8.).
   [
-    new RegExp(`(?<=\\w(?<![sS][hH][iI][fF][tT]))${MEDIAN_NO_DOT}[eE]\\b`, "gu"),
+    new RegExp(
+      `(?<=\\w(?<![sS][hH][iI][fF][tT]))${MEDIAN_NO_DOT}[eE]\\b`,
+      "gu",
+    ),
     "",
   ],
 
@@ -474,8 +508,14 @@ const inclusive = [
 
   [/eur\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
 
-  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ens\b et (?:des |les |de |aux )?\1ennes\b/g, "$1ens"],
-  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ennes\b et (?:des |les |de |aux )?\1ens\b/g, "$1ens"],
+  [
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ens\b et (?:des |les |de |aux )?\1ennes\b/g,
+    "$1ens",
+  ],
+  [
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)ennes\b et (?:des |les |de |aux )?\1ens\b/g,
+    "$1ens",
+  ],
 
   [/en\b ou la [a-zA-ZÀ-ÖØ-öø-ÿ-]*enne\b/g, "en"],
 
@@ -483,14 +523,23 @@ const inclusive = [
 
   // el/elle : féminin en "lles" (ex. professionnels et aux professionnelles)
   [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)els\b et (?:des |les |de |aux )?\1lles\b/g, "$1els"],
-  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)elles\b et (?:des |les |de |aux )?\1els\b/g, "$1els"],
+  [
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)elles\b et (?:des |les |de |aux )?\1els\b/g,
+    "$1els",
+  ],
 
   [/el\b et la [a-zA-ZÀ-ÖØ-öø-ÿ-]*elle\b/g, "el"],
 
   [/elle\b et le [a-zA-ZÀ-ÖØ-öø-ÿ-]*el\b/g, "el"],
 
-  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)euses\b et (?:des |les |de |aux )?\1eux\b/g, "$1eux"],
-  [/\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eux\b et (?:des |les |de |aux )?\1euses\b/g, "$1eux"],
+  [
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)euses\b et (?:des |les |de |aux )?\1eux\b/g,
+    "$1eux",
+  ],
+  [
+    /\b([a-zA-ZÀ-ÖØ-öø-ÿ-]+)eux\b et (?:des |les |de |aux )?\1euses\b/g,
+    "$1eux",
+  ],
 
   [/eur\b \/ [a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
   [/eur\/[a-zA-ZÀ-ÖØ-öø-ÿ-]*euse\b/g, "eur"],
