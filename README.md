@@ -29,6 +29,8 @@ Vous pouvez télécharger facilement l'extension depuis :
 
 - Le site des [Modules pour Firefox](https://addons.mozilla.org/fr/firefox/addon/parafaute/) pour l'utiliser sur Firefox.
 
+- Les [Modules complémentaires Edge](https://microsoftedge.microsoft.com/addons/detail/parafaute/ffgjenoookanohmgemmigofecmgjbpmc)
+
 ## Aperçu
 
 ![Avant](https://github.com/user-attachments/assets/f256bac6-5544-4a68-8ea8-9f85c5f31c7c)
