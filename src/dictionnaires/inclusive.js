@@ -286,6 +286,9 @@ const inclusive = [
   [addSeparatorsRegex("ains_es\\b"), preserveCase("ains")],
   [addSeparatorsRegex("un_une\\b"), preserveCase("un")],
   [addSeparatorsRegex("un_e\\b"), preserveCase("un")],
+  // Formes en -sse : maître·sse / maître·sse·s
+  [addSeparatorsRegex("\\bma[iî]tre_sse_s\\b"), preserveCase("maîtres")],
+  [addSeparatorsRegex("\\bma[iî]tre_sse\\b"), preserveCase("maître")],
   [/un\[e\]/gi, preserveCase("un")],
   // Chaînes de pronoms avec séparateurs (elle·iel·il, elle·il, etc.)
   // Les formes à 3 pronoms doivent précéder les formes à 2 pronoms.
