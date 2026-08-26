@@ -4,19 +4,27 @@ class TextObserver {
   #callback;
   #observer;
   #performanceOptions;
-  // Sometimes, MutationRecords of type 'childList' have added nodes with overlapping subtrees
-  // Nodes can also be removed and reattached from one parent to another
-  // This can cause resource usage to explode with "recursive" replacements, e.g. expands -> physically expands
-  // The processed set ensures that each added node is only processed once so the above doesn't happen
-  #processed = new Set();
+  // WeakSet/WeakMap so detached SPA nodes can be garbage-collected.
+  // lastSeenValues skips the replacement pipeline when a recycled node is unchanged.
+  #processed = new WeakSet();
+  #lastSeenValues = new WeakMap();
   // Also keep a copy of processed but that is cleared at the beginning of every callback
   // This prevents an added element whose characterData/attribute also mutated from being processed twice
   // While using processed would cause future mutations to a processed element's characterData/attribute to be ignored
   #callbackProcessed = new Set();
   #connected = true;
+  // Buffer mutations and flush asynchronously without disconnecting the observer.
+  // Disconnecting before setTimeout used to drop SPA injections (e.g. Salesforce LWR).
+  #pendingMutations = [];
+  #flushScheduled = false;
+  #flushTimer = 0;
+  #applying = false;
+  #needsFullRescan = false;
 
   // Keep track of all created observers to prevent infinite callbacks
   static #observers = new Set();
+  static #FLUSH_DRAIN_LIMIT = 50;
+  static #PENDING_MUTATIONS_LIMIT = 10000;
 
   // Use static read-only properties as class constants
   static get #IGNORED_NODES() {
@@ -43,7 +51,6 @@ class TextObserver {
       subtree: true,
       childList: true,
       characterData: true,
-      characterDataOldValue: true,
       attributeFilter: Object.keys(TextObserver.#WATCHED_ATTRIBUTES),
     };
   }
@@ -110,35 +117,23 @@ class TextObserver {
     }
 
     const observer = new MutationObserver((mutations) => {
-      // Disconnect every observer after collecting their records
-      // Otherwise, the callback's mutations will trigger the observer and lead to an infinite feedback loop
-      const records = [];
-      for (const textObserver of TextObserver.#observers) {
-        // This ternary is why this section does not use flushAndSleepDuring
-        // It allows the nice-to-have property of callbacks being processed in the order they were declared
-        records.push(
-          textObserver === this
-            ? mutations
-            : textObserver.#observer.takeRecords(),
-        );
-        textObserver.#observer.disconnect();
+      // Stay connected while buffering so SPA/late DOM injections are not lost.
+      // Self-induced mutations during #applying are ignored here and discarded via takeRecords.
+      if (this.#applying) {
+        return;
       }
 
-      // Process mutations asynchronously to avoid blocking user interactions
-      // Use setTimeout to yield to the event loop, allowing clicks and other events to be processed
-      setTimeout(() => {
-        let i = 0;
-        for (const textObserver of TextObserver.#observers) {
-          textObserver.#observerCallback(records[i]);
-          i++;
+      // Coalesce pending records from sibling observers, preserving declaration order
+      for (const textObserver of TextObserver.#observers) {
+        if (textObserver === this) {
+          textObserver.#appendPending(mutations);
+        } else if (!textObserver.#applying) {
+          textObserver.#appendPending(textObserver.#observer.takeRecords());
         }
-
-        TextObserver.#observers.forEach((textObserver) =>
-          textObserver.#targets.forEach((target) =>
-            textObserver.#observer.observe(target, TextObserver.#CONFIG),
-          ),
-        );
-      }, 0);
+        if (textObserver.#hasPendingWork()) {
+          textObserver.#scheduleFlush();
+        }
+      }
     });
     // Attach an observer to each shadow root since MutationObserver objects can't see inside Shadow DOMs
     this.#targets.forEach((target) =>
@@ -155,9 +150,13 @@ class TextObserver {
       return;
     }
     this.#connected = false;
+    this.#cancelScheduledFlush();
     if (flush) {
       TextObserver.#flushAndSleepDuring(() => {});
     }
+    this.#pendingMutations = [];
+    this.#needsFullRescan = false;
+    this.#applying = false;
     this.#observer.disconnect();
     TextObserver.#observers.delete(this);
   }
@@ -179,6 +178,110 @@ class TextObserver {
     TextObserver.#observers.add(this);
   }
 
+  #cancelScheduledFlush() {
+    this.#flushScheduled = false;
+    if (this.#flushTimer !== 0) {
+      clearTimeout(this.#flushTimer);
+      this.#flushTimer = 0;
+    }
+  }
+
+  #scheduleFlush() {
+    if (this.#flushScheduled || !this.#connected) {
+      return;
+    }
+    this.#flushScheduled = true;
+    // Yield to the event loop so clicks/input stay responsive, but keep observing
+    this.#flushTimer = setTimeout(() => {
+      this.#flushTimer = 0;
+      this.#flushPendingMutations();
+    }, 0);
+  }
+
+  #appendPending(records) {
+    if (this.#needsFullRescan || records.length === 0) {
+      return;
+    }
+    const pending = this.#pendingMutations;
+    const limit = TextObserver.#PENDING_MUTATIONS_LIMIT;
+    for (let i = 0; i < records.length; i++) {
+      pending.push(records[i]);
+      if (pending.length >= limit) {
+        pending.length = 0;
+        this.#needsFullRescan = true;
+        return;
+      }
+    }
+  }
+
+  #hasPendingWork() {
+    return this.#needsFullRescan || this.#pendingMutations.length > 0;
+  }
+
+  #collectQueuedRecords() {
+    if (this.#observer === undefined) {
+      return;
+    }
+    if (this.#needsFullRescan) {
+      this.#observer.takeRecords();
+      this.#pendingMutations = [];
+      return;
+    }
+    this.#appendPending(this.#observer.takeRecords());
+  }
+
+  #runPendingWork() {
+    if (this.#needsFullRescan) {
+      this.#needsFullRescan = false;
+      this.#pendingMutations = [];
+      this.#targets.forEach((target) => this.#processNodes(target));
+      return;
+    }
+
+    if (this.#pendingMutations.length === 0) {
+      return;
+    }
+    const batch = this.#pendingMutations;
+    this.#pendingMutations = [];
+    this.#observerCallback(batch);
+  }
+
+  #discardSelfInducedRecords() {
+    if (this.#observer !== undefined) {
+      this.#observer.takeRecords();
+    }
+  }
+
+  #flushPendingMutations() {
+    this.#flushScheduled = false;
+    if (!this.#connected) {
+      return;
+    }
+
+    let drainCount = 0;
+    while (
+      this.#hasPendingWork() &&
+      drainCount < TextObserver.#FLUSH_DRAIN_LIMIT
+    ) {
+      drainCount++;
+      this.#applying = true;
+      try {
+        this.#collectQueuedRecords();
+        this.#runPendingWork();
+      } finally {
+        try {
+          this.#discardSelfInducedRecords();
+        } finally {
+          this.#applying = false;
+        }
+      }
+    }
+
+    if (this.#hasPendingWork()) {
+      this.#scheduleFlush();
+    }
+  }
+
   #observerCallback(mutations) {
     this.#callbackProcessed.clear();
     // We must save attribute mutations and process them at the end
@@ -192,9 +295,8 @@ class TextObserver {
         case "childList":
           for (const node of mutation.addedNodes) {
             if (node.nodeType === Node.TEXT_NODE) {
-              if (this.#valid(node) && !this.#processed.has(node)) {
-                node.nodeValue = this.#callback(node.nodeValue);
-                this.#processed.add(node);
+              if (this.#valid(node)) {
+                this.#applyToTextNode(node);
               }
             } else if (!TextObserver.#IGNORED_NODES.includes(node.nodeType)) {
               // If added node is not text, process subtree
@@ -203,14 +305,8 @@ class TextObserver {
           }
           break;
         case "characterData":
-          if (
-            !this.#callbackProcessed.has(target) &&
-            this.#valid(target) &&
-            target.nodeValue !== oldValue
-          ) {
-            target.nodeValue = this.#callback(target.nodeValue);
-            this.#processed.add(target);
-            this.#callbackProcessed.add(target);
+          if (!this.#callbackProcessed.has(target) && this.#valid(target)) {
+            this.#applyToTextNode(target);
           }
           break;
         case "attributes":
@@ -251,27 +347,54 @@ class TextObserver {
     }
   }
 
-  static #flushAndSleepDuring(callback) {
-    // Disconnect all other observers to prevent infinite callbacks
-    const records = [];
-    for (const textObserver of TextObserver.#observers) {
-      // Collect pending mutation notifications
-      records.push(textObserver.#observer.takeRecords());
-      textObserver.#observer.disconnect();
-    }
-    // This is in its own separate loop from the above because we want to disconnect everything before proceeding
-    // Otherwise, the mutations in the callback may trigger the other observers
-    let i = 0;
-    for (const textObserver of TextObserver.#observers) {
-      textObserver.#observerCallback(records[i]);
-      i++;
-    }
-    callback();
-    TextObserver.#observers.forEach((textObserver) =>
-      textObserver.#targets.forEach((target) =>
-        textObserver.#observer.observe(target, TextObserver.#CONFIG),
-      ),
+  #textNeedsApply(node) {
+    return (
+      !this.#processed.has(node) ||
+      this.#lastSeenValues.get(node) !== node.nodeValue
     );
+  }
+
+  // Process text on first sight; skip the callback when a recycled node is unchanged.
+  #applyToTextNode(node) {
+    const current = node.nodeValue;
+    if (!this.#textNeedsApply(node)) {
+      this.#callbackProcessed.add(node);
+      return;
+    }
+    const next = this.#callback(current);
+    if (next !== current) {
+      node.nodeValue = next;
+    }
+    this.#processed.add(node);
+    this.#lastSeenValues.set(node, node.nodeValue);
+    this.#callbackProcessed.add(node);
+  }
+
+  static #flushAndSleepDuring(callback) {
+    // Process pending work with #applying so we do not disconnect and miss parallel SPA mutations.
+    // Collect every observer's records before any DOM writes so siblings do not see each other.
+    const observers = [...TextObserver.#observers];
+    for (const textObserver of observers) {
+      textObserver.#cancelScheduledFlush();
+      textObserver.#applying = true;
+    }
+    try {
+      for (const textObserver of observers) {
+        textObserver.#collectQueuedRecords();
+      }
+      for (const textObserver of observers) {
+        textObserver.#runPendingWork();
+      }
+      callback();
+    } finally {
+      for (const textObserver of observers) {
+        try {
+          textObserver.#discardSelfInducedRecords();
+        } finally {
+          textObserver.#applying = false;
+        }
+      }
+    }
   }
 
   #valid(node) {
@@ -329,24 +452,25 @@ class TextObserver {
   }
 
   #processNodes(root) {
-    // Process valid Text nodes
+    // Process valid Text nodes, including reattached SPA nodes whose value changed
     const nodes = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: (node) =>
-        this.#valid(node) && !this.#processed.has(node)
+        this.#valid(node) && this.#textNeedsApply(node)
           ? NodeFilter.FILTER_ACCEPT
           : NodeFilter.FILTER_REJECT,
     });
     while (nodes.nextNode()) {
-      nodes.currentNode.nodeValue = this.#callback(nodes.currentNode.nodeValue);
-      this.#processed.add(nodes.currentNode);
-      this.#callbackProcessed.add(nodes.currentNode);
+      this.#applyToTextNode(nodes.currentNode);
     }
 
     // Use temporary set since instantly adding would prevent elements from having multiple attributes/CSS processed
     const tempProcessed = new Set();
 
     // Process special attributes
-    if (this.#performanceOptions.attributes) {
+    if (
+      this.#performanceOptions.attributes &&
+      typeof root.querySelectorAll === "function"
+    ) {
       for (const [attribute, selectors] of Object.entries(
         TextObserver.#WATCHED_ATTRIBUTES,
       )) {
